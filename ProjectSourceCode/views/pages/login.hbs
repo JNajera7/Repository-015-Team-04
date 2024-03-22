@@ -1,14 +1,14 @@
 {{> message}}
 <div class="container col-sm-4">
-	<h1>Login</h1>
+	<h1>Wizard Wardrobe Login</h1>
 	<form action="/login" method="post" class="py-4 px-1">
 		<div class="form-group pb-4">
 			<label class="form-label" for="username"><b>Username</b></label>
-			<input type="text" class="form-control" id="username" name="username">
+			<input type="text" class="form-control" required id="username" name="username">
 		</div>
 		<div class="form-group pb-4">
 			<label class="form-label" for="password"><b>Password</b></label>
-			<input type="text" class="form-control" id="password" name="password">
+			<input type="text" class="form-control" required id="password" name="password">
 		</div>
 		<button type="submit" class="btn btn-primary">Login</button>
 	</form>
