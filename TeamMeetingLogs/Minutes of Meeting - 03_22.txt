@@ -1,5 +1,18 @@
-﻿	During the meeting with our team manager, several important points were discussed. First and foremost, it was emphasized that all future meeting times should be saved on the Google Calendar, ensuring that everyone is aware of the scheduled meetings and can plan accordingly.
-	In terms of the project requirements, it was noted that there are both mandatory and recommended requirements. While the mandatory requirements must be implemented, the recommended ones are suggested by the team manager as beneficial additions especially as they are seen as challenging goals in the software development field. It is crucial to distinguish between the two and prioritize accordingly to ensure that the project meets the necessary criteria while also incorporating valuable features.
-Regarding project management, our team manager recommended the team to use Trello as a project board tracker. He recommended the utilization of Trello as it is known for its user-friendly interface and can help with efficient task tracking and management. By utilizing Trello, our team can stay organized, monitor progress, and ensure that tasks are completed in a timely manner.
-	During the meeting, it was also mentioned that the wireframes for the project have been finalized. Additionally, there are ongoing efforts to finalize certain features while also considering potential improvements in others. The team manager provided valuable suggestions to enhance the project, one of which involved creating a profile page for the client. It was acknowledged that prior to the meeting, the team had already collectively agreed upon certain features to implement in the project.
-	The team manager assigned us a task focused on implementing the basic authentication for the project. This involves creating the login and register pages, as well as setting up the necessary tables to securely store hashed passwords. By implementing this authentication system, we can ensure that only authorized users have access to the project or its specific features.This task is to be completed before the start of the next meeting. Furthermore, during the meeting, the team manager expressed satisfaction with our progress towards the weekly goals. These goals included setting up the required Docker environment and organizing the project files in the GitHub repository.
+﻿	During the meeting with our team manager, several important points were discussed. First and foremost, it was emphasized that all future meeting
+times should be saved on the Google Calendar, ensuring that everyone is aware of the scheduled meetings and can plan accordingly.
+	In terms of the project requirements, it was noted that there are both mandatory and recommended requirements. While the mandatory requirements 
+must be implemented, the recommended ones are suggested by the team manager as beneficial additions especially as they are seen as challenging goals in 
+the software development field. It is crucial to distinguish between the two and prioritize accordingly to ensure that the project meets the necessary 
+criteria while also incorporating valuable features.
+Regarding project management, our team manager recommended the team to use Trello as a project board tracker. He recommended the utilization of Trello 
+as it is known for its user-friendly interface and can help with efficient task tracking and management. By utilizing Trello, our team can stay 
+organized, monitor progress, and ensure that tasks are completed in a timely manner.
+	During the meeting, it was also mentioned that the wireframes for the project have been finalized. Additionally, there are ongoing efforts to 
+finalize certain features while also considering potential improvements in others. The team manager provided valuable suggestions to enhance the 
+project, one of which involved creating a profile page for the client. It was acknowledged that prior to the meeting, the team had already collectively 
+agreed upon certain features to implement in the project.
+	The team manager assigned us a task focused on implementing the basic authentication for the project. This involves creating the login and 
+register pages, as well as setting up the necessary tables to securely store hashed passwords. By implementing this authentication system, we can 
+ensure that only authorized users have access to the project or its specific features.This task is to be completed before the start of the next 
+meeting. Furthermore, during the meeting, the team manager expressed satisfaction with our progress towards the weekly goals. These goals included 
+setting up the required Docker environment and organizing the project files in the GitHub repository.
