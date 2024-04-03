@@ -1,0 +1,13 @@
+#homebox {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding-left: 10vw;
+	padding-right: 10vw;
+	padding-bottom: 5vw;
+}
+
+#homebox .card{
+	width: 35vw;
+	margin: 2vw;
+}
