@@ -70,6 +70,8 @@ app.use(
 	})
 );
 
+app.use(express.static(__dirname + '/public'));
+
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
@@ -85,6 +87,10 @@ app.get('/login', (req, res) => {
 
 app.get('/register', (req, res) => {
 	res.render('pages/register');
+});
+
+app.get('/index', (req, res) => {
+	res.render('pages/index');
 });
 
 // Register
@@ -112,7 +118,7 @@ app.post('/login', async (req, res) => {
 			//save user details in session like in lab 7
 			req.session.user = user;
 			req.session.save();
-			res.redirect('/discover');
+			res.redirect('/home');
 		}
 		else {
 			res.render('pages/login', {message: "Incorrect username or password"});
@@ -136,26 +142,8 @@ const auth = (req, res, next) => {
 // Authentication Required
 app.use(auth);
 
-app.get('/discover', async (req, res) => {
-	axios({
-		url: `https://app.ticketmaster.com/discovery/v2/events.json`,
-		method: 'GET',
-		dataType: 'json',
-		headers: {
-			'Accept-Encoding': 'application/json',
-		},
-		params: {
-			apikey: process.env.API_KEY,
-			size: 10 // you can choose the number of events you would like to return
-		},
-		})
-		.then(results => {
-			res.render('pages/discover', {events: results.data._embedded.events});
-		})
-		.catch(error => {
-			res.render('pages/discover', {events: [], message: error.message});
-		}
-	);
+app.get('/home', async (req, res) => {
+	res.render('pages/home')
 });
 
 app.get('/logout', async (req, res) => {
