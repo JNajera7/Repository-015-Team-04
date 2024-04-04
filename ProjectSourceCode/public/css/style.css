@@ -11,3 +11,29 @@
 	width: 35vw;
 	margin: 2vw;
 }
+
+.navbar-brand {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+body:has(.loginreg) {
+	background-image: url('/images/WardrobeWizardLogo - Background.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position-x: center;
+}
+
+.loginreg {
+	background-color: rgba(255, 255, 255, 0.9); /* Set background color to white with 70% opacity */
+	color: #DA70D6;
+	font-weight: bold;
+}
+.loginreg input[type="text"], .loginreg textarea {
+	background-color: rgba(255, 255, 255, 0.9); /* Set background color of text boxes with 70% opacity */
+	border: 1px solid #ccc;
+	padding: 10px; 
+	margin-bottom: 10px;
+	width: 100%; 
+}
