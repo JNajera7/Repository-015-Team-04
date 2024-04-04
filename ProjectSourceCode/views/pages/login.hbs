@@ -1,16 +1,32 @@
-{{> message}}
-<div class="container col-sm-4">
-	<h1>Wizard Wardrobe Login</h1>
-	<form action="/login" method="post" class="py-4 px-1">
-		<div class="form-group pb-4">
-			<label class="form-label" for="username"><b>Username</b></label>
-			<input type="text" class="form-control" required id="username" name="username">
-		</div>
-		<div class="form-group pb-4">
-			<label class="form-label" for="password"><b>Password</b></label>
-			<input type="text" class="form-control" required id="password" name="password">
-		</div>
-		<button type="submit" class="btn btn-primary">Login</button>
-	</form>
-	<p>Don't have an account? <a href="/register">Register</a></p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wizard Wardrobe Login</title>
+	<style>
+		.container {
+			background-color: transparent;
+		}
+		body{
+			color: #DA70D6;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body style="background-image: url('/images/WardrobeWizardLogo - Background.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
+	<div class="container col-sm-4">
+		<h1>Wizard Wardrobe Login</h1>
+		<form action="/login" method="post" class="py-4 px-1">
+			<div class="form-group pb-4">
+				<label class="form-label" for="username"><b>Username</b></label>
+				<input type="text" class="form-control" required id="username" name="username">
+			</div>
+			<div class="form-group pb-4">
+				<label class="form-label" for="password"><b>Password</b></label>
+				<input type="text" class="form-control" required id="password" name="password">
+			</div>
+			<button type="submit" class="btn btn-primary">Login</button>
+		</form>
+		<p>Don't have an account? <a href="/register">Register</a></p>
+	</div>
+</body>
+</html>
