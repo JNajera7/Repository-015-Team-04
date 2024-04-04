@@ -142,7 +142,9 @@ const auth = (req, res, next) => {
 	}
 	next();
 };
-  
+app.get('/welcome', (req, res) => {
+	res.json({status: 'success', message: 'Welcome!'});
+  });
 // Authentication Required
 app.use(auth);
 
@@ -155,9 +157,7 @@ app.get('/logout', async (req, res) => {
 	res.render('pages/logout', {message: "Logged out Successfully"});
 });
 
-app.get('/welcome', (req, res) => {
-	res.json({status: 'success', message: 'Welcome!'});
-  });
+
 
 // *****************************************************
 // <!-- Section 5 : Start Server-->
