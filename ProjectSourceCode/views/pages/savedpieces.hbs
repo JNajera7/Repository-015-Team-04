@@ -1,0 +1,197 @@
+<link rel="stylesheet" href="../../public/css/style.css">
+
+<div class="container" id="savedPiecesContainer">
+
+    <!-- Navbar + Page Title -->
+    <h1>Saved Pieces</h1>
+
+    <!-- Add/Remove form modal/overlay -->
+    <div id="overlay" class="modal" style="display:none; margin-left: 33%"> 
+        <h2 id="formName"></h2>
+
+        <!-- Add Piece Form -->
+        <form action="" id="addPieceForm" style="display:none">
+            <!-- TODO: finish the action prompt and get backend stuff all set!!! -->
+            <label for="newPiecePhoto">Upload Photo:</label>
+            <input type="file" id="newPiecePhoto" accept="image/*" onchange="handleImgUpload(event)" required> <br><br>
+
+            <label>Piece Type:</label> <br>
+                <input type="radio" id="shirtRadioButton" name="pieceType" value="shirt" required>
+                <label for="shirtRadioButton">Shirt</label><br>
+                <input type="radio" id="pantsRadioButton" name="pieceType" value="pants">
+                <label for="pantsRadioButton">Pants</label><br>
+                <input type="radio" id="fullbodyRadioButton" name="pieceType" value="fullbody">
+                <label for="fullbodyRadioButton">Full-Body</label><br>
+                <input type="radio" id="shoesRadioButton" name="pieceType" value="shoes">
+                <label for="shoesRadioButton">Shoes</label><br>
+                <input type="radio" id="accessoriesRadioButton" name="pieceType" value="accessory">
+                <label for="accessoriesRadioButton">Accessory</label><br>
+                <!-- TODO: change as needed -->
+            <br>
+
+            <label>Style:</label> <br>
+                <input type="checkbox" id="casual">
+                <label for="casual">Casual</label><br>
+                <input type="checkbox" id="formal">
+                <label for="formal">Formal</label><br>
+                <input type="checkbox" id="athletic">
+                <label for="athletic">Athletic</label><br>
+                <!-- TODO: change as needed -->
+            <br>
+
+            <label>Description:</label> <br>
+                <input type="checkbox" id="red">
+                <label for="red">Red</label><br>
+                <input type="checkbox" id="orange">
+                <label for="orange">Orange</label><br>
+                <input type="checkbox" id="yellow">
+                <label for="yellow">Yellow</label><br>
+                <!-- TODO: add more adjectives. This can be taken out 
+                        if we get really fancy and add auto recognition -->
+            <br>
+            <input type="submit" value="Add" id="submitAdd">
+            <input type="reset" value="Cancel" id="cancelAdd" onclick="toggleVisibility('addPieceForm')"/>
+        </form>
+
+        <!-- Remove Piece Form --> 
+        <form action="" id="removePieceForm" style="display:none">
+            <!-- TODO: implement once we implement all of the sql stuff for actually storing pieces 
+            basic idea is to loop thru the pieces with a partial and add a tick box for each! 
+            Probably should also add a function to remove the piece from the dropdowns in script.js. -->
+            <input type="submit" value="Remove" id="submitRemove">
+            <input type="reset" value="Cancel" id="cancelRemove" onclick="toggleVisibility('removePieceForm')"/>
+        </form>
+    </div>
+
+    <!-- TODO: use a foreach handlebar to populate with the images of clothes that are uploaded
+        in their correct catergories, from database table.
+    https://www.geeksforgeeks.org/how-to-add-image-into-dropdown-list-for-each-items/ -->
+    <div class="container" style="display: inline-block">
+        <!-- Shirt Dropdown -->
+        <div class="container" id="shirtDrop">
+            <button class="button" id="shirtDropButton" onclick="toggleDropContents('shirtsDropContent')"> Shirts </button>
+            <br>
+            <div class="dropdown-content" id="shirtsDropContent" style="display:none">
+                <table>
+                    <tr>
+                        <th>test1</th>
+                        <th>test2</th>
+                    </tr>
+                    <tr>
+                        <th>test3</th>
+                        <th>test4</th>
+                    </tr>
+                    <!-- TODO: Loop here -->
+                </table> 
+            </div>
+        </div> <br>
+
+        <!-- Pants Dropdown -->
+        <div class="container" id="pantsDrop">
+            <button class="button" id="pantsDropButton" onclick="toggleDropContents('pantsDropContent')"> Pants </button>
+            <br>
+            <div class="dropdown-content" id="pantsDropContent" style="display:none">  
+                <table>
+                    <!-- TODO: Loop here -->
+                </table> 
+            </div>
+        </div> <br>
+
+        <!-- Full-Body Pieces Dropdown -->
+        <div class="button" id="fullbodyDrop">
+            <button class="dropdown" id="fullbodyDropButton" onclick="toggleDropContents('fullbodyDropContent')"> Full-Body Pieces </button>
+            <br>
+            <div class="dropdown-content" id="fullbodyDropContent" style="display:none"> 
+                <table>
+                    <!-- TODO: Loop here -->
+                </table>  
+            </div>
+        </div> <br>
+
+        <!-- Shoes Dropdown -->
+        <div class="container" id="shoesDrop">
+            <button class="dropdown" id="shoesDropButton" onclick="toggleDropContents('shoesDropContent')"> Shoes </button>
+            <br>
+            <div class="dropdown-content" id="shoesDropContent" style="display:none">  
+                <table>
+                    <!-- TODO: Loop here -->
+                </table> 
+            </div>
+        </div> <br>
+        
+
+        <!-- Accessories Dropdown -->
+        <div class="button" id="accessoriesDrop">
+            <button class="dropbtn" id="accessoriesDropButton" onclick="toggleDropContents('accessoriesDropContent')"> Accessories </button>
+            <br>
+            <div class="dropdown-content" id="accessoriesDropContent" style="display:none">
+                <table>
+                    <!-- TODO: Loop here -->
+                </table> 
+            </div>
+        </div>
+
+        <br><br>
+    </div>
+    <!-- Adding and Removing Piece Form Buttons -->
+    <footer>
+        <button class="button" id="addPiece" onclick="toggleVisibility('addPieceForm')"> Add Piece </button>
+        <button class="button" id="removePiece" onclick="toggleVisibility('removePieceForm')"> Remove Piece </button>
+    </footer>
+</div>
+
+<!-- Implementing JS function calls -->
+<script>
+    /*
+        Toggling visibility of add/remove piece forms for savedpieces.hbs
+            formId: string -- id of the form that will have its visibility toggled
+    */
+    function toggleVisibility(formId) {
+
+        var form = document.getElementById(formId);
+        var overlay = document.getElementById("overlay");
+        var formName = document.getElementById("formName");
+        var addButton = document.getElementById("addPiece");
+        var removeButton = document.getElementById("removePiece");
+
+        if(form.style.display === "none") {
+            form.style.display = "block";
+            overlay.style.display = "block";
+            addButton.style.display = "none";
+            removeButton.style.display = "none";
+            // Makes form name legible
+            var displayname = formId.replace(/([a-z])([A-Z])/g, '$1 $2');
+            formName.innerHTML=displayname.substring(0,1).toUpperCase()+displayname.slice(1);
+        } else {
+            form.style.display = "none";
+            overlay.style.display = "none";
+            addButton.style.display = "inline-block";
+            removeButton.style.display = "inline-block";
+            formName.innerHTML=""; // Clear form name when hiding form
+        }
+    }
+
+    /*
+        Handling the images of pieces that are uploaded in the savedpieces.hbs forms
+            event: any -- Event of an image upload
+
+        Grabbed this function from here vv
+        https://www.quora.com/How-do-I-take-an-image-as-input-in-HTML#:~:text=In%20HTML%2C%20you%20can%20allow,multipart%2Fform%2Ddata%22%3E
+    */
+    function handleImgUpload(event) {
+        // TODO: handle the image
+    }
+
+    /*
+        Toggles the dropdown of a fits catergory button and displays its contents
+            contentId: string -- id of the content that will have its visibility toggled underneath the button
+    */
+    function toggleDropContents(contentId) {
+        const content = document.getElementById(contentId);
+        if(content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+</script>

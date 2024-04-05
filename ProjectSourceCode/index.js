@@ -97,6 +97,10 @@ app.get('/index', (req, res) => {
 	res.render('pages/index');
 });
 
+app.get('/savedpieces', (req, res) => {
+	res.render('pages/savedpieces');
+});
+
 // Register
 app.post('/register', async (req, res) => {
 	try {
