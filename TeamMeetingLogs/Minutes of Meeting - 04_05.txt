@@ -1,0 +1,14 @@
+Minutes of Meeting - 04_05.txt
+
+We started off the meeting with the confirmation that all of our docker files are set up, as well as the entire skeleton in VsCode. 
+We then reveiwd what each of us completed within the last week.  we have completed the navBar, creating a logo for the site and edditng 
+the layout of the login page. Jesus worked on the registration page, as wel as the clear closet function and the logout/delete 
+account functions. ALso we made the barebones page for savedpieces. In addition we edited the homepage layout,and added the 
+weather widget to homepage. The login and registration pages were the main focus, including a ReGex application for the password 
+creation requirments. The team manger emphized that we should complete all of the project requirments first, before implimenting
+any additional features to our website. He siggested that we should assign any unfished requirments to specific people, as oppse to one
+person completing each feature at their own pace. There was also mention of cleaning up the database storage, for the ease of our readability.
+We all agreed we would cleanup the css formating for ever page. The team manager also suggested that after we finish the requirments,
+complete at least a few of the optional requirments, again, before implementing our own additional site features (ex. scanning clothing).
+There was disusion about the unit test case error we were having an issue with as well, and ways we could overcome it.
+
