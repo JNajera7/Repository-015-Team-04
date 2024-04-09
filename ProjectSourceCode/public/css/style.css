@@ -27,11 +27,11 @@ body:has(.loginreg) {
 
 .loginreg {
 	background-color: rgba(255, 255, 255, 0.9); /* Set background color to white with 70% opacity */
-	color: #DA70D6;
+	color: Black; /*Changed text color to pop out */
 	font-weight: bold;
 }
 .loginreg input[type="text"], .loginreg textarea {
-	background-color: rgba(255, 255, 255, 0.9); /* Set background color of text boxes with 70% opacity */
+	background-color: rgba(255, 255, 255, 1); /* Set background color of text boxes with 100% opacity */
 	border: 1px solid #ccc;
 	padding: 10px; 
 	margin-bottom: 10px;
