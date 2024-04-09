@@ -35,7 +35,6 @@ describe('Server!', () => {
 // Result: This test case should pass and return a status 200 along with a "Success" message.
 // Explanation: The testcase will call the /add_user API with the following input
 // and expects the API to return a status of 200 along with the "Success" message.
-/*
 describe('Testing Add User API', () => {
   it('positive : /register', done => {
     chai
@@ -43,10 +42,12 @@ describe('Testing Add User API', () => {
       .post('/register')
       .send({username: 'JohnnyDoe', password: '197254Th_'})
       .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.message).to.equals('Success');
+        //expect(res).to.have.status(200);
+        //expect(res.body.message).to.equals('Success');
+        expect(res).to.redirect; // Expecting a redirect response
+        expect(res.redirects[0]).to.include('/login'); // Expecting the redirect URL to contain '/login'
         done();
       });
   });
-}); */
+});
 // ********************************************************************************

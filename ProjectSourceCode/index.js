@@ -103,17 +103,19 @@ app.get('/savedpieces', (req, res) => {
 
 // Register
 app.post('/register', async (req, res) => {
-	try {
-		//hash the password using bcrypt library
-		const hash = await bcrypt.hash(req.body.password, 10);
-
-		await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
-		res.redirect('/login');
-	} catch (e) {
-		console.log(e);
-		res.redirect('/register');
-	}
-});
+    // Hash the password using bcrypt library
+    const hash = await bcrypt.hash(req.body.password, 10);
+    try {
+      await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
+     
+      // Return a success response
+     // res.status(200).json({ message: 'Success' });
+      res.redirect('/login');
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ status: 'error' });
+    }
+  });
 
 // Login
 app.post('/login', async (req, res) => {
