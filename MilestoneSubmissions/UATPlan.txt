@@ -1,6 +1,28 @@
 3 UAT Plans:
 1)
+User should be able to upload pictures of their clothes to save into their "closet".
+
+acceptance criteria:
+Using our image/clothing upload tool, users should be able to import pictures of their clothing and use our form to save it in a proper category. Once saved, user gets a success message.
+
+Test data: files containing the pictures of the clothing, which will be saved onto a dummy profile
+Test environment: test will be run locally
 
 2)
+User-uploaded images of their clothing should be saved under the correct categories
 
+acceptance criteria:
+Once saved, the clothing a user saves should be visible everywhere in the tool where it is appropriate.
+
+e.g. a user should not see a sweater in their "summer" or "shorts" categories.
+
+Test data: Dummy profile with at least 5 pieces of clothing in different categories already saved onto their wardrobe database
+Test environment: test will be run locally
 3)
+Users should be able to delete specific pieces of clothing out of their "wardrobe"
+
+acceptance criteria:
+Using our dedicated deletion webpage, users should be able to select specific pieces of clothing to delete. Once deleted, these pieces of clothing should be removed from their wardrobe database, and should no longer be visible anywhere in the tool.
+
+Test data: Dummy profile with at least 5 pieces of clothing in different categories already saved onto their wardrobe database
+test environment: test will be run locally
