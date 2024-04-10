@@ -1,13 +1,14 @@
-<div class="container col-sm-4">
+{{> message}}
+<div class="container col-sm-4 loginreg py-5">
 	<h1>Wizard Wardrobe Registration</h1>
 	<form action="/register" method="post" class="py-4 px-1">
 		<div class="form-group pb-4">
-			<label class="form-label" for="username"><b>Create Username:</b></label>
-			<input type="text" class="form-control" required="required" id="username" name="username">
+			<label class="form-label" for="username"><b>Create Username</b></label>
+			<input type="text" class="form-control" required id="username" name="username">
 		</div>
 		<div class="form-group pb-4">
-			<label class="form-label" for="password"><b>Create Password:</b></label>
-			<input type="password" class="form-control" required="required" id="password" name="password" onkeyup="checkPasswordStrength(this.value)"> <!-- if the users password does not meet the password requirements they will not be able to register-->
+			<label class="form-label" for="password"><b>Create Password</b></label>
+			<input type="password" class="form-control" required id="password" name="password" onkeyup="checkPasswordStrength(this.value)"> <!-- if the users password does not meet the password requirements they will not be able to register-->
 		</div>
 		<p id="password-strength"></p>
 		<button type="submit" class="btn btn-primary" id="register-btn" disabled>Register</button> <!-- if the users password did not meet the requirement then the register button will be unaccessible to the user until they meet the requirement-->
