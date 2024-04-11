@@ -1,15 +1,31 @@
 <nav id="topNav" class="navbar fixed-to navbar-expand-lg navbar-light bg-light px-5 py-3">
-	<a class="navbar-brand mx-auto" href="/index">
-		<img class="shadow-sm rounded-circle" src="/images/WardrobeWizardLogo.jpg" alt="logo/brand" height="100px"/>
-	</a>
+  <a class="navbar-brand mx-auto" href="/index">
+    <img class="shadow-sm rounded-circle" src="/images/WardrobeWizardLogo.jpg" alt="logo/brand" height="100px"/>
+  </a>
 
-	<ul class="navbar-nav">
-		<li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-		<li class="nav-item"><a class="nav-link" href="/settings">Settings</a></li>
-	</ul>
-	<ul class="navbar-nav ms-auto">
-		<li class="nav-item"> <a class="nav-link" href="/login">Login</a> </li>
-		<li class="nav-item"> <a class="nav-link" href="/register">Register</a> </li>
-	</ul>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+  </ul>
+<!-- Add Hamburger menu to the right hand side of the page to make it more organized, as well as add the links to the other pages --->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-weight: bold; font-size: 20px;">
+          &#9776; <!-- Hamburger menu icon -->
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: -60px;">
+          <a class="dropdown-item" href="/savedpieces">Saved Pieces</a>
+          <a class="dropdown-item" href="/savedfits">Saved Fits</a>
+          <a class="dropdown-item" href="/randomize">Randomize Fits</a>
+          <a class="dropdown-item" href="/suggestedfits">Suggested Fits</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/settings">Settings</a>
+        </div>
+      </li>
+    </ul>
+  </div>
 </nav>
