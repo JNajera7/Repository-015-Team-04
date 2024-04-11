@@ -118,7 +118,14 @@ app.get('/settings', (req, res) => {
 
 
 app.get('/register', (req, res) => {
-    res.render('pages/register',{ excludeNav: true });
+    const errorMessage = req.session.errorMessage;
+    req.session.errorMessage = null;
+
+    if (errorMessage) {
+        res.render('pages/register', { excludeNav: true, message: errorMessage });
+    } else {
+        res.render('pages/register', { excludeNav: true });
+    }
 });
 
 
@@ -160,8 +167,8 @@ app.post('/register', async (req, res) => {
       await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
       res.redirect('/login');
     } catch (e) {
-      console.log(e);
-      res.status(400).json({ status: 'error' });
+        req.session.errorMessage = "Unexpected error occurred";
+        res.redirect('/register');
     }
   });
 
