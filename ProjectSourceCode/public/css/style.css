@@ -29,11 +29,28 @@ body:has(.loginreg) {
 	background-color: rgba(255, 255, 255, 0.9); /* Set background color to white with 70% opacity */
 	color: Black; /*Changed text color to pop out */
 	font-weight: bold;
+	margin-top: 45px; /* Add this line to adjust the top margin */
+	width: 600px; /*Adjusted to fit the word Registration*/
 }
-.loginreg input[type="text"], .loginreg textarea {
-	background-color: rgba(255, 255, 255, 1); /* Set background color of text boxes with 100% opacity */
+.loginreg input[type="text"], /*Added so that the Username and input were the same size */
+.loginreg input[type="password"],
+.loginreg textarea {
+	background-color: rgba(255, 255, 255, 1);
 	border: 1px solid #ccc;
-	padding: 10px; 
-	margin-bottom: 10px;
-	width: 100%; 
+	padding: 10px;
+	margin-bottom: 20px;
+	width: 100%;
+	box-sizing: border-box; 
 }
+
+.custom-alert { /*Modify the message to be light red instead of green to show error*/
+	background-color: lightcoral;
+	color: black;
+	width: 450px;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	box-shadow: none;
+	outline: none;
+	margin-left: 500px;
+  }
