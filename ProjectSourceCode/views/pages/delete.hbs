@@ -1,0 +1,193 @@
+<div style="display: flex;">
+  <div style="width: 200px; padding-left: 20px;">
+    <h2>Delete Page</h2>
+    <h2>Filter Attributes</h2>
+    <div>
+      <input type="checkbox" id="filter-headwear" class="filter-checkbox" onchange="filterItems()"> Headwear
+      <br>
+      <input type="checkbox" id="filter-shirts" class="filter-checkbox" onchange="filterItems()"> Shirts
+      <br>
+      <input type="checkbox" id="filter-bottomwear" class="filter-checkbox" onchange="filterItems()"> Bottomwear
+      <br>
+      <input type="checkbox" id="filter-shoes" class="filter-checkbox" onchange="filterItems()"> Shoes
+      <br>
+      <input type="checkbox" id="filter-accessories" class="filter-checkbox" onchange="filterItems()"> Accessories
+      <br>
+      <input type="checkbox" id="filter-formal" class="filter-checkbox" onchange="filterItems()"> Formal
+      <!-- Add more attributes if needed -->
+    </div>
+    <button onclick="deleteItems()">Delete Selected Items</button>
+  </div>
+  <div style="flex-grow: 1;">
+    <h1>Image Gallery</h1>
+    <div style="overflow-y: auto; height: calc(100vh - 150px); border-right: 2px solid black;">
+      <div>
+        <div id="itemList" style="height: 500px; overflow-y: auto; display: flex; flex-wrap: wrap;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+ .highlight {
+  background-color: yellow;
+  border: 2px solid red;
+}
+
+  .image-container {
+    width: 145px;
+    height: 145px;
+    margin: 5px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<script>
+  // Simulating dynamically adding images from the user table
+  // Do not modify
+  var userTable = [
+    { image: "image1.jpg", attributes: ["headwear", "formal"] },
+    { image: "image2.jpg", attributes: ["shoes"] },
+    { image: "image3.jpg", attributes: ["shirts"] },
+    { image: "image4.jpg", attributes: ["bottomwear"] },
+    { image: "image5.jpg", attributes: ["accessories"] },
+    { image: "image6.jpg", attributes: ["headwear"] },
+    { image: "image7.jpg", attributes: ["shirts", "bottomwear"] },
+    { image: "image8.jpg", attributes: ["accessories", "formal"] },
+    { image: "image9.jpg", attributes: ["shirts", "accessories"] },
+    { image: "image10.jpg", attributes: ["bottomwear", "formal"] },
+    { image: "image11.jpg", attributes: ["headwear"] },
+    { image: "image12.jpg", attributes: ["shoes", "accessories"] },
+    { image: "image13.jpg", attributes: ["shirts"] },
+    { image: "image14.jpg", attributes: ["bottomwear"] },
+    { image: "image15.jpg", attributes: ["shoes", "formal"] },
+    { image: "image16.jpg", attributes: ["headwear", "accessories"] },
+    { image: "image17.jpg", attributes: ["shirts", "form"]},
+    { image: "image18.jpg", attributes: ["headwear", "formal"] },
+    { image: "image19.jpg", attributes: ["shoes"] },
+    { image: "image20.jpg", attributes: ["shirts"] },
+    { image: "image21.jpg", attributes: ["bottomwear"] },
+    { image: "image22.jpg", attributes: ["accessories"] },
+    { image: "image23.jpg", attributes: ["headwear"] },
+    { image: "image24.jpg", attributes: ["shirts", "bottomwear"] },
+    { image: "image25.jpg", attributes: ["accessories", "formal"] },
+    { image: "image1.jpg", attributes: ["headwear", "formal"] },
+    { image: "image2.jpg", attributes: ["shoes"] },
+    { image: "image3.jpg", attributes: ["shirts"] },
+    { image: "image4.jpg", attributes: ["bottomwear"] },
+    { image: "image5.jpg", attributes: ["accessories"] },
+    { image: "image6.jpg", attributes: ["headwear"] },
+    { image: "image7.jpg", attributes: ["shirts", "bottomwear"] },
+    { image: "image8.jpg", attributes: ["accessories", "formal"] },
+    { image: "image9.jpg", attributes: ["shirts", "accessories"] },
+    { image: "image10.jpg", attributes: ["bottomwear", "formal"] },
+    { image: "image11.jpg", attributes: ["headwear"] },
+    { image: "image12.jpg", attributes: ["shoes", "accessories"] },
+    { image: "image13.jpg", attributes: ["shirts"] },
+    { image: "image14.jpg", attributes: ["bottomwear"] },
+    { image: "image15.jpg", attributes: ["shoes", "formal"] },
+    { image: "image16.jpg", attributes: ["headwear", "accessories"] },
+    { image: "image17.jpg", attributes: ["shirts", "form"]},
+    { image: "image18.jpg", attributes: ["headwear", "formal"] },
+    { image: "image19.jpg", attributes: ["shoes"] },
+    { image: "image20.jpg", attributes: ["shirts"] },
+    { image: "image21.jpg", attributes: ["bottomwear"] },
+    { image: "image22.jpg", attributes: ["accessories"] },
+    { image: "image23.jpg", attributes: ["headwear"] },
+    { image: "image24.jpg", attributes: ["shirts", "bottomwear"] },
+    { image: "image25.jpg", attributes: ["accessories", "formal"] },
+    { image: "image1.jpg", attributes: ["headwear", "formal"] },
+    { image: "image2.jpg", attributes: ["shoes"] },
+    { image: "image3.jpg", attributes: ["shirts"] },
+    { image: "image4.jpg", attributes: ["bottomwear"] },
+    { image: "image5.jpg", attributes: ["accessories"] },
+    { image: "image6.jpg", attributes: ["headwear"] },
+    { image: "image7.jpg", attributes: ["shirts", "bottomwear"] },
+    { image: "image8.jpg", attributes: ["accessories", "formal"] },
+    { image: "image9.jpg", attributes: ["shirts", "accessories"] },
+    { image: "image10.jpg", attributes: ["bottomwear", "formal"] },
+    { image: "image11.jpg", attributes: ["headwear"] },
+    { image: "image12.jpg", attributes: ["shoes", "accessories"] },
+    { image: "image13.jpg", attributes: ["shirts"] },
+    { image: "image14.jpg", attributes: ["bottomwear"] },
+    { image: "image15.jpg", attributes: ["shoes", "formal"] },
+    { image: "image16.jpg", attributes: ["headwear", "accessories"] },
+    { image: "image17.jpg", attributes: ["shirts", "form"]},
+    { image: "image18.jpg", attributes: ["headwear", "formal"] },
+    { image: "image19.jpg", attributes: ["shoes"] },
+    { image: "image20.jpg", attributes: ["shirts"] },
+    { image: "image21.jpg", attributes: ["bottomwear"] },
+    { image: "image22.jpg", attributes: ["accessories"] },
+    { image: "image23.jpg", attributes: ["headwear"] },
+    { image: "image24.jpg", attributes: ["shirts", "bottomwear"] },
+    { image: "image25.jpg", attributes: ["accessories", "formal"] },
+  ];
+  
+  var itemList = document.getElementById("itemList");
+
+  userTable.forEach(function(itemData, index) {
+    var itemContainer = document.createElement("div");
+    itemContainer.className = "image-container";
+    itemContainer.style.order = index;
+
+    var item = document.createElement("img");
+    item.src = itemData.image;
+    item.alt = "Clothing Item " + (index + 1);
+    item.setAttribute("data-attributes", itemData.attributes.join(" "));
+    item.onclick = function() {
+      toggleHighlight(this);
+    };
+
+    itemContainer.appendChild(item);
+    itemList.appendChild(itemContainer);
+  });
+
+  // Initial call to filterItems() to ensure initial state matches checkbox state
+  filterItems();
+</script>
+
+<!--- JavaScript function calls --->
+<script>
+  // Function to toggle highlighting on an image
+  function toggleHighlight(item) {
+    item.classList.toggle("highlight");
+  }
+
+  // Function to delete selected items
+function deleteItems() {
+  var selectedItems = document.querySelectorAll(".highlight");
+  selectedItems.forEach(function(item) {
+    // Remove the parent element (box or container) of the selected item
+    item.parentNode.remove();
+  });
+}
+
+  // Function to filter items based on selected attributes
+  function filterItems() {
+    var itemList = document.getElementById("itemList");
+    var checkboxes = document.getElementsByClassName("filter-checkbox");
+    var items = itemList.getElementsByTagName("div");
+
+    var selectedFilters = Array.from(checkboxes).filter(function(checkbox) {
+      return checkbox.checked;
+    }).map(function(checkbox) {
+      return checkbox.id.replace("filter-", "");
+    });
+
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var attributes = item.firstChild.getAttribute("data-attributes").split(" ");
+
+      if (selectedFilters.length === 0 || selectedFilters.some(function(filter) {
+          return attributes.includes(filter);
+        })) {
+        item.style.display = "flex";
+      } else {
+        item.style.display = "none";
+      }
+    }
+  }
+</script>
