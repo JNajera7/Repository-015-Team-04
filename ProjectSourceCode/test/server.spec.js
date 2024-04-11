@@ -50,12 +50,11 @@ describe('Testing Add User API', () => {
   });
 });
 // Example Negative Testcase :
-// API: /add_user
-// Input: {id: 5, name: 'John Doe', dob: '2020-02-20'}
-// Expect: res.status == 200 and res.body.message == 'Success'
-// Result: This test case should pass and return a status 200 along with a "Success" message.
-// Explanation: The testcase will call the /add_user API with the following input
-// and expects the API to return a status of 200 along with the "Success" message.
+// API: /register
+// Input: {username: 'JohnnyDoe', password: 'password'}
+// Expect: res.status == 400
+// Result: This test case should fail and return a status 400
+// Explanation: The testcase will attempt to register with a username that is already in the users database and be unable to.
 describe('Testing Add User API', () => {
   it('negative : /register', done => {
     chai
