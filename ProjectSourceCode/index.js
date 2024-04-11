@@ -96,7 +96,19 @@ app.get('/', (req, res) => {
 
 
 app.get('/login', (req, res) => {
-    res.render('pages/login');
+    const errorMessage = req.session.errorMessage; // Get the error message from the session
+    req.session.errorMessage = null; // Clear the error message from the session
+
+    // If the user entered a wrong password or username it will notifythe user
+    // otherwise it will just render the login page
+    // excludeNav:true (also seen in get /register) is to remove the Navbar from
+    // the login page and the register page as the user should not be able to access
+    // any of the other pages like settings, home or any of Wizard Wardrobes functions.
+    if (errorMessage) {
+        res.render('pages/login', { excludeNav: true, message: errorMessage });
+    } else {
+        res.render('pages/login', { excludeNav: true });
+    }
 });
 
 
@@ -106,7 +118,7 @@ app.get('/settings', (req, res) => {
 
 
 app.get('/register', (req, res) => {
-    res.render('pages/register');
+    res.render('pages/register',{ excludeNav: true });
 });
 
 
@@ -120,15 +132,32 @@ app.get('/savedpieces', (req, res) => {
 });
 
 
+app.get('/delete', (req, res) => {
+    res.render('pages/delete');
+});
+
+
+app.get('/randomize', (req,res) => {
+    res.render('pages/randomize');
+});
+
+
+app.get ('/savedfits',(req,res) => {
+    res.render('pages/savedfits');
+});
+
+
+app.get ('/suggestedfits',(req,res) => {
+    res.render('pages/suggestedfits');
+});
+
+
 // Register
 app.post('/register', async (req, res) => {
     // Hash the password using bcrypt library
     const hash = await bcrypt.hash(req.body.password, 10);
     try {
       await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
-     
-      // Return a success response
-     // res.status(200).json({ message: 'Success' });
       res.redirect('/login');
     } catch (e) {
       console.log(e);
@@ -144,20 +173,18 @@ app.post('/login', async (req, res) => {
         // check if password from request matches with password in DB
         const match = await bcrypt.compare(req.body.password, user.password);
 
-
-        if(match) {
-            //save user details in session like in lab 7
+        if (match) {
             req.session.user = user;
             req.session.save();
             res.redirect('/home');
+        } else { //Added function to customize error message to notify the User if their password was wrong or Username was not found.
+            req.session.errorMessage = "Incorrect password";
+            res.redirect('/login');
         }
-        else {
-            res.render('pages/login', {message: "Incorrect username or password"});
-        }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
-        res.render('pages/login', {message: "Incorrect username or password"});
+        req.session.errorMessage = "Username not found";
+        res.redirect('/login');
     }
 });
 
@@ -184,13 +211,8 @@ app.get('/home', async (req, res) => {
 
 app.get('/logout', async (req, res) => {
     req.session.destroy();
-    res.render('pages/logout', {message: "Logged out Successfully"});
+    res.render('pages/logout', { excludeNav: true });
 });
-
-
-
-
-
 
 // *****************************************************
 // <!-- Section 5 : Start Server-->
