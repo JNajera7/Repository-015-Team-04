@@ -1,4 +1,6 @@
 {{> head}}
-{{> nav}}
+{{#unless excludeNav}} <!-- This was added so that the navbar was not included in login and registration --->
+  {{> nav}}
+{{/unless}}
 {{{body}}}
 {{> footer}}
