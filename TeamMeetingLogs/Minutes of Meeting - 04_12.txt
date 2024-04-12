@@ -1,0 +1,19 @@
+Minutes of Meeting - 04_12
+
+Parker worked on the meeting logs, and discussed how we worked on lab 11. He is figuring out the HTML for the addoutfits page, and is having an issue with a <div> not working the way he expected. It seems like office hours is a good place to go for additional help.
+
+Elsa finished the HTML for savedpieces and redid the form. She is going to finish implementing the backend of the form, and help out in the outfits stuff where it is needed.
+
+Darwin worked on the HTML stuff for the make/delete pieces, worked on the randomizer function, and something else i didnt catch. He's going to continue with the HTML implementation of the randomizer, as well as some other misc tasks.
+
+Jesus worked on the login error stuff and account deletion stuff (he elaborated on the sql). He also fixed a lot of the bugs in index.js.
+
+Kevin worked on the initial database setup. He established that in the database, color and patterns were seperate things from the tags. He is going to work on more queries.
+
+Suggestions from Mohit:
+
+As for must-have features, we still have to work on saving user sessions. It was suggested to look at previous labs as a reference. Remember to finish those asap!
+
+It was suggested to search for software design patterns for anything you are struggling to code.
+
+Also, don't forget to have a story ticket if you are helping with someone else, but didn't actually push under you name (something like partner coding, help in person, etc). This is so you still get credit for helping!

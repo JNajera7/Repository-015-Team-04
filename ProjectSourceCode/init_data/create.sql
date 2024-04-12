@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS pieces (
 	warmthId INTEGER NOT NULL REFERENCES warmths,
 	colorId INTEGER NOT NULL REFERENCES colors,
 	patternId INTEGER NOT NULL REFERENCES patterns,
+	tag TEXT,
 	imgFile TEXT NOT NULL,
 	name TEXT
 );
