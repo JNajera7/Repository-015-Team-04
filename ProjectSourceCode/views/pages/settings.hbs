@@ -1,9 +1,22 @@
 {{> message}}
-<div class="container col-sm-4" style="text-align: center;">
+<div class="container col-sm-4" style="text-align:center;padding:10px 0 0 0;">
 	<h1>Settings</h1>
   <br></br>
 	<h2><a class="nav-link" href="/logout">Log out</a></h2>
   <br></br>
     <h2><a href="/closetclear">Clear Closet</a></h2>
-    <h2><a href="/delete" style="color: red;">Delete Account</a></h2>
+    <h2><a href="/login" style="color: red;" id="deleteButton">Delete Account</a></h2>
 </div>
+
+<script>
+  document.getElementById("deleteButton")
+    .addEventListener("click", function( e ){ //e => event
+        if( ! confirm("Do you really want to do this?") ){
+            e.preventDefault(); // ! => don't want to do this
+        } else {
+            //want to do this! => maybe do something about it?
+            alert('Thank you for using the Wardrobe Wizard. Come back soon!');
+        }
+    });
+
+</script>
