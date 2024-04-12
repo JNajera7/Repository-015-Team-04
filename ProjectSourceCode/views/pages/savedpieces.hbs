@@ -10,24 +10,80 @@
         <h2 id="formName"></h2>
 
         <!-- Add Piece Form -->
-        <form action="" id="addPieceForm" style="display:none">
-            <!-- TODO: finish the action prompt and get backend stuff all set!!! -->
-            <label for="newPiecePhoto">Upload Photo:</label>
-            <input type="file" id="newPiecePhoto" accept="image/*" onchange="handleImgUpload(event)" required> <br><br>
+        <form action="/savedpieces" method="POST" id="addPieceForm" style="display:none">
 
-            <label>Piece Type:</label> <br>
-                <input type="radio" id="shirtRadioButton" name="pieceType" value="shirt" required>
-                <label for="shirtRadioButton">Shirt</label><br>
-                <input type="radio" id="pantsRadioButton" name="pieceType" value="pants">
-                <label for="pantsRadioButton">Pants</label><br>
-                <input type="radio" id="fullbodyRadioButton" name="pieceType" value="fullbody">
+            <!-- Photo Upload -->
+            <label for="newPiecePhoto">Upload Photo:</label>
+            <input type="file" id="newPiecePhoto" accept="image/*" required> <br><br>
+
+            <!-- Piece Name textbox -->
+            <label for="pieceName">Piece Name:</label>
+            <input type="text" id="pieceName">
+
+            <!-- Catergory radio button select (can only pick one) -->
+            <label>Piece Catergory:</label> <br>
+                <input type="radio" id="topRadioButton" name="pieceType" value="top" onchange="toggleDropContents('topSubcat')" required>
+                <label for="topRadioButton">Top</label><br>
+                <input type="radio" id="bottomRadioButton" name="pieceType" value="bottom" onchange="toggleDropContents('bottomSubcat')">
+                <label for="bottomRadioButton">Bottom</label><br>
+                <input type="radio" id="fullbodyRadioButton" name="pieceType" value="fullbody" onchange="toggleDropContents('fullbodySubcat')">
                 <label for="fullbodyRadioButton">Full-Body</label><br>
-                <input type="radio" id="shoesRadioButton" name="pieceType" value="shoes">
-                <label for="shoesRadioButton">Shoes</label><br>
-                <input type="radio" id="accessoriesRadioButton" name="pieceType" value="accessory">
-                <label for="accessoriesRadioButton">Accessory</label><br>
-                <!-- TODO: change as needed -->
+                <input type="radio" id="footwearRadioButton" name="pieceType" value="footwear" onchange="toggleDropContents('footwearSubcat')">
+                <label for="footwearRadioButton">Footwear</label><br>
+                <input type="radio" id="accessoryRadioButton" name="pieceType" value="accessory" onchange="toggleDropContents('accessorySubcat')">
+                <label for="accessoryRadioButton">Accessory</label><br>
+                <input type="radio" id="outerwearRadioButton" name="pieceType" value="outerwear" onchange="toggleDropContents('outerwearSubcat')">
+                <label for="outerwearRadioButton">Outerwear</label><br>
             <br>
+
+            <!-- Piece Subcatergories (multiple selectable) -->
+            <label id="subcatTitle">Piece Subcatergory:</label> <br>
+                <div class="container" id="topSubcat" style="display:none">
+                    <input type="radio" id="shortSleeveSelect" name="topType" value="shortSleeve" required>
+                    <label for="shortSleeveSelect">Short Sleeve</label><br>
+                    <input type="radio" id="longSleeveSelect" name="topType" value="longSleeve">
+                    <label for="shortSleeveSelect">Long Sleeve</label><br>
+                    <input type="radio" id="sweaterSelect" name="topType" value="sweater">
+                    <label for="sweaterSelect">Sweater</label><br>
+                </div>
+
+                <div class="container" id="bottomSubcat" style="display:none">
+                    <input type="radio" id="shortsSelect" name="bottomType" value="shorts" required>
+                    <label for="shortsSelect">Shorts</label><br>
+                    <input type="radio" id="pantsSelect" name="bottomType" value="pants">
+                    <label for="pantsSelect">Pants</label><br>
+                    <input type="radio" id="skirtSelect" name="bottomType" value="skirt">
+                    <label for="skirtSelect">Skirt</label><br>
+                </div>
+
+                <div class="container" id="fullbodySubcat" style="display:none">
+                    <input type="radio" id="onepieceSelect" name="fullbodyType" value="onepiece" required>
+                    <label for="onepieceSelect">One-Piece</label><br>
+                    <input type="radio" id="dressSelect" name="fullbodyType" value="dress">
+                    <label for="dressSelect">Dress</label><br>
+                </div>
+
+                <div class="container" id="accessorySubcat" style="display:none">
+                    <input type="radio" id="jewelrySelect" name="accessoryType" value="jewelry" required>
+                    <label for="jewelrySelect">Jewelry</label><br>
+                    <input type="radio" id="headwearSelect" name="accessoryType" value="headwear">
+                    <label for="headwearSelect">Headwear</label><br>
+                    <input type="radio" id="socksSelect" name="accessoryType" value="socks">
+                    <label for="socksSelect">Socks</label><br>
+                    <input type="radio" id="eyewearSelect" name="accessoryType" value="eyewear">
+                    <label for="eyewearSelect">Eyewear</label><br>
+                </div>
+
+                <div class="container" id="outerwearSubcat" style="display:none">
+                    <input type="radio" id="coatSelect" name="outerwearType" value="coat" required>
+                    <label for="coatSelect">Coat</label><br>
+                    <input type="radio" id="jacketSelect" name="outerwearType" value="jacket">
+                    <label for="jacketSelect">Jacket</label><br>
+                    <input type="radio" id="vestSelect" name="outerwearType" value="vest">
+                    <label for="vestSelect">Vest</label><br>
+                </div>
+
+            <br><br>
 
             <label>Style:</label> <br>
                 <input type="checkbox" id="casual">
@@ -36,30 +92,58 @@
                 <label for="formal">Formal</label><br>
                 <input type="checkbox" id="athletic">
                 <label for="athletic">Athletic</label><br>
-                <!-- TODO: change as needed -->
+                <input type="checkbox" id="party">
+                <label for="party">Party</label><br>
+                <input type="checkbox" id="warm">
+                <label for="warm">Warm</label><br>
+                <input type="checkbox" id="rain">
+                <label for="rain">Rain</label><br>
+                <input type="checkbox" id="snow">
+                <label for="snow">Snow</label><br>
+                <input type="checkbox" id="fancy">
+                <label for="fancy">Fancy</label><br>
+                <input type="checkbox" id="office">
+                <label for="office">Office</label><br>
+                <!-- TODO: potentially add an add-your-own catergory? -->
             <br>
 
-            <label>Description:</label> <br>
+            <!-- Implement with weather stuff. rn defaults to submitting "" in index.js
+            <label>Warmth:</label> -->
+
+            <label>Color:</label> <br>
                 <input type="checkbox" id="red">
                 <label for="red">Red</label><br>
                 <input type="checkbox" id="orange">
                 <label for="orange">Orange</label><br>
                 <input type="checkbox" id="yellow">
                 <label for="yellow">Yellow</label><br>
-                <!-- TODO: add more adjectives. This can be taken out 
-                        if we get really fancy and add auto recognition -->
+                <input type="checkbox" id="green">
+                <label for="green">Green</label><br>
+                <input type="checkbox" id="blue">
+                <label for="blue">Blue</label><br>
+                <input type="checkbox" id="purple">
+                <label for="purple">Purple</label><br>
+                <input type="checkbox" id="black">
+                <label for="black">Black</label><br>
+                <input type="checkbox" id="white">
+                <label for="white">White</label><br>
+                <input type="checkbox" id="gray">
+                <label for="gray">Gray</label><br>
             <br>
+
+            <label>Pattern:</label> <br>
+                <input type="checkbox" id="plaid">
+                <label for="plaid">Plaid</label><br>
+                <input type="checkbox" id="polka">
+                <label for="polka">Polka-Dotted</label><br>
+                <input type="checkbox" id="camo">
+                <label for="camo">Camo</label><br>
+                <input type="checkbox" id="graphic">
+                <label for="graphic">Graphic</label><br>
+            <br>
+
             <input type="submit" value="Add" id="submitAdd">
             <input type="reset" value="Cancel" id="cancelAdd" onclick="toggleVisibility('addPieceForm')"/>
-        </form>
-
-        <!-- Remove Piece Form --> 
-        <form action="" id="removePieceForm" style="display:none">
-            <!-- TODO: implement once we implement all of the sql stuff for actually storing pieces 
-            basic idea is to loop thru the pieces with a partial and add a tick box for each! 
-            Probably should also add a function to remove the piece from the dropdowns in script.js. -->
-            <input type="submit" value="Remove" id="submitRemove">
-            <input type="reset" value="Cancel" id="cancelRemove" onclick="toggleVisibility('removePieceForm')"/>
         </form>
     </div>
 
@@ -67,67 +151,106 @@
         in their correct catergories, from database table.
     https://www.geeksforgeeks.org/how-to-add-image-into-dropdown-list-for-each-items/ -->
     <div class="container" style="display: inline-block">
-        <!-- Shirt Dropdown -->
-        <div class="container" id="shirtDrop">
-            <button class="button" id="shirtDropButton" onclick="toggleDropContents('shirtsDropContent')"> Shirts </button>
+        <!-- Top Dropdown -->
+        <div class="container" id="topDrop">
+            <button class="button" id="topDropButton" onclick="toggleDropContents('topDropContent')"> Tops </button>
             <br>
-            <div class="dropdown-content" id="shirtsDropContent" style="display:none">
-                <table>
-                    <tr>
-                        <th>test1</th>
-                        <th>test2</th>
-                    </tr>
-                    <tr>
-                        <th>test3</th>
-                        <th>test4</th>
-                    </tr>
-                    <!-- TODO: Loop here -->
-                </table> 
+            <div class="dropdown-content" id="topDropContent" style="display:none">
+                <!-- Loop through each piece in the tops category -->
+                {{#each top}}
+                    <div class="card">
+                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
         </div> <br>
 
-        <!-- Pants Dropdown -->
-        <div class="container" id="pantsDrop">
-            <button class="button" id="pantsDropButton" onclick="toggleDropContents('pantsDropContent')"> Pants </button>
+        <!-- Bottoms Dropdown -->
+        <div class="container" id="bottomDrop">
+            <button class="button" id="bottomDropButton" onclick="toggleDropContents('bottomDropContent')"> Bottoms </button>
             <br>
-            <div class="dropdown-content" id="pantsDropContent" style="display:none">  
-                <table>
-                    <!-- TODO: Loop here -->
-                </table> 
+            <div class="dropdown-content" id="bottomDropContent" style="display:none">  
+                <!-- Loop through each piece in the bottoms category -->
+                {{#each bottoms}}
+                    <div class="card">
+                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
         </div> <br>
 
         <!-- Full-Body Pieces Dropdown -->
         <div class="button" id="fullbodyDrop">
-            <button class="dropdown" id="fullbodyDropButton" onclick="toggleDropContents('fullbodyDropContent')"> Full-Body Pieces </button>
+            <button class="dropdown" id="fullbodyDropButton" onclick="toggleDropContents('fullbodyDropContent')"> Full-Body </button>
             <br>
             <div class="dropdown-content" id="fullbodyDropContent" style="display:none"> 
-                <table>
-                    <!-- TODO: Loop here -->
-                </table>  
+                <!-- Loop through each piece in the fullbody category -->
+                {{#each fullbody}}
+                    <div class="card">
+                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
         </div> <br>
 
-        <!-- Shoes Dropdown -->
+        <!-- Footwear Dropdown -->
         <div class="container" id="shoesDrop">
-            <button class="dropdown" id="shoesDropButton" onclick="toggleDropContents('shoesDropContent')"> Shoes </button>
+            <button class="dropdown" id="footwearDropButton" onclick="toggleDropContents('footwearDropContent')"> Footwear </button>
             <br>
-            <div class="dropdown-content" id="shoesDropContent" style="display:none">  
-                <table>
-                    <!-- TODO: Loop here -->
-                </table> 
+            <div class="dropdown-content" id="footwearDropContent" style="display:none">  
+                <!-- Loop through each piece in the footwear category -->
+                {{#each footwear}}
+                    <div class="card">
+                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
         </div> <br>
         
 
         <!-- Accessories Dropdown -->
-        <div class="button" id="accessoriesDrop">
-            <button class="dropbtn" id="accessoriesDropButton" onclick="toggleDropContents('accessoriesDropContent')"> Accessories </button>
+        <div class="button" id="accessoryDrop">
+            <button class="dropbtn" id="accessoryDropButton" onclick="toggleDropContents('accessoryDropContent')"> Accessories </button>
             <br>
-            <div class="dropdown-content" id="accessoriesDropContent" style="display:none">
-                <table>
-                    <!-- TODO: Loop here -->
-                </table> 
+            <div class="dropdown-content" id="accessoryDropContent" style="display:none">
+                <!-- Loop through each piece in the tops category -->
+                {{#each accessory}}
+                    <div class="card">
+                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Outerwear Dropdown -->
+        <div class="button" id="outerwearDrop">
+            <button class="dropbtn" id="outerwearDropButton" onclick="toggleDropContents('outerwearDropContent')"> Outerwear </button>
+            <br>
+            <div class="dropdown-content" id="outerwearDropContent" style="display:none">
+                <!-- Loop through each piece in the tops category -->
+                {{#each outerwear}}
+                    <div class="card">
+                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
         </div>
 
@@ -136,7 +259,7 @@
     <!-- Adding and Removing Piece Form Buttons -->
     <footer>
         <button class="button" id="addPiece" onclick="toggleVisibility('addPieceForm')"> Add Piece </button>
-        <button class="button" id="removePiece" onclick="toggleVisibility('removePieceForm')"> Remove Piece </button>
+        <button class="button" id="removePiece" action="/delete" method="GET"> Remove Piece </button>
     </footer>
 </div>
 
@@ -172,24 +295,13 @@
     }
 
     /*
-        Handling the images of pieces that are uploaded in the savedpieces.hbs forms
-            event: any -- Event of an image upload
-
-        Grabbed this function from here vv
-        https://www.quora.com/How-do-I-take-an-image-as-input-in-HTML#:~:text=In%20HTML%2C%20you%20can%20allow,multipart%2Fform%2Ddata%22%3E
-    */
-    function handleImgUpload(event) {
-        // TODO: handle the image
-    }
-
-    /*
         Toggles the dropdown of a fits catergory button and displays its contents
             contentId: string -- id of the content that will have its visibility toggled underneath the button
     */
     function toggleDropContents(contentId) {
         const content = document.getElementById(contentId);
         if(content.style.display === "none") {
-            content.style.display = "block";
+            content.style.display = "flex-wrap";
         } else {
             content.style.display = "none";
         }

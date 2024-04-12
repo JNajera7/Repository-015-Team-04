@@ -143,6 +143,9 @@ app.get('/delete', (req, res) => {
     res.render('pages/delete');
 });
 
+app.get('/savedpiecesdel', (req, res) => {
+    res.redirect('/delete')
+});
 
 app.get('/randomize', (req,res) => {
     res.render('pages/randomize');
@@ -172,6 +175,32 @@ app.post('/register', async (req, res) => {
     }
   });
 
+// Updating the pieces db when the add form is used
+app.post('/savedpieces', async (req, res) => {
+    try{
+        // Need to fix parsing the req stuff based on what was selected (req length varies....)
+        const {
+            imgFile,
+            name,
+            category, 
+            subcategory,
+            style,
+            // CLARIFY WARMTH FUNCTIONALITY?? (and add here)
+            // Clarify how we want the tags (color, pattern) inputted
+            color,
+            pattern
+        } = req.body;
+        
+        await db.none('INSERT INTO pieces (categoryId, subcategoryId, styleId, warmthId, colorId, patternId, tags, imgFile, name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
+                        [category, subcategory, style, 0, color, pattern, imgFile, name]);
+
+        res.redirect('/savedpieces');
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Adding piece unsuccessful');
+        res.redirect('/savedpieces');
+    }
+});
 
 // Login
 app.post('/login', async (req, res) => {
@@ -194,6 +223,8 @@ app.post('/login', async (req, res) => {
         res.redirect('/login');
     }
 });
+
+
 
 
 // Authentication Middleware.
