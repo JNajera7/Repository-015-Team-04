@@ -116,6 +116,17 @@ app.get('/settings', (req, res) => {
     res.render('pages/settings');
 });
 
+//Account deletion function
+app.delete('/deleteAccount', function(req, res) {
+app.delete('/delete_account/:username', function (req, res) {
+    const username = req.params.username;
+
+    const deleteAccountQuery = 'DELETE FROM users WHERE username = $1 RETURNING *;';
+
+});
+
+res.render('pages/login');
+});
 
 app.get('/register', (req, res) => {
     const errorMessage = req.session.errorMessage;
@@ -127,6 +138,8 @@ app.get('/register', (req, res) => {
         res.render('pages/register', { excludeNav: true });
     }
 });
+
+
 
 
 app.get('/index', (req, res) => {
