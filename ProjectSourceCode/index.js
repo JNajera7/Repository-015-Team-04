@@ -143,10 +143,6 @@ app.get('/delete', (req, res) => {
     res.render('pages/delete');
 });
 
-app.get('/savedpiecesdel', (req, res) => {
-    res.redirect('/delete')
-});
-
 app.get('/randomize', (req,res) => {
     res.render('pages/randomize');
 });
@@ -224,9 +220,6 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
-
-
 // Authentication Middleware.
 const auth = (req, res, next) => {
     if (!req.session.user) {
@@ -235,9 +228,11 @@ const auth = (req, res, next) => {
     }
     next();
 };
+
 app.get('/welcome', (req, res) => {
     res.json({status: 'success', message: 'Welcome!'});
   });
+  
 // Authentication Required
 app.use(auth);
 
