@@ -49,12 +49,12 @@ describe('Testing Add User API', () => {
       });
   });
 });
-// Example Negative Testcase :
-// API: /register
-// Input: {username: 'JohnnyDoe', password: 'password'}
-// Expect: res.status == 400
-// Result: This test case should fail and return a status 400
-// Explanation: The testcase will attempt to register with a username that is already in the users database and be unable to.
+// // Example Negative Testcase :
+// // API: /register
+// // Input: {username: 'JohnnyDoe', password: 'password'}
+// // Expect: res.status == 400
+// // Result: This test case should fail and return a status 400
+// // Explanation: The testcase will attempt to register with a username that is already in the users database and be unable to.
 describe('Testing Add User API', () => {
   it('negative : /register', done => {
     chai
@@ -68,12 +68,12 @@ describe('Testing Add User API', () => {
       });
   });
 });
-// ********************************************************************************
-// ***************** TODO: 2 MORE UNIT TEST CASES USING OTHER ENDPOINT ******************
-// Example Positive Testcase :
-// API: /login
-// Expect: redirects to '/login' and status == 200
-// Result: This test case should pass and redirect the user to the login page
+// // ********************************************************************************
+// // ***************** TODO: 2 MORE UNIT TEST CASES USING OTHER ENDPOINT ******************
+// // Example Positive Testcase :
+// // API: /login
+// // Expect: redirects to '/login' and status == 200
+// // Result: This test case should pass and redirect the user to the login page
 describe('Testing Render', () => {
   // Sample test case given to test /test endpoint.
   it('test "/login" route should render with an html response', done => {
@@ -87,10 +87,10 @@ describe('Testing Render', () => {
       });
   });
 });
-// Example Negative Testcase :
-// API: /log
-// Expect: attempts to redirect to non-existent '/log' endpoint and status == 400
-// Result: This test case should pass and redirect the user to the login page
+// // Example Negative Testcase :
+// // API: /log
+// // Expect: attempts to redirect to non-existent '/log' endpoint and status == 400
+// // Result: This test case should pass and redirect the user to the login page
 describe('Testing Render', () => {
   // Sample test case given to test /test endpoint.
   it('test "/log" route', done => {
