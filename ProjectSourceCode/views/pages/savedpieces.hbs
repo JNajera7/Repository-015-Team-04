@@ -1,152 +1,163 @@
-<link rel="stylesheet" href="../../public/css/style.css">
-
 <div class="container" id="savedPiecesContainer">
-
     <!-- Navbar + Page Title -->
     <h1>Saved Pieces</h1>
+	<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#addPieceDrawer" aria-expanded="false" aria-controls="addPieceDrawer">Add Piece</button>
+	<div class="collapse" id="addPieceDrawer">
+		<h2>Add pieces form!</h2>
 
-    <!-- Add/Remove form modal/overlay -->
-    <div id="overlay" class="modal" style="display:none; margin-left: 33%"> 
-        <h2 id="formName"></h2>
+		<!-- Add Piece Form -->
+		<form action="/savedpieces" method="POST">
 
-        <!-- Add Piece Form -->
-        <form action="/savedpieces" method="POST" id="addPieceForm" style="display:none">
+			<!-- Photo Upload -->
+			<div class="form-group">
+				<label for="newPiecePhoto">Upload Photo:</label>
+				<input class="form-control" type="file" id="newPiecePhoto" accept="image/*" required>
+			</div>
 
-            <!-- Photo Upload -->
-            <label for="newPiecePhoto">Upload Photo:</label>
-            <input type="file" id="newPiecePhoto" accept="image/*" required> <br><br>
+			<!-- Piece Name textbox -->
+			<div class="form-group">
+				<label for="pieceName">Piece Name:</label>
+				<input class="form-control" type="text" id="pieceName">
+			</div>
 
-            <!-- Piece Name textbox -->
-            <label for="pieceName">Piece Name:</label>
-            <input type="text" id="pieceName">
+			<!-- Catergory radio button select (can only pick one) -->
+			<label>Piece Catergory:</label>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" id="topRadioButton" name="pieceType" value="top" onchange="toggleDropContents('topSubcat')" required>
+				<label class="form-check-label" for="topRadioButton">Top</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" id="bottomRadioButton" name="pieceType" value="bottom" onchange="toggleDropContents('bottomSubcat')">
+				<label class="form-check-label" for="bottomRadioButton">Bottom</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" id="fullbodyRadioButton" name="pieceType" value="fullbody" onchange="toggleDropContents('fullbodySubcat')">
+				<label class="form-check-label" for="fullbodyRadioButton">Full-Body</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" id="footwearRadioButton" name="pieceType" value="footwear" onchange="toggleDropContents('footwearSubcat')">
+				<label class="form-check-label" for="footwearRadioButton">Footwear</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" id="accessoryRadioButton" name="pieceType" value="accessory" onchange="toggleDropContents('accessorySubcat')">
+				<label class="form-check-label" for="accessoryRadioButton">Accessory</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" id="outerwearRadioButton" name="pieceType" value="outerwear" onchange="toggleDropContents('outerwearSubcat')">
+				<label class="form-check-label" for="outerwearRadioButton">Outerwear</label>
+			</div>
 
-            <!-- Catergory radio button select (can only pick one) -->
-            <label>Piece Catergory:</label> <br>
-                <input type="radio" id="topRadioButton" name="pieceType" value="top" onchange="toggleDropContents('topSubcat')" required>
-                <label for="topRadioButton">Top</label><br>
-                <input type="radio" id="bottomRadioButton" name="pieceType" value="bottom" onchange="toggleDropContents('bottomSubcat')">
-                <label for="bottomRadioButton">Bottom</label><br>
-                <input type="radio" id="fullbodyRadioButton" name="pieceType" value="fullbody" onchange="toggleDropContents('fullbodySubcat')">
-                <label for="fullbodyRadioButton">Full-Body</label><br>
-                <input type="radio" id="footwearRadioButton" name="pieceType" value="footwear" onchange="toggleDropContents('footwearSubcat')">
-                <label for="footwearRadioButton">Footwear</label><br>
-                <input type="radio" id="accessoryRadioButton" name="pieceType" value="accessory" onchange="toggleDropContents('accessorySubcat')">
-                <label for="accessoryRadioButton">Accessory</label><br>
-                <input type="radio" id="outerwearRadioButton" name="pieceType" value="outerwear" onchange="toggleDropContents('outerwearSubcat')">
-                <label for="outerwearRadioButton">Outerwear</label><br>
-            <br>
+			<!-- Piece Subcatergories (multiple selectable) -->
+			<label id="subcatTitle">Piece Subcatergory:</label>
+				<div class="container" id="topSubcat" style="display:none">
+					<input type="radio" id="shortSleeveSelect" name="topType" value="shortSleeve" required>
+					<label for="shortSleeveSelect">Short Sleeve</label><br>
+					<input type="radio" id="longSleeveSelect" name="topType" value="longSleeve">
+					<label for="shortSleeveSelect">Long Sleeve</label><br>
+					<input type="radio" id="sweaterSelect" name="topType" value="sweater">
+					<label for="sweaterSelect">Sweater</label><br>
+				</div>
 
-            <!-- Piece Subcatergories (multiple selectable) -->
-            <label id="subcatTitle">Piece Subcatergory:</label> <br>
-                <div class="container" id="topSubcat" style="display:none">
-                    <input type="radio" id="shortSleeveSelect" name="topType" value="shortSleeve" required>
-                    <label for="shortSleeveSelect">Short Sleeve</label><br>
-                    <input type="radio" id="longSleeveSelect" name="topType" value="longSleeve">
-                    <label for="shortSleeveSelect">Long Sleeve</label><br>
-                    <input type="radio" id="sweaterSelect" name="topType" value="sweater">
-                    <label for="sweaterSelect">Sweater</label><br>
-                </div>
+				<div class="container" id="bottomSubcat" style="display:none">
+					<input type="radio" id="shortsSelect" name="bottomType" value="shorts" required>
+					<label for="shortsSelect">Shorts</label><br>
+					<input type="radio" id="pantsSelect" name="bottomType" value="pants">
+					<label for="pantsSelect">Pants</label><br>
+					<input type="radio" id="skirtSelect" name="bottomType" value="skirt">
+					<label for="skirtSelect">Skirt</label><br>
+				</div>
 
-                <div class="container" id="bottomSubcat" style="display:none">
-                    <input type="radio" id="shortsSelect" name="bottomType" value="shorts" required>
-                    <label for="shortsSelect">Shorts</label><br>
-                    <input type="radio" id="pantsSelect" name="bottomType" value="pants">
-                    <label for="pantsSelect">Pants</label><br>
-                    <input type="radio" id="skirtSelect" name="bottomType" value="skirt">
-                    <label for="skirtSelect">Skirt</label><br>
-                </div>
+				<div class="container" id="fullbodySubcat" style="display:none">
+					<input type="radio" id="onepieceSelect" name="fullbodyType" value="onepiece" required>
+					<label for="onepieceSelect">One-Piece</label><br>
+					<input type="radio" id="dressSelect" name="fullbodyType" value="dress">
+					<label for="dressSelect">Dress</label><br>
+				</div>
 
-                <div class="container" id="fullbodySubcat" style="display:none">
-                    <input type="radio" id="onepieceSelect" name="fullbodyType" value="onepiece" required>
-                    <label for="onepieceSelect">One-Piece</label><br>
-                    <input type="radio" id="dressSelect" name="fullbodyType" value="dress">
-                    <label for="dressSelect">Dress</label><br>
-                </div>
+				<div class="container" id="accessorySubcat" style="display:none">
+					<input type="radio" id="jewelrySelect" name="accessoryType" value="jewelry" required>
+					<label for="jewelrySelect">Jewelry</label><br>
+					<input type="radio" id="headwearSelect" name="accessoryType" value="headwear">
+					<label for="headwearSelect">Headwear</label><br>
+					<input type="radio" id="socksSelect" name="accessoryType" value="socks">
+					<label for="socksSelect">Socks</label><br>
+					<input type="radio" id="eyewearSelect" name="accessoryType" value="eyewear">
+					<label for="eyewearSelect">Eyewear</label><br>
+				</div>
 
-                <div class="container" id="accessorySubcat" style="display:none">
-                    <input type="radio" id="jewelrySelect" name="accessoryType" value="jewelry" required>
-                    <label for="jewelrySelect">Jewelry</label><br>
-                    <input type="radio" id="headwearSelect" name="accessoryType" value="headwear">
-                    <label for="headwearSelect">Headwear</label><br>
-                    <input type="radio" id="socksSelect" name="accessoryType" value="socks">
-                    <label for="socksSelect">Socks</label><br>
-                    <input type="radio" id="eyewearSelect" name="accessoryType" value="eyewear">
-                    <label for="eyewearSelect">Eyewear</label><br>
-                </div>
+				<div class="container" id="outerwearSubcat" style="display:none">
+					<input type="radio" id="coatSelect" name="outerwearType" value="coat" required>
+					<label for="coatSelect">Coat</label><br>
+					<input type="radio" id="jacketSelect" name="outerwearType" value="jacket">
+					<label for="jacketSelect">Jacket</label><br>
+					<input type="radio" id="vestSelect" name="outerwearType" value="vest">
+					<label for="vestSelect">Vest</label><br>
+				</div>
 
-                <div class="container" id="outerwearSubcat" style="display:none">
-                    <input type="radio" id="coatSelect" name="outerwearType" value="coat" required>
-                    <label for="coatSelect">Coat</label><br>
-                    <input type="radio" id="jacketSelect" name="outerwearType" value="jacket">
-                    <label for="jacketSelect">Jacket</label><br>
-                    <input type="radio" id="vestSelect" name="outerwearType" value="vest">
-                    <label for="vestSelect">Vest</label><br>
-                </div>
+			<br>
+			<br>
 
-            <br><br>
+			<label>Style:</label> <br>
+				<input type="checkbox" id="casual">
+				<label for="casual">Casual</label><br>
+				<input type="checkbox" id="formal">
+				<label for="formal">Formal</label><br>
+				<input type="checkbox" id="athletic">
+				<label for="athletic">Athletic</label><br>
+				<input type="checkbox" id="party">
+				<label for="party">Party</label><br>
+				<input type="checkbox" id="warm">
+				<label for="warm">Warm</label><br>
+				<input type="checkbox" id="rain">
+				<label for="rain">Rain</label><br>
+				<input type="checkbox" id="snow">
+				<label for="snow">Snow</label><br>
+				<input type="checkbox" id="fancy">
+				<label for="fancy">Fancy</label><br>
+				<input type="checkbox" id="office">
+				<label for="office">Office</label><br>
+				<!-- TODO: potentially add an add-your-own catergory? -->
+			<br>
 
-            <label>Style:</label> <br>
-                <input type="checkbox" id="casual">
-                <label for="casual">Casual</label><br>
-                <input type="checkbox" id="formal">
-                <label for="formal">Formal</label><br>
-                <input type="checkbox" id="athletic">
-                <label for="athletic">Athletic</label><br>
-                <input type="checkbox" id="party">
-                <label for="party">Party</label><br>
-                <input type="checkbox" id="warm">
-                <label for="warm">Warm</label><br>
-                <input type="checkbox" id="rain">
-                <label for="rain">Rain</label><br>
-                <input type="checkbox" id="snow">
-                <label for="snow">Snow</label><br>
-                <input type="checkbox" id="fancy">
-                <label for="fancy">Fancy</label><br>
-                <input type="checkbox" id="office">
-                <label for="office">Office</label><br>
-                <!-- TODO: potentially add an add-your-own catergory? -->
-            <br>
+			<!-- Implement with weather stuff. rn defaults to submitting "" in index.js
+			<label>Warmth:</label> -->
 
-            <!-- Implement with weather stuff. rn defaults to submitting "" in index.js
-            <label>Warmth:</label> -->
+			<label>Color:</label> <br>
+				<input type="checkbox" id="red">
+				<label for="red">Red</label><br>
+				<input type="checkbox" id="orange">
+				<label for="orange">Orange</label><br>
+				<input type="checkbox" id="yellow">
+				<label for="yellow">Yellow</label><br>
+				<input type="checkbox" id="green">
+				<label for="green">Green</label><br>
+				<input type="checkbox" id="blue">
+				<label for="blue">Blue</label><br>
+				<input type="checkbox" id="purple">
+				<label for="purple">Purple</label><br>
+				<input type="checkbox" id="black">
+				<label for="black">Black</label><br>
+				<input type="checkbox" id="white">
+				<label for="white">White</label><br>
+				<input type="checkbox" id="gray">
+				<label for="gray">Gray</label><br>
+			<br>
 
-            <label>Color:</label> <br>
-                <input type="checkbox" id="red">
-                <label for="red">Red</label><br>
-                <input type="checkbox" id="orange">
-                <label for="orange">Orange</label><br>
-                <input type="checkbox" id="yellow">
-                <label for="yellow">Yellow</label><br>
-                <input type="checkbox" id="green">
-                <label for="green">Green</label><br>
-                <input type="checkbox" id="blue">
-                <label for="blue">Blue</label><br>
-                <input type="checkbox" id="purple">
-                <label for="purple">Purple</label><br>
-                <input type="checkbox" id="black">
-                <label for="black">Black</label><br>
-                <input type="checkbox" id="white">
-                <label for="white">White</label><br>
-                <input type="checkbox" id="gray">
-                <label for="gray">Gray</label><br>
-            <br>
+			<label>Pattern:</label> <br>
+				<input type="checkbox" id="plaid">
+				<label for="plaid">Plaid</label><br>
+				<input type="checkbox" id="polka">
+				<label for="polka">Polka-Dotted</label><br>
+				<input type="checkbox" id="camo">
+				<label for="camo">Camo</label><br>
+				<input type="checkbox" id="graphic">
+				<label for="graphic">Graphic</label><br>
+			<br>
 
-            <label>Pattern:</label> <br>
-                <input type="checkbox" id="plaid">
-                <label for="plaid">Plaid</label><br>
-                <input type="checkbox" id="polka">
-                <label for="polka">Polka-Dotted</label><br>
-                <input type="checkbox" id="camo">
-                <label for="camo">Camo</label><br>
-                <input type="checkbox" id="graphic">
-                <label for="graphic">Graphic</label><br>
-            <br>
-
-            <input type="submit" value="Add" id="submitAdd">
-            <input type="reset" value="Cancel" id="cancelAdd" onclick="toggleVisibility('addPieceForm')"/>
-        </form>
-    </div>
-
+			<input type="submit" value="Add" id="submitAdd">
+			<input type="reset" value="Cancel" id="cancelAdd" onclick="toggleVisibility('addPieceForm')"/>
+		</form>
+	</div>
     <!-- TODO: use a foreach handlebar to populate with the images of clothes that are uploaded
         in their correct catergories, from database table.
     https://www.geeksforgeeks.org/how-to-add-image-into-dropdown-list-for-each-items/ -->
