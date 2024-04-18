@@ -1,16 +1,25 @@
 {{> message}}
-<div class="container col-sm-4 loginreg py-5">
-	<h1>Wizard Wardrobe Login</h1>
-	<form action="/login" method="post" class="py-4 px-1">
-		<div class="form-group pb-4">
-			<label class="form-label" for="username"><b>Username</b></label>
-			<input type="text" class="form-control" required id="username" name="username">
+<div class="container-md loginreg shadow-lg" style="width: 70%; margin: auto; padding: 50px 10px 0px 60px">
+	<div class="row">
+		<div class="col-5">
+			<h1 style="text-align: center;">Wardrobe Wizard</h1>
+			<br>
+			<h2 style="text-align: center;">Login</h2>
+			<form action="/login" method="post" class="py-4 px-1">
+				<div class="form-group pb-4">
+					<label class="form-label" for="username">Username</label>
+					<input type="text" class="form-control" required id="username" name="username">
+				</div>
+				<div class="form-group pb-4">
+					<label class="form-label" for="password"></label>Password</label>
+					<input type="password" class="form-control" required id="password" name="password">
+				</div>
+				<button type="submit" class="btn btn-primary">Login</button>
+			</form>
+			<p>New to the Wardrobe Wizard? <a href="/register"> Create an account</a></p>
 		</div>
-		<div class="form-group pb-4">
-			<label class="form-label" for="password"><b>Password</b></label>
-			<input type="password" class="form-control" required id="password" name="password">
+		<div class="col-6">
+			<img src="images/WardrobeWizardLogo.jpg" alt="Wardrobe Wizard Logo" height="100%" width="100%">
 		</div>
-		<button type="submit" class="btn btn-primary">Login</button>
-	</form>
-	<p>Don't have an account? <a href="/register">Register</a></p>
+	</div>
 </div>

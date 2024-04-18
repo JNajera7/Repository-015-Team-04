@@ -19,10 +19,7 @@
 }
 
 body:has(.loginreg) {
-	background-image: url('/images/WardrobeWizardLogo - Background.jpg');
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	background-position-x: center;
+	background-color: rgba(129, 121, 212, 255);
 }
 
 .loginreg {

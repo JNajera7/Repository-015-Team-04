@@ -1,52 +1,65 @@
 {{> message}}
-<div class="container col-sm-4 loginreg py-5">
-	<h1>Wizard Wardrobe Registration</h1>
-	<form action="/register" method="post" class="py-4 px-1">
-		<div class="form-group pb-4">
-			<label class="form-label" for="username"><b>Create Username</b></label>
-			<input type="text" class="form-control" required id="username" name="username">
-		</div>
-		<div class="form-group pb-4">
-			<label class="form-label" for="password"><b>Create Password</b></label>
-			<input type="password" class="form-control" required id="password" name="password" onkeyup="checkPasswordStrength(this.value)"> <!-- if the users password does not meet the password requirements they will not be able to register-->
-		</div>
-		<p id="password-strength"></p>
-		<button type="submit" class="btn btn-primary" id="register-btn" disabled>Register</button> <!-- if the users password did not meet the requirement then the register button will be unaccessible to the user until they meet the requirement-->
-	</form>
-	<p>Already have an account? <a href="/login">Login</a></p>
+<div class="container-md loginreg shadow-lg" style="width: 70%; margin: auto; padding: 50px 10px 0px 60px">
+    <div class="row">
+        <div class="col-5">
+            <h1 style="text-align: center;">Wardrobe Wizard</h1>
+            <br>
+            <h2 style="text-align: center;">Create your account</h2>
+            <form action="/register" method="post" class="py-4 px-1">
+                <div class="form-group pb-4">
+                    <label class="form-label" for="username">Enter your username</label>
+                    <input type="text" class="form-control" required id="username" name="username">
+                </div>
+                <div class="form-group pb-4">
+                    <label class="form-label" for="password">Enter your password</label>
+                    <input type="password" class="form-control" required id="password" name="password"
+                        onkeyup="checkPasswordStrength(this.value)">
+                    <!-- if the users password does not meet the password requirements they will not be able to register-->
+                </div>
+                <p id="password-strength"></p>
+                <button type="submit" class="btn btn-primary" id="register-btn" disabled>Create my Wardrobe Wizard
+                    account</button>
+                <!-- if the users password did not meet the requirement then the register button will be unaccessible to the user until they meet the requirement-->
+            </form>
+            <p>Already have an account? <a href="/login">Login</a></p>
+        </div>
+        <div class="col-6">
+            <img src="images/WardrobeWizardLogo.jpg" alt="Wardrobe Wizard Logo" height="100%" width="100%">
+        </div>
+    </div>
 </div>
 
 <script>
-function checkPasswordStrength(password) {
-    var strength = document.getElementById("password-strength"); // checks the strength of the password
-    var hasUppercase = /[A-Z]/.test(password); //checks if the user newly created password contains a uppercase letter
-    var hasNumber = /\d/.test(password); // checks if the user password contains at least one number
-    var hasSpecialChar = /[-+_!@#$%^&*.,?]/.test(password); // checks if the users password that they created contains at least one special character
-    var isEightCharsLong = password.length >= 8; // checks if the password the user created is 8 characters long
+    function checkPasswordStrength(password) {
+        var strength = document.getElementById("password-strength"); // checks the strength of the password
+        var hasUppercase = /[A-Z]/.test(password); //checks if the user newly created password contains a uppercase letter
+        var hasNumber = /\d/.test(password); // checks if the user password contains at least one number
+        var hasSpecialChar = /[-+_!@#$%^&*.,?]/.test(password); // checks if the users password that they created contains at least one special character
+        var isEightCharsLong = password.length >= 8; // checks if the password the user created is 8 characters long
 
-    var missingRequirements = [];
+        var missingRequirements = [];
 
-    if (!hasUppercase) {
-        missingRequirements.push("<span style='color: red;'>At least one uppercase letter</span>"); //notifies the user what they are missing in order for the password requirement to be met in this case the user is missing an uppercase letter
-    }
-    if (!hasNumber) {
-        missingRequirements.push("<span style='color: red;'>At least one number</span>"); // notifies the user what they are missing in order for the password requirement to be met in this case the user is missing a number
-    }
-    if (!hasSpecialChar) {
-        missingRequirements.push("<span style='color: red;'>At least one special character (-+_!@#$%^&*.,?)</span>"); // notifies the user what they are missing in order for the password requirement to be met in this case the user is missing a special character
-    }
-    if (!isEightCharsLong) {
-        missingRequirements.push("<span style='color: red;'>At least 8 characters long</span>");// notifies the user what they are missing in order for the password requirement to be met in this case the users password is missing characters and has to add characters until it reaches the 8 character requirement
-    }
+        if (!hasUppercase) {
+            missingRequirements.push("<span style='color: red;'>At least one uppercase letter</span>"); //notifies the user what they are missing in order for the password requirement to be met in this case the user is missing an uppercase letter
+        }
+        if (!hasNumber) {
+            missingRequirements.push("<span style='color: red;'>At least one number</span>"); // notifies the user what they are missing in order for the password requirement to be met in this case the user is missing a number
+        }
+        if (!hasSpecialChar) {
+            missingRequirements.push("<span style='color: red;'>At least one special character (-+_!@#$%^&*.,?)</span>"); // notifies the user what they are missing in order for the password requirement to be met in this case the user is missing a special character
+        }
+        if (!isEightCharsLong) {
+            missingRequirements.push("<span style='color: red;'>At least 8 characters long</span>");// notifies the user what they are missing in order for the password requirement to be met in this case the users password is missing characters and has to add characters until it reaches the 8 character requirement
+        }
 
-    var registerBtn = document.getElementById("register-btn");
-    if (missingRequirements.length > 0) {
-        var requirementsText = missingRequirements.join(", "); // if the user has multiple missing requirements this joins the messages together
-        strength.innerHTML = "<p><b>Password requirements:</b></p><p>" + requirementsText + "</p>"; //returns a message that notifies the user that their password requirement has not been met and returns what they are missing 
-        registerBtn.disabled = true; // makes the register button unaccessible to the user if they are current missing any of the password requirements
-    } else {
-        strength.innerHTML = "<p><span style='color: green;'>Password requirements met!</span></p>"; //returns a message that notifies the user that their password requirement has been met
-        registerBtn.disabled = false;// makes the register button accessible if the user passed all the password requirements
+        var registerBtn = document.getElementById("register-btn");
+        if (missingRequirements.length > 0) {
+            var requirementsText = missingRequirements.join(", "); // if the user has multiple missing requirements this joins the messages together
+            strength.innerHTML = "<p><b>Password requirements:</b></p><p>" + requirementsText + "</p>"; //returns a message that notifies the user that their password requirement has not been met and returns what they are missing 
+            registerBtn.disabled = true; // makes the register button unaccessible to the user if they are current missing any of the password requirements
+        } else {
+            strength.innerHTML = "<p><span style='color: green;'>Password requirements met!</span></p>"; //returns a message that notifies the user that their password requirement has been met
+            registerBtn.disabled = false;// makes the register button accessible if the user passed all the password requirements
+        }
     }
-}
 </script>
