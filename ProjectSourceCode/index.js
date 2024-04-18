@@ -117,16 +117,34 @@ app.get('/settings', (req, res) => {
 });
 
 //Account deletion function
-app.delete('/deleteAccount', function(req, res) {
-app.delete('/delete_account/:username', function (req, res) {
-    const username = req.params.username;
+app.delete('/deleteAccount', async function(req, res) {
+    try {
+        // Assuming you're using the username stored in req.session.user
+        const username = req.session.user.username;
 
-    const deleteAccountQuery = 'DELETE FROM users WHERE username = $1 RETURNING *;';
+        // Execute the DELETE query to remove the user account from the database
+        const userDeleted = await db.oneOrNone('DELETE FROM users WHERE username = $1 RETURNING *;', [username]);
 
+        if (userDeleted) {
+            // If the user account was successfully deleted, destroy the session
+            req.session.destroy((err) => {
+                if (err) {
+                    console.error('Error destroying session:', err);
+                } else {
+                    console.log('Session destroyed.');
+                }
+            });
+            res.render('pages/login');
+        } else {
+            // If the user account was not found, handle the error accordingly
+            res.status(404).send('User account not found.');
+        }
+    } catch (error) {
+        console.error('Error deleting account:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-res.render('pages/login');
-});
 
 app.get('/register', (req, res) => {
     const errorMessage = req.session.errorMessage;
