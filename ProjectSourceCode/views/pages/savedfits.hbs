@@ -24,14 +24,15 @@
         <h1 class="mb-4 text-center">Suggested Fits</h1>
 
         <!-- Grid layout for categories -->
-        <div class="row">
+        <div id="categoriesContainer" class="row">
+            <!-- Existing categories -->
+            <!-- Formal, Athletic, Casual, Warm, Beach, Rain, Snow -->
             <!-- Formal -->
             <div class="col-md-6">
                 <div class="category">
                     <h2>Formal</h2>
                     <div class="subcategory">
-                        <h3 class="outfit-name">Enter outfit name</h3>
-                        <button class="btn btn-primary rename-fit">Rename Fit</button>
+                        <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
                         <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
                     </div>
                 </div>
@@ -41,8 +42,7 @@
                 <div class="category">
                     <h2>Athletic</h2>
                     <div class="subcategory">
-                        <h3 class="outfit-name">Enter outfit name</h3>
-                        <button class="btn btn-primary rename-fit">Rename Fit</button>
+                        <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
                         <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
                     </div>
                 </div>
@@ -52,30 +52,37 @@
                 <div class="category">
                     <h2>Casual</h2>
                     <div class="subcategory">
-                        <h3 class="outfit-name">Enter outfit name</h3>
-                        <button class="btn btn-primary rename-fit">Rename Fit</button>
+                        <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
                         <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
                     </div>
                 </div>
             </div>
-            <!-- Party -->
+            <!-- Warm -->
             <div class="col-md-6">
                 <div class="category">
-                    <h2>Party</h2>
+                    <h2>Warm</h2>
                     <div class="subcategory">
-                        <h3 class="outfit-name">Enter outfit name</h3>
-                        <button class="btn btn-primary rename-fit">Rename Fit</button>
+                        <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
                         <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
                     </div>
                 </div>
             </div>
-            <!-- Office -->
+            <!-- Beach -->
             <div class="col-md-6">
                 <div class="category">
-                    <h2>Office</h2>
+                    <h2>Beach</h2>
                     <div class="subcategory">
-                        <h3 class="outfit-name">Enter outfit name</h3>
-                        <button class="btn btn-primary rename-fit">Rename Fit</button>
+                        <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
+                        <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
+                    </div>
+                </div>
+            </div>
+            <!-- Rain -->
+            <div class="col-md-6">
+                <div class="category">
+                    <h2>Rain</h2>
+                    <div class="subcategory">
+                        <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
                         <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
                     </div>
                 </div>
@@ -85,19 +92,7 @@
                 <div class="category">
                     <h2>Snow</h2>
                     <div class="subcategory">
-                        <h3 class="outfit-name">Enter outfit name</h3>
-                        <button class="btn btn-primary rename-fit">Rename Fit</button>
-                        <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
-                    </div>
-                </div>
-            </div>
-            <!-- Hot -->
-            <div class="col-md-6">
-                <div class="category">
-                    <h2>Hot</h2>
-                    <div class="subcategory">
-                        <h3 class="outfit-name">Enter outfit name</h3>
-                        <button class="btn btn-primary rename-fit">Rename Fit</button>
+                        <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
                         <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
                     </div>
                 </div>
@@ -108,7 +103,7 @@
         <button id="addCategoryBtn" class="btn btn-primary mt-4">Add Category</button>
     </div>
 
-    <!-- Bootstrap JS and jQuery  -->
+    <!-- Bootstrap JS and jQuery (needed for Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -121,41 +116,27 @@
             if (categoryName) {
                 // Create new category div
                 var newCategory = document.createElement("div");
-                newCategory.className = "category mb-4";
-
-                // Add category title
-                var categoryTitle = document.createElement("h2");
-                categoryTitle.textContent = categoryName;
-                newCategory.appendChild(categoryTitle);
-
-                // Add subcategory with "show outfit here" text box and image display
-                var subcategory = document.createElement("div");
-                subcategory.className = "subcategory";
-                var subcategoryTitle = document.createElement("h3");
-                subcategoryTitle.className = "outfit-name";
-                subcategoryTitle.textContent = "Enter outfit name";
-                var renameFitBtn = document.createElement("button");
-                renameFitBtn.className = "btn btn-primary rename-fit";
-                renameFitBtn.textContent = "Rename Fit";
-                var outfitImgPreview = document.createElement("img");
-                outfitImgPreview.className = "outfit-preview mt-2";
-                outfitImgPreview.src = "https://via.placeholder.com/150";
-                outfitImgPreview.alt = "Outfit Preview";
-                subcategory.appendChild(subcategoryTitle);
-                subcategory.appendChild(renameFitBtn);
-                subcategory.appendChild(outfitImgPreview);
-                newCategory.appendChild(subcategory);
+                newCategory.className = "col-md-6";
+                newCategory.innerHTML = `
+                    <div class="category">
+                        <h2>${categoryName}</h2>
+                        <div class="subcategory">
+                            <h3 class="outfit-name" onclick="renameOutfit(this)">Enter outfit name</h3>
+                            <img class="outfit-preview mt-2" src="https://via.placeholder.com/150" alt="Outfit Preview">
+                        </div>
+                    </div>
+                `;
 
                 // Append new category to container
                 document.getElementById("categoriesContainer").appendChild(newCategory);
+            }
+        }
 
-                // Event listener for rename fit button
-                renameFitBtn.addEventListener('click', function() {
-                    var newName = prompt("Enter the new name for the outfit:");
-                    if (newName) {
-                        subcategoryTitle.textContent = newName;
-                    }
-                });
+        // Function to rename outfit
+        function renameOutfit(element) {
+            var newName = prompt("Enter the new name for the outfit:");
+            if (newName) {
+                element.textContent = newName;
             }
         }
 
