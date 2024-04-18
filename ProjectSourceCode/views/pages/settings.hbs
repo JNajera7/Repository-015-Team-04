@@ -1,8 +1,7 @@
 {{> message}}
 <div class="container col-sm-4" style="text-align:center;padding:50px 0 0 0;">
-	<h1>Settings</h1>
+  <h1>Settings</h1>
   <br></br>
-	<h2><a class="nav-link" href="/logout">Log out</a></h2>
   <br></br>
   <h2><a href="#" id="deleteClosetButton">Clear Closet</a></h2>
   <h2><a href="#" style="color: red;" id="deleteAccountButton">Delete Account</a></h2>
@@ -10,40 +9,40 @@
 
 <script>
   document.getElementById("deleteClosetButton")
-    .addEventListener("click", function( e ){ //e => event
-        if( ! confirm("Do you really want to do this?") ){
-            e.preventDefault(); // ! => don't want to do this
-        } else {
-            //want to do this! => maybe do something about it?
-            alert('Wiping your wardrobe...');
-            
-            //Add clear closet functionality
-        }
+    .addEventListener("click", function (e) { //e => event
+      if (!confirm("Do you really want to do this?")) {
+        e.preventDefault(); // ! => don't want to do this
+      } else {
+        //want to do this! => maybe do something about it?
+        alert('Wiping your wardrobe...');
+
+        //Add clear closet functionality
+      }
     });
 
-    document.getElementById("deleteAccountButton")
-    .addEventListener("click", function( e ){ //e => event
-        if( ! confirm("Do you really want to do this?") ){
-            e.preventDefault(); // ! => don't want to do this
-        } else {
-            //want to do this! => maybe do something about it?
-            alert('Thank you for using the Wardrobe Wizard. Come back soon!');
-            
-            fetch('/deleteAccount', {
-              method: 'DELETE'
-            })
-            .then(response => {
-              if (response.ok) {
-                // If the request was successful, redirect to the login page
-                window.location.href = '/login';
-              } else {
-                // If there was an error, log the error message
-                console.error('Error:', response.statusText);
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
-        }
+  document.getElementById("deleteAccountButton")
+    .addEventListener("click", function (e) { //e => event
+      if (!confirm("Do you really want to do this?")) {
+        e.preventDefault(); // ! => don't want to do this
+      } else {
+        //want to do this! => maybe do something about it?
+        alert('Thank you for using the Wardrobe Wizard. Come back soon!');
+
+        fetch('/deleteAccount', {
+          method: 'DELETE'
+        })
+          .then(response => {
+            if (response.ok) {
+              // If the request was successful, redirect to the login page
+              window.location.href = '/login';
+            } else {
+              // If there was an error, log the error message
+              console.error('Error:', response.statusText);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
     });
 </script>

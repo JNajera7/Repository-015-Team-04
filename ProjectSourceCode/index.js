@@ -117,7 +117,7 @@ app.get('/settings', (req, res) => {
 });
 
 //Account deletion function
-app.delete('/deleteAccount', async function(req, res) {
+app.delete('/deleteAccount', async function (req, res) {
     try {
         // Assuming you're using the username stored in req.session.user
         const username = req.session.user.username;
@@ -158,58 +158,27 @@ app.get('/register', (req, res) => {
 });
 
 
-
-
-app.get('/index', (req, res) => {
-    res.render('pages/index');
-});
-
-
-app.get('/savedpieces', (req, res) => {
-    res.render('pages/savedpieces');
-});
-
-
-app.get('/delete', (req, res) => {
-    res.render('pages/delete');
-});
-
-app.get('/randomize', (req,res) => {
-    res.render('pages/randomize');
-});
-
-
-app.get ('/savedfits',(req,res) => {
-    res.render('pages/savedfits');
-});
-
-
-app.get ('/suggestedfits',(req,res) => {
-    res.render('pages/suggestedfits');
-});
-
-
 // Register
 app.post('/register', async (req, res) => {
     // Hash the password using bcrypt library
     const hash = await bcrypt.hash(req.body.password, 10);
     try {
-      await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
-      res.redirect('/login');
+        await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
+        res.redirect('/login');
     } catch (e) {
         req.session.errorMessage = "Unexpected error occurred";
         res.redirect('/register');
     }
-  });
+});
 
 // Updating the pieces db when the add form is used
 app.post('/savedpieces', async (req, res) => {
-    try{
+    try {
         // Need to fix parsing the req stuff based on what was selected (req length varies....)
         const {
             imgFile,
             name,
-            category, 
+            category,
             subcategory,
             style,
             // CLARIFY WARMTH FUNCTIONALITY?? (and add here)
@@ -217,9 +186,9 @@ app.post('/savedpieces', async (req, res) => {
             color,
             pattern
         } = req.body;
-        
-        await db.none('INSERT INTO pieces (categoryId, subcategoryId, styleId, warmthId, colorId, patternId, tags, imgFile, name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
-                        [category, subcategory, style, 0, color, pattern, imgFile, name]);
+
+        await db.none('INSERT INTO pieces (categoryId, subcategoryId, styleId, warmthId, colorId, patternId, tags, imgFile, name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+            [category, subcategory, style, 0, color, pattern, imgFile, name]);
 
         res.redirect('/savedpieces');
     } catch (err) {
@@ -261,9 +230,9 @@ const auth = (req, res, next) => {
 };
 
 app.get('/welcome', (req, res) => {
-    res.json({status: 'success', message: 'Welcome!'});
-  });
-  
+    res.json({ status: 'success', message: 'Welcome!' });
+});
+
 // Authentication Required
 app.use(auth);
 
@@ -272,10 +241,38 @@ app.get('/home', async (req, res) => {
     res.render('pages/home')
 });
 
+app.get('/index', (req, res) => {
+    res.render('pages/index');
+});
+
+
+app.get('/savedpieces', (req, res) => {
+    res.render('pages/savedpieces');
+});
+
+
+app.get('/delete', (req, res) => {
+    res.render('pages/delete');
+});
+
+app.get('/randomize', (req, res) => {
+    res.render('pages/randomize');
+});
+
+
+app.get('/savedfits', (req, res) => {
+    res.render('pages/savedfits');
+});
+
+
+app.get('/suggestedfits', (req, res) => {
+    res.render('pages/suggestedfits');
+});
+
 
 app.get('/logout', async (req, res) => {
     req.session.destroy();
-    res.render('pages/logout', { excludeNav: true });
+    res.render('pages/login', { excludeNav: true });
 });
 
 // *****************************************************
