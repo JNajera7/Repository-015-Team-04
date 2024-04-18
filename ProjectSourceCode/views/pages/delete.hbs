@@ -1,24 +1,146 @@
 <div style="display: flex;">
-  <div style="width: 200px; padding-left: 20px;">
-    <h2>Delete Page</h2>
-    <h2>Filter Attributes</h2>
-    <div>
-      <input type="checkbox" id="filter-headwear" class="filter-checkbox" onchange="filterItems()"> Headwear
+<div style="width: 200px; padding-left: 20px;">
+  <h2>Delete Page</h2>
+  <h2>Filter by Attributes</h2>
+  <h3>Clothing Pieces</h3>
+  <div><!-- Filters and Subfilters that appear when the main filter is clicked on -->
+    <input type="checkbox" id="filter-tops" class="filter-checkbox" onchange="toggleSubcategoryFilters('tops'); filterItems()"> Tops
+    <br>
+    <div id="subcategory-filters-tops" style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-short-sleeve" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Short Sleeve
       <br>
-      <input type="checkbox" id="filter-shirts" class="filter-checkbox" onchange="filterItems()"> Shirts
+      <input type="checkbox" id="filter-long-sleeve" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Long Sleeve
       <br>
-      <input type="checkbox" id="filter-bottomwear" class="filter-checkbox" onchange="filterItems()"> Bottomwear
+      <input type="checkbox" id="filter-sweater" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Sweater
       <br>
-      <input type="checkbox" id="filter-shoes" class="filter-checkbox" onchange="filterItems()"> Shoes
-      <br>
-      <input type="checkbox" id="filter-accessories" class="filter-checkbox" onchange="filterItems()"> Accessories
-      <br>
-      <input type="checkbox" id="filter-formal" class="filter-checkbox" onchange="filterItems()"> Formal
-      <!-- Add more attributes if needed -->
     </div>
-    <button onclick="deleteItems()">Delete Selected Items</button>
+    <input type="checkbox" id="filter-bottoms" class="filter-checkbox" onchange="toggleSubcategoryFilters('bottoms'); filterItems()"> Bottoms
+    <br>
+    <div id="subcategory-filters-bottoms" style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-short-pants" class="filter-checkbox" onchange="filterItems()"> Short pants
+      <br>
+      <input type="checkbox" id="filter-long-pants" class="filter-checkbox" onchange="filterItems()"> Long pants
+      <br>
+      <input type="checkbox" id="filter-skirts" class="filter-checkbox" onchange="filterItems()"> Skirts
+      <br>
+    </div>
+    <input type="checkbox" id="filter-fullbody" class="filter-checkbox" onchange="toggleSubcategoryFilters('fullbody'); filterItems()"> Full Body
+    <br>
+    <div id="subcategory-filters-fullbody" style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-one-piece" class="filter-checkbox" onchange="filterItems()"> One piece
+      <br>
+      <input type="checkbox" id="filter-dresses" class="filter-checkbox" onchange="filterItems()"> Dresses
+      <br>
+    </div>
+    <input type="checkbox" id="filter-footwear" class="filter-checkbox" onchange="toggleSubcategoryFilters('footwear'); filterItems()"> Footwear
+    <br>
+    <div id="subcategory-filters-footwear" style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-sneakers" class="filter-checkbox" onchange="filterItems()"> Sneakers
+      <br>
+      <input type="checkbox" id="filter-boots" class="filter-checkbox" onchange="filterItems()"> Boots
+      <br>
+      <input type="checkbox" id="filter-heels" class="filter-checkbox" onchange="filterItems()"> Heels
+      <br>
+    </div>
+    <input type="checkbox" id="filter-accessories" class="filter-checkbox" onchange="toggleSubcategoryFilters('accessories'); filterItems()"> Accessories
+    <br>
+    <div id="subcategory-filters-accessories" style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-jewelry" class="filter-checkbox" onchange="filterItems()"> Jewelry
+      <br>
+      <input type="checkbox" id="filter-headwear-accessories" class="filter-checkbox" onchange="filterItems()"> Headwear
+      <br>
+      <input type="checkbox" id="filter-eyewear" class="filter-checkbox" onchange="filterItems()"> Eyewear
+      <br>
+    </div>
+    <input type="checkbox" id="filter-outerwear" class="filter-checkbox" onchange="toggleSubcategoryFilters('outerwear'); filterItems()"> Outerwear
+    <br>
+    <div id="subcategory-filters-outerwear" style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-coats" class="filter-checkbox" onchange="filterItems()"> Coats
+      <br>
+      <input type="checkbox" id="filter-vest" class="filter-checkbox" onchange="filterItems()"> Vest
+      <br>
+      <input type="checkbox" id="filter-jacket" class="filter-checkbox" onchange="filterItems()"> Jacket
+      <br>
+    </div>
+  <h3>Descriptions</h3>
+    <input type="checkbox" id="filter-styles" class="filter-checkbox" onchange="toggleSubcategoryFilters('styles'); filterItems()"> Styles
+    <br>
+    <div id="subcategory-filters-styles"style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-formal" class="filter-checkbox" onchange="filterItems()"> Formal
+      <br>
+      <input type="checkbox" id="filter-casual" class="filter-checkbox" onchange="filterItems()"> Casual
+      <br>
+      <input type="checkbox" id="filter-office" class="filter-checkbox" onchange="filterItems()"> Office
+      <br>
+      <input type="checkbox" id="filter-athletic" class="filter-checkbox" onchange="filterItems()"> Athletic
+      <br>
+      <input type="checkbox" id="filter-party" class="filter-checkbox" onchange="filterItems()"> Party
+      <br>
+      <input type="checkbox" id="filter-fancy" class="filter-checkbox" onchange="filterItems()"> Fancy
+      <br>
+      <input type="checkbox" id="filter-Hot" class="filter-checkbox" onchange="filterItems()"> Hot
+      <br>
+      <input type="checkbox" id="filter-rain" class="filter-checkbox" onchange="filterItems()"> Rain
+      <br>
+      <input type="checkbox" id="filter-Snow" class="filter-checkbox" onchange="filterItems()"> Sportswear
+    </div>
+    <input type="checkbox" id="filter-colors" class="filter-checkbox" onchange="toggleSubcategoryFilters('colors'); filterItems()"> Colors
+    <br>
+    <div id="subcategory-filters-colors"style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-red" class="filter-checkbox" onchange="filterItems()"> Red
+      <br>
+      <input type="checkbox" id="filter-orange" class="filter-checkbox" onchange="filterItems()"> Orange
+      <br>
+      <input type="checkbox" id="filter-yellow" class="filter-checkbox" onchange="filterItems()"> Yellow
+      <br>
+      <input type="checkbox" id="filter-green" class="filter-checkbox" onchange="filterItems()"> Green
+      <br>
+      <input type="checkbox" id="filter-blue" class="filter-checkbox" onchange="filterItems()"> Blue
+      <br>
+      <input type="checkbox" id="filter-indigo" class="filter-checkbox" onchange="filterItems()"> Indigo
+      <br>
+      <input type="checkbox" id="filter-black" class="filter-checkbox" onchange="filterItems()"> Black
+      <br>
+      <input type="checkbox" id="filter-white" class="filter-checkbox" onchange="filterItems()"> White
+      <br>
+      <input type="checkbox" id="filter-pink" class="filter-checkbox" onchange="filterItems()"> Pink
+      <br>
+      <input type="checkbox" id="filter-brown" class="filter-checkbox" onchange="filterItems()"> Brown
+      <br>
+    </div>
+        <input type="checkbox" id="filter-patterns" class="filter-checkbox" onchange="toggleSubcategoryFilters('patterns'); filterItems()"> Patterns
+    <br>
+    <div id="subcategory-filters-patterns"style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-solid" class="filter-checkbox" onchange="filterItems()"> solid
+      <br>
+      <input type="checkbox" id="filter-plaid" class="filter-checkbox" onchange="filterItems()"> plaid
+      <br>
+      <input type="checkbox" id="filter-striped" class="filter-checkbox" onchange="filterItems()"> striped
+      <br>
+      <input type="checkbox" id="filter-polkadot" class="filter-checkbox" onchange="filterItems()"> polka dot
+      <br>
+      <input type="checkbox" id="filter-graphic" class="filter-checkbox" onchange="filterItems()"> graphic
+      <br>
+      <input type="checkbox" id="filter-camo" class="filter-checkbox" onchange="filterItems()"> camo
+      <br>
+    </div>
+        <input type="checkbox" id="filter-warmths" class="filter-checkbox" onchange="toggleSubcategoryFilters('warnths'); filterItems()"> Warmths
+    <br>
+    <div id="subcategory-filters-warmths"style="display: none; margin-left: 20px;">
+      <input type="checkbox" id="filter-none" class="filter-checkbox" onchange="filterItems()"> none
+      <br>
+      <input type="checkbox" id="filter-light" class="filter-checkbox" onchange="filterItems()"> light
+      <br>
+      <input type="checkbox" id="filter-medium" class="filter-checkbox" onchange="filterItems()"> medium
+      <br>
+      <input type="checkbox" id="filter-heavy" class="filter-checkbox" onchange="filterItems()"> heavy
+      <br>
+    </div>
+    <br>
   </div>
-  <div style="flex-grow: 1;">
+  <button onclick="deleteItems()">Delete Selected Items</button>
+</div> <!-- Image Gallery Container -->
+<div style="flex-grow: 1;">
     <h1>Image Gallery</h1>
     <div style="overflow-y: auto; height: calc(100vh - 150px); border-right: 2px solid black;">
       <div>
@@ -28,8 +150,8 @@
   </div>
 </div>
 
-<style>
- .highlight {
+<style> 
+ .highlight { /* Highlights which Image has been selected */
   background-color: yellow;
   border: 2px solid red;
 }
@@ -46,148 +168,152 @@
 </style>
 
 <script>
-  // Simulating dynamically adding images from the user table
-  // Do not modify
-  var userTable = [
-    { image: "image1.jpg", attributes: ["headwear", "formal"] },
-    { image: "image2.jpg", attributes: ["shoes"] },
-    { image: "image3.jpg", attributes: ["shirts"] },
-    { image: "image4.jpg", attributes: ["bottomwear"] },
-    { image: "image5.jpg", attributes: ["accessories"] },
-    { image: "image6.jpg", attributes: ["headwear"] },
-    { image: "image7.jpg", attributes: ["shirts", "bottomwear"] },
-    { image: "image8.jpg", attributes: ["accessories", "formal"] },
-    { image: "image9.jpg", attributes: ["shirts", "accessories"] },
-    { image: "image10.jpg", attributes: ["bottomwear", "formal"] },
-    { image: "image11.jpg", attributes: ["headwear"] },
-    { image: "image12.jpg", attributes: ["shoes", "accessories"] },
-    { image: "image13.jpg", attributes: ["shirts"] },
-    { image: "image14.jpg", attributes: ["bottomwear"] },
-    { image: "image15.jpg", attributes: ["shoes", "formal"] },
-    { image: "image16.jpg", attributes: ["headwear", "accessories"] },
-    { image: "image17.jpg", attributes: ["shirts", "form"]},
-    { image: "image18.jpg", attributes: ["headwear", "formal"] },
-    { image: "image19.jpg", attributes: ["shoes"] },
-    { image: "image20.jpg", attributes: ["shirts"] },
-    { image: "image21.jpg", attributes: ["bottomwear"] },
-    { image: "image22.jpg", attributes: ["accessories"] },
-    { image: "image23.jpg", attributes: ["headwear"] },
-    { image: "image24.jpg", attributes: ["shirts", "bottomwear"] },
-    { image: "image25.jpg", attributes: ["accessories", "formal"] },
-    { image: "image1.jpg", attributes: ["headwear", "formal"] },
-    { image: "image2.jpg", attributes: ["shoes"] },
-    { image: "image3.jpg", attributes: ["shirts"] },
-    { image: "image4.jpg", attributes: ["bottomwear"] },
-    { image: "image5.jpg", attributes: ["accessories"] },
-    { image: "image6.jpg", attributes: ["headwear"] },
-    { image: "image7.jpg", attributes: ["shirts", "bottomwear"] },
-    { image: "image8.jpg", attributes: ["accessories", "formal"] },
-    { image: "image9.jpg", attributes: ["shirts", "accessories"] },
-    { image: "image10.jpg", attributes: ["bottomwear", "formal"] },
-    { image: "image11.jpg", attributes: ["headwear"] },
-    { image: "image12.jpg", attributes: ["shoes", "accessories"] },
-    { image: "image13.jpg", attributes: ["shirts"] },
-    { image: "image14.jpg", attributes: ["bottomwear"] },
-    { image: "image15.jpg", attributes: ["shoes", "formal"] },
-    { image: "image16.jpg", attributes: ["headwear", "accessories"] },
-    { image: "image17.jpg", attributes: ["shirts", "form"]},
-    { image: "image18.jpg", attributes: ["headwear", "formal"] },
-    { image: "image19.jpg", attributes: ["shoes"] },
-    { image: "image20.jpg", attributes: ["shirts"] },
-    { image: "image21.jpg", attributes: ["bottomwear"] },
-    { image: "image22.jpg", attributes: ["accessories"] },
-    { image: "image23.jpg", attributes: ["headwear"] },
-    { image: "image24.jpg", attributes: ["shirts", "bottomwear"] },
-    { image: "image25.jpg", attributes: ["accessories", "formal"] },
-    { image: "image1.jpg", attributes: ["headwear", "formal"] },
-    { image: "image2.jpg", attributes: ["shoes"] },
-    { image: "image3.jpg", attributes: ["shirts"] },
-    { image: "image4.jpg", attributes: ["bottomwear"] },
-    { image: "image5.jpg", attributes: ["accessories"] },
-    { image: "image6.jpg", attributes: ["headwear"] },
-    { image: "image7.jpg", attributes: ["shirts", "bottomwear"] },
-    { image: "image8.jpg", attributes: ["accessories", "formal"] },
-    { image: "image9.jpg", attributes: ["shirts", "accessories"] },
-    { image: "image10.jpg", attributes: ["bottomwear", "formal"] },
-    { image: "image11.jpg", attributes: ["headwear"] },
-    { image: "image12.jpg", attributes: ["shoes", "accessories"] },
-    { image: "image13.jpg", attributes: ["shirts"] },
-    { image: "image14.jpg", attributes: ["bottomwear"] },
-    { image: "image15.jpg", attributes: ["shoes", "formal"] },
-    { image: "image16.jpg", attributes: ["headwear", "accessories"] },
-    { image: "image17.jpg", attributes: ["shirts", "form"]},
-    { image: "image18.jpg", attributes: ["headwear", "formal"] },
-    { image: "image19.jpg", attributes: ["shoes"] },
-    { image: "image20.jpg", attributes: ["shirts"] },
-    { image: "image21.jpg", attributes: ["bottomwear"] },
-    { image: "image22.jpg", attributes: ["accessories"] },
-    { image: "image23.jpg", attributes: ["headwear"] },
-    { image: "image24.jpg", attributes: ["shirts", "bottomwear"] },
-    { image: "image25.jpg", attributes: ["accessories", "formal"] },
-  ];
-  
-  var itemList = document.getElementById("itemList");
+  // Function to fetch images from the user table in the database
+  async function fetchImagesFromDatabase() {
+    try {
+      // Make a request to the server to fetch the images from the user table
+      const response = await fetch('/api/getImages');
+      const data = await response.json();
 
-  userTable.forEach(function(itemData, index) {
-    var itemContainer = document.createElement("div");
-    itemContainer.className = "image-container";
-    itemContainer.style.order = index;
+      // Return the fetched image data
+      return data;
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      return [];
+    }
+  }
 
-    var item = document.createElement("img");
-    item.src = itemData.image;
-    item.alt = "Clothing Item " + (index + 1);
-    item.setAttribute("data-attributes", itemData.attributes.join(" "));
-    item.onclick = function() {
-      toggleHighlight(this);
-    };
+  // Function to dynamically add images from the user table
+  async function addImagesFromDatabase() {
+    // Fetch images from the database
+    const userTable = await fetchImagesFromDatabase();
 
-    itemContainer.appendChild(item);
-    itemList.appendChild(itemContainer);
-  });
+    // Get the item list container
+    var itemList = document.getElementById("itemList");
 
-  // Initial call to filterItems() to ensure initial state matches checkbox state
-  filterItems();
-</script>
+    // Clear existing items
+    itemList.innerHTML = '';
 
-<!--- JavaScript function calls --->
-<script>
+    // Iterate over the user table data and create image containers
+    userTable.forEach(function (itemData, index) {
+      var itemContainer = document.createElement("div");
+      itemContainer.className = "image-container";
+      itemContainer.style.order = index;
+
+      var item = document.createElement("img");
+      item.src = itemData.imgFile;
+      item.alt = "Clothing Item " + (index + 1);
+      item.setAttribute("data-attributes", itemData.tags.join(" "));
+      item.onclick = function () {
+        toggleHighlight(this);
+      };
+
+      itemContainer.appendChild(item);
+      itemList.appendChild(itemContainer);
+    });
+
+    // Call filterItems() after adding images to match checkbox state
+    filterItems();
+  }
+
+
+ // Initial call to addImagesFromDatabase()
+  addImagesFromDatabase();
+
   // Function to toggle highlighting on an image
   function toggleHighlight(item) {
     item.classList.toggle("highlight");
   }
 
   // Function to delete selected items
-function deleteItems() {
+async function deleteItems() {
   var selectedItems = document.querySelectorAll(".highlight");
-  selectedItems.forEach(function(item) {
-    // Remove the parent element (box or container) of the selected item
-    item.parentNode.remove();
+  selectedItems.forEach(async function (item) {
+    // Get the image file name from the selected item
+    var imageFileName = item.getAttribute("src");
+
+    try {
+      // Make a request to the server to delete the image from the database
+      const response = await fetch('/api/deleteImage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ imageFileName }) // Send the image file name to the server
+      });
+
+      if (response.ok) {
+        // Image successfully deleted from the database
+        console.log('Image deleted:', imageFileName);
+        // Remove the item from the DOM
+        item.remove();
+      } else {
+        // Handle the error case if image deletion fails
+        console.error('Failed to delete image:', imageFileName);
+      }
+    } catch (error) {
+      console.error('Error deleting image:', error);
+    }
   });
 }
 
   // Function to filter items based on selected attributes
   function filterItems() {
     var itemList = document.getElementById("itemList");
-    var checkboxes = document.getElementsByClassName("filter-checkbox");
-    var items = itemList.getElementsByTagName("div");
+    var checkboxes = document.getElementsByClassName("filtercheckbox");
 
-    var selectedFilters = Array.from(checkboxes).filter(function(checkbox) {
-      return checkbox.checked;
-    }).map(function(checkbox) {
-      return checkbox.id.replace("filter-", "");
-    });
+    // Get the selected attribute values
+    var selectedAttributes = Array.from(checkboxes)
+      .filter(function (checkbox) {
+        return checkbox.checked;
+      })
+      .map(function (checkbox) {
+        return checkbox.id.replace("filter-", "");
+      });
 
-    for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      var attributes = item.firstChild.getAttribute("data-attributes").split(" ");
+    // Get all the image containers
+    var imageContainers = itemList.getElementsByClassName("image-container");
 
-      if (selectedFilters.length === 0 || selectedFilters.some(function(filter) {
-          return attributes.includes(filter);
-        })) {
-        item.style.display = "flex";
+    // Iterate over the image containers and check if they match the selected attributes
+    Array.from(imageContainers).forEach(function (container) {
+      var item = container.getElementsByTagName("img")[0];
+      var attributes = item.getAttribute("data-attributes").split(" ");
+
+      // Check if the item's attributes match the selected attributes
+      if (selectedAttributes.every(function (attribute) {
+        return attributes.includes(attribute);
+      })) {
+        // Show the item
+        container.style.display = "block";
       } else {
-        item.style.display = "none";
+        // Hide the item
+        container.style.display = "none";
       }
+    });
+  }
+
+ // Function to toggle the subcategory filters
+function toggleSubcategoryFilters(category) {
+  var subcategoryFilters = document.getElementById("subcategory-filters-" + category);
+  var mainFilter = document.getElementById("filter-" + category);
+
+  if (mainFilter.checked) {
+    // Enable the subcategory filters
+    subcategoryFilters.style.display = "block";
+    
+    // Automatically check the subcategory filters
+    var subcategoryCheckboxes = subcategoryFilters.getElementsByTagName("input");
+    for (var i = 0; i < subcategoryCheckboxes.length; i++)
+    {
+      subcategoryCheckboxes[i].checked = true;
+    }
+  } else {
+    // Disable and uncheck the subcategory filters
+     subcategoryFilters.style.display = "none";
+    var subcategoryCheckboxes = subcategoryFilters.getElementsByTagName("input");
+    for (var i = 0; i < subcategoryCheckboxes.length; i++) {
+      subcategoryCheckboxes[i].checked = false;
     }
   }
+}
 </script>
