@@ -4,13 +4,14 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS pieces (
-	id SERIAL PRIMARY KEY NOT NULL,
-	categoryId INTEGER NOT NULL REFERENCES categories,
-	subcategoryId INTEGER NOT NULL REFERENCES subcategories,
-	styleId INTEGER NOT NULL REFERENCES styles,
-	colorId INTEGER NOT NULL REFERENCES colors,
-	patternId INTEGER NOT NULL REFERENCES patterns,
-	imgFile VARBINARY(MAX) NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
+    username VARCHAR(255) REFERENCES users(username),
+    categoryId INTEGER NOT NULL REFERENCES categories(id),
+    subcategoryId INTEGER NOT NULL REFERENCES subcategories(id),
+    styleId INTEGER NOT NULL REFERENCES styles(id),
+    colorId INTEGER NOT NULL REFERENCES colors(id),
+    patternId INTEGER NOT NULL REFERENCES patterns(id),
+    imgFile VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS categories (
