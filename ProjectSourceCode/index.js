@@ -171,30 +171,61 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// Updating the pieces db when the add form is used
 app.post('/savedpieces', async (req, res) => {
     try {
-        // Need to fix parsing the req stuff based on what was selected (req length varies....)
-        const {
-            imgFile,
-            name,
-            category,
-            subcategory,
-            style,
-            // CLARIFY WARMTH FUNCTIONALITY?? (and add here)
-            // Clarify how we want the tags (color, pattern) inputted
-            color,
-            pattern
-        } = req.body;
+        // Assigning all input
+        const imgFile = req.body.image;
+        const catinput = req.body.category;
+        const subcatinput = req.body.subcategory;
+        const styleinput = req.body.style; 
+        const colorinput = req.body.color; 
+        const patterninput = req.body.pattern;
 
-        await db.none('INSERT INTO pieces (categoryId, subcategoryId, styleId, warmthId, colorId, patternId, tags, imgFile, name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-            [category, subcategory, style, 0, color, pattern, imgFile, name]);
+        // Getting Ids
+        let catId;
+        let subcatId;
+        let styleId;
+        let colorId;
+        let patternId;
 
+        try {
+            catId = await db.one('SELECT id FROM categories WHERE category = $1', [catinput]);
+        } catch (err) {
+            catId = await db.one('INSERT INTO categories (category) VALUES ($1) RETURNING id', [catinput]);
+        }
+
+        try {
+            subcatId = await db.one('SELECT id FROM subcategories WHERE category = $1', [subcatinput]);
+        } catch (err) {
+            subcatId = await db.one('INSERT INTO subcategories (subcategory) VALUES ($1) RETURNING id', [subcatinput]);
+        }
+        
+        try {
+            styleId = await db.one('SELECT id FROM styles WHERE style = $1', [styleinput]);
+        } catch (err) {
+            styleId = await db.one('INSERT INTO styles (style) VALUES ($1) RETURNING id', [sytleinput]);
+        }
+
+        try {
+            colorId = await db.one('SELECT id FROM colors WHERE color = $1', [colorinput]);
+        } catch (err) {
+            colorId = await db.one('INSERT INTO colors (color) VALUES ($1) RETURNING id', [colorinput]);
+        }
+
+        try {
+            patternId = await db.one('SELECT id FROM patterns WHERE pattern = $1', [patterninput]);
+        } catch (err) {
+            patternId = await db.one('INSERT INTO patterns (pattern) VALUES ($1) RETURNING id', [patterninput]);
+        }
+
+        const pieceId = await db.one(`INSERT INTO pieces (categoryId, subcategoryId, styleId, colorId, patternId, imgFile) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`, 
+                                    [catId, subcatId, styleId, colorId, patternId, imgFile]);
         res.redirect('/savedpieces');
+        
     } catch (err) {
         console.log(err);
-        res.status(500).send('Adding piece unsuccessful');
-        res.redirect('/savedpieces');
+        res.status(500).send('Adding piece unsuccessful.');
+
     }
 });
 

@@ -37,12 +37,6 @@ INSERT INTO styles VALUES
 	('rain'),
 	('snow');
 
-INSERT INTO warmths VALUES
-	('none'),
-	('light'),
-	('medium'),
-	('heavy');
-
 INSERT INTO colors VALUES
 	('red'),
 	('orange'),

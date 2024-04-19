@@ -5,20 +5,12 @@
 	<div class="collapse p-5" id="addPieceDrawer">
 		<!-- Add Piece Form -->
 		<form action="/savedpieces" method="POST" class="row">
-			<div class="row pb-3">
-				<div class="col">
-					<label class="h3">Add piece:</label>
-				</div>
-				<div class="col-10">
-					<input class="form-control mx-0" placeholder="Piece Name" type="text" id="pieceName">
-				</div>
-			</div>
 			<div class="col px-1">
 				<!-- Photo Upload -->
 				<div class="form-group pt-3">
 					<label class="form-input pb-2" for="newPiecePhoto">Upload Photo:</label><br>
 					<input class="form-control-file" type="file" id="newPiecePhoto" accept="image/*" required>
-					<img class="pt-3" src="https://http.cat/404" style="max-width: 100%">
+					<img class="pt-3" src="https://http.cat/404" id="uploadedPhoto" style="max-width: 100%">
 				</div>
 			</div>
 
@@ -139,82 +131,83 @@
 					<div class="form-group pt-3">
 						<label class="pb-2">Style:</label>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="casual">
+							<input class="form-check-input" type="radio" id="casual" name="style">
 							<label class="form-check-label" for="casual">Casual</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="formal">
+							<input class="form-check-input" type="radio" id="formal" name="style">
 							<label class="form-check-label" for="formal">Formal</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="athletic">
+							<input class="form-check-input" type="radio" id="athletic" name="style">
 							<label class="form-check-label" for="athletic">Athletic</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="party">
+							<input class="form-check-input" type="radio" id="party" name="style">
 							<label class="form-check-label" for="party">Party</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="warm">
+							<input class="form-check-input" type="radio" id="warm" name="style">
 							<label class="form-check-label" for="warm">Warm</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="rain">
+							<input class="form-check-input" type="radio" id="rain" name="style">
 							<label class="form-check-label" for="rain">Rain</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="snow">
+							<input class="form-check-input" type="radio" id="snow" name="style">
 							<label class="form-check-label" for="snow">Snow</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="fancy">
+							<input class="form-check-input" type="radio" id="fancy" name="style">
 							<label class="form-check-label" for="fancy">Fancy</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="office">
+							<input class="form-check-input" type="radio" id="office" name="style">
 							<label class="form-check-label" for="office">Office</label>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="col-3 px-1">
 				<div>
 					<div class="form-group pt-3">
 						<label class="pb-2">Color:</label>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="red">
+							<input class="form-check-input" type="radio" id="red" name="color">
 							<label class="form-check-label" for="red">Red</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="orange">
+							<input class="form-check-input" type="radio" id="orange" name="color">
 							<label class="form-check-label" for="orange">Orange</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="yellow">
+							<input class="form-check-input" type="radio" id="yellow" name="color">
 							<label class="form-check-label" for="yellow">Yellow</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="green">
+							<input class="form-check-input" type="radio" id="green" name="color">
 							<label class="form-check-label" for="green">Green</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="blue">
+							<input class="form-check-input" type="radio" id="blue" name="color">
 							<label class="form-check-label" for="blue">Blue</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="purple">
+							<input class="form-check-input" type="radio" id="purple" name="color">
 							<label class="form-check-label" for="purple">Purple</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="black">
+							<input class="form-check-input" type="radio" id="black" name="color">
 							<label class="form-check-label" for="black">Black</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="white">
+							<input class="form-check-input" type="radio" id="white" name="color">
 							<label class="form-check-label" for="white">White</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="gray">
+							<input class="form-check-input" type="radio" id="gray" name="color">
 							<label class="form-check-label" for="gray">Gray</label>
 						</div>
 					</div>
@@ -222,19 +215,19 @@
 					<div class="form-group pt-3">
 						<label class="pb-2">Pattern:</label>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="plaid">
+							<input class="form-check-input" type="radio" id="plaid" name="pattern">
 							<label class="form-check-label" for="plaid">Plaid</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="polka">
+							<input class="form-check-input" type="radio" id="polka" name="pattern">
 							<label class="form-check-label" for="polka">Polka-Dotted</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="camo">
+							<input class="form-check-input" type="radio" id="camo" name="pattern">
 							<label class="form-check-label" for="camo">Camo</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="graphic">
+							<input class="form-check-input" type="radio" id="graphic" name="pattern">
 							<label class="form-check-label" for="graphic">Graphic</label>
 						</div>
 					</div>
@@ -245,9 +238,8 @@
 			<input class="btn btn-secondary mt-1" type="reset" value="Cancel" id="cancelAdd" data-toggle="collapse" data-target="#addPieceDrawer" aria-expanded="false" aria-controls="addPieceDrawer">
 		</form>
 	</div>
-    <!-- TODO: use a foreach handlebar to populate with the images of clothes that are uploaded
-        in their correct catergories, from database table.
-    https://www.geeksforgeeks.org/how-to-add-image-into-dropdown-list-for-each-items/ -->
+    
+    <!-- Dropdowns -->
     <div class="container" style="display: inline-block">
         <!-- Top Dropdown -->
         <div class="container" id="topDrop">
@@ -404,4 +396,16 @@
             content.style.display = "none";
         }
     }
+
+    /*
+        Previews the image when it is uploaded before the add form is submitted
+        https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
+    */
+    newPiecePhoto.onchange = evt => {
+    const [file] = newPiecePhoto.files
+        if (file) {
+            uploadedPhoto.src = URL.createObjectURL(file)
+        }
+    }
+    
 </script>
