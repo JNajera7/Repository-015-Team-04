@@ -50,4 +50,17 @@ body:has(.loginreg) {
 	box-shadow: none;
 	outline: none;
 	margin-left: 500px;
-  }
+}
+
+#addPieceDrawer {
+	background-color: lightgray;
+}
+
+#addPieceDrawer .col-3 {
+	text-align:justify;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:start;
+	min-width:fit-content;
+}
