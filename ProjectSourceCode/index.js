@@ -223,9 +223,8 @@ app.post('/addNewPiece', async (req, res) => {
         res.redirect('/savedpieces');
 
     } catch (err) {
-        console.log(err);
-        res.status(500).send('Adding piece unsuccessful.');
-
+        req.session.errorMessage = "Unexpected error occurred";
+        res.redirect('/savedpieces');
     }
 });
 
