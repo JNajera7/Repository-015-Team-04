@@ -171,14 +171,14 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.post('/savedpieces', async (req, res) => {
+app.post('/addNewPiece', async (req, res) => {
     try {
         // Assigning all input
         const imgFile = req.body.image;
         const catinput = req.body.category;
         const subcatinput = req.body.subcategory;
-        const styleinput = req.body.style; 
-        const colorinput = req.body.color; 
+        const styleinput = req.body.style;
+        const colorinput = req.body.color;
         const patterninput = req.body.pattern;
 
         // Getting Ids
@@ -199,7 +199,7 @@ app.post('/savedpieces', async (req, res) => {
         } catch (err) {
             subcatId = await db.one('INSERT INTO subcategories (subcategory) VALUES ($1) RETURNING id', [subcatinput]);
         }
-        
+
         try {
             styleId = await db.one('SELECT id FROM styles WHERE style = $1', [styleinput]);
         } catch (err) {
@@ -218,10 +218,10 @@ app.post('/savedpieces', async (req, res) => {
             patternId = await db.one('INSERT INTO patterns (pattern) VALUES ($1) RETURNING id', [patterninput]);
         }
 
-        const pieceId = await db.one(`INSERT INTO pieces (categoryId, subcategoryId, styleId, colorId, patternId, imgFile) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`, 
-                                    [catId, subcatId, styleId, colorId, patternId, imgFile]);
+        const pieceId = await db.one(`INSERT INTO pieces (categoryId, subcategoryId, styleId, colorId, patternId, imgFile) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
+            [catId, subcatId, styleId, colorId, patternId, imgFile]);
         res.redirect('/savedpieces');
-        
+
     } catch (err) {
         console.log(err);
         res.status(500).send('Adding piece unsuccessful.');

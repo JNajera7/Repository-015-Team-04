@@ -1,10 +1,13 @@
 <div class="container p-5">
-    <!-- Navbar + Page Title -->
-    <h1 class="d-inline-block">Saved Pieces</h1>
-	<button class="float-end btn btn-primary p-2 m-0" type="button" data-toggle="collapse" data-target="#addPieceDrawer" aria-expanded="false" aria-controls="addPieceDrawer"><h5 class="p-0 m-0">Add Piece</h5></button>
+	<!-- Navbar + Page Title -->
+	<h1 class="d-inline-block">Your Closet</h1>
+	<button class="float-end btn btn-primary p-2 m-0" type="button" data-toggle="collapse" data-target="#addPieceDrawer"
+		aria-expanded="false" aria-controls="addPieceDrawer">
+		<h5 class="p-0 m-0">Add a new piece</h5>
+	</button>
 	<div class="collapse p-5" id="addPieceDrawer">
 		<!-- Add Piece Form -->
-		<form action="/savedpieces" method="POST" class="row">
+		<form action="/addNewPiece" method="POST" class="row">
 			<div class="col px-1">
 				<!-- Photo Upload -->
 				<div class="form-group pt-3">
@@ -17,111 +20,141 @@
 			<div class="col-3 px-1">
 				<div>
 					<div class="form-group pt-3" id="categories">
-						<label class="pb-2">Piece Catergory:</label>
+						<label class="pb-2">Piece Category:</label>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" id="topRadioButton" name="category" value="top" data-toggle="collapse" data-target="#topSubcat" aria-expanded="false" aria-controls="topSubcat" required>
+							<input class="form-check-input" type="radio" id="topRadioButton" name="category" value="top"
+								data-toggle="collapse" data-target="#topSubcat" aria-expanded="false"
+								aria-controls="topSubcat" required>
 							<label class="form-check-label" for="topRadioButton">Top</label>
 							<div class="collapse" id="topSubcat" data-parent="#categories">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="shortSleeveSelect" name="subcategory" value="shortSleeve" required>
+									<input class="form-check-input" type="radio" id="shortSleeveSelect"
+										name="subcategory" value="shortSleeve" required>
 									<label class="form-check-label" for="shortSleeveSelect">Short Sleeve</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="longSleeveSelect" name="subcategory" value="longSleeve">
+									<input class="form-check-input" type="radio" id="longSleeveSelect"
+										name="subcategory" value="longSleeve">
 									<label class="form-check-label" for="shortSleeveSelect">Long Sleeve</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="sweaterSelect" name="subcategory" value="sweater">
+									<input class="form-check-input" type="radio" id="sweaterSelect" name="subcategory"
+										value="sweater">
 									<label class="form-check-label" for="sweaterSelect">Sweater</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" id="bottomRadioButton" name="category" value="bottom" data-toggle="collapse" data-target="#bottomSubcat" aria-expanded="false" aria-controls="bottomSubcat">
+							<input class="form-check-input" type="radio" id="bottomRadioButton" name="category"
+								value="bottom" data-toggle="collapse" data-target="#bottomSubcat" aria-expanded="false"
+								aria-controls="bottomSubcat">
 							<label class="form-check-label" for="bottomRadioButton">Bottom</label>
 							<div class="collapse" id="bottomSubcat" data-parent="#categories">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="shortsSelect" name="subcategory" value="shorts" required>
+									<input class="form-check-input" type="radio" id="shortsSelect" name="subcategory"
+										value="shorts" required>
 									<label class="form-check-label" for="shortsSelect">Shorts</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="pantsSelect" name="subcategory" value="pants">
+									<input class="form-check-input" type="radio" id="pantsSelect" name="subcategory"
+										value="pants">
 									<label class="form-check-label" for="pantsSelect">Pants</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="skirtSelect" name="subcategory" value="skirt">
+									<input class="form-check-input" type="radio" id="skirtSelect" name="subcategory"
+										value="skirt">
 									<label class="form-check-label" for="skirtSelect">Skirt</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" id="fullbodyRadioButton" name="category" value="fullbody" data-toggle="collapse" data-target="#fullbodySubcat" aria-expanded="false" aria-controls="fullbodySubcat">
+							<input class="form-check-input" type="radio" id="fullbodyRadioButton" name="category"
+								value="fullbody" data-toggle="collapse" data-target="#fullbodySubcat"
+								aria-expanded="false" aria-controls="fullbodySubcat">
 							<label class="form-check-label" for="fullbodyRadioButton">Full-Body</label>
 							<div class="collapse" id="fullbodySubcat" data-parent="#categories">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="onepieceSelect" name="subcategory" value="onepiece" required>
+									<input class="form-check-input" type="radio" id="onepieceSelect" name="subcategory"
+										value="onepiece" required>
 									<label class="form-check-label" for="onepieceSelect">One-Piece</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="dressSelect" name="subcategory" value="dress">
+									<input class="form-check-input" type="radio" id="dressSelect" name="subcategory"
+										value="dress">
 									<label class="form-check-label" for="dressSelect">Dress</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" id="footwearRadioButton" name="category" value="footwear" data-toggle="collapse" data-target="#footwearSubcat" aria-expanded="false" aria-controls="footwearSubcat">
+							<input class="form-check-input" type="radio" id="footwearRadioButton" name="category"
+								value="footwear" data-toggle="collapse" data-target="#footwearSubcat"
+								aria-expanded="false" aria-controls="footwearSubcat">
 							<label class="form-check-label" for="footwearRadioButton">Footwear</label>
 							<div class="collapse" id="footwearSubcat" data-parent="#categories">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="sneakersSelect" name="subcategory" value="sneakers" required>
+									<input class="form-check-input" type="radio" id="sneakersSelect" name="subcategory"
+										value="sneakers" required>
 									<label class="form-check-label" for="sneakersSelect">Sneakers</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="bootsSelect" name="subcategory" value="boots">
+									<input class="form-check-input" type="radio" id="bootsSelect" name="subcategory"
+										value="boots">
 									<label class="form-check-label" for="bootsSelect">Boots</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="heelsSelect" name="subcategory" value="heels">
+									<input class="form-check-input" type="radio" id="heelsSelect" name="subcategory"
+										value="heels">
 									<label class="form-check-label" for="heelsSelect">Heels</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" id="accessoryRadioButton" name="category" value="accessory" data-toggle="collapse" data-target="#accessorySubcat" aria-expanded="false" aria-controls="accessorySubcat">
+							<input class="form-check-input" type="radio" id="accessoryRadioButton" name="category"
+								value="accessory" data-toggle="collapse" data-target="#accessorySubcat"
+								aria-expanded="false" aria-controls="accessorySubcat">
 							<label class="form-check-label" for="accessoryRadioButton">Accessory</label>
 							<div class="collapse" id="accessorySubcat" data-parent="#categories">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="jewelrySelect" name="subcategory" value="jewelry" required>
+									<input class="form-check-input" type="radio" id="jewelrySelect" name="subcategory"
+										value="jewelry" required>
 									<label class="form-check-label" for="jewelrySelect">Jewelry</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="headwearSelect" name="subcategory" value="headwear">
+									<input class="form-check-input" type="radio" id="headwearSelect" name="subcategory"
+										value="headwear">
 									<label class="form-check-label" for="headwearSelect">Headwear</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="socksSelect" name="subcategory" value="socks">
+									<input class="form-check-input" type="radio" id="socksSelect" name="subcategory"
+										value="socks">
 									<label class="form-check-label" for="socksSelect">Socks</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="eyewearSelect" name="subcategory" value="eyewear">
+									<input class="form-check-input" type="radio" id="eyewearSelect" name="subcategory"
+										value="eyewear">
 									<label class="form-check-label" for="eyewearSelect">Eyewear</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" id="outerwearRadioButton" name="category" value="outerwear" data-toggle="collapse" data-target="#outerwearSubcat" aria-expanded="false" aria-controls="outerwearSubcat">
+							<input class="form-check-input" type="radio" id="outerwearRadioButton" name="category"
+								value="outerwear" data-toggle="collapse" data-target="#outerwearSubcat"
+								aria-expanded="false" aria-controls="outerwearSubcat">
 							<label class="form-check-label" for="outerwearRadioButton">Outerwear</label>
 							<div class="collapse" id="outerwearSubcat" data-parent="#categories">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="coatSelect" name="subcategory" value="coat" required>
+									<input class="form-check-input" type="radio" id="coatSelect" name="subcategory"
+										value="coat" required>
 									<label class="form-check-label" for="coatSelect">Coat</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="jacketSelect" name="subcategory" value="jacket">
+									<input class="form-check-input" type="radio" id="jacketSelect" name="subcategory"
+										value="jacket">
 									<label class="form-check-label" for="jacketSelect">Jacket</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" id="vestSelect" name="subcategory" value="vest">
+									<input class="form-check-input" type="radio" id="vestSelect" name="subcategory"
+										value="vest">
 									<label class="form-check-label" for="vestSelect">Vest</label>
 								</div>
 							</div>
@@ -235,177 +268,177 @@
 			</div>
 
 			<input class="btn btn-primary mt-4" type="submit" value="Add" id="submitAdd">
-			<input class="btn btn-secondary mt-1" type="reset" value="Cancel" id="cancelAdd" data-toggle="collapse" data-target="#addPieceDrawer" aria-expanded="false" aria-controls="addPieceDrawer">
+			<input class="btn btn-secondary mt-1" type="reset" value="Cancel" id="cancelAdd" data-toggle="collapse"
+				data-target="#addPieceDrawer" aria-expanded="false" aria-controls="addPieceDrawer">
 		</form>
 	</div>
-    
-    <!-- Dropdowns -->
-    <div class="container" style="display: inline-block">
-        <!-- Top Dropdown -->
-        <div class="container" id="topDrop">
-            <button class="button" id="topDropButton" onclick="toggleDropContents('topDropContent')"> Tops </button>
-            <br>
-            <div class="dropdown-content" id="topDropContent" style="display:none">
-                <!-- Loop through each piece in the tops category -->
-                {{#each top}}
-                    <div class="card">
-                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div> <br>
 
-        <!-- Bottoms Dropdown -->
-        <div class="container" id="bottomDrop">
-            <button class="button" id="bottomDropButton" onclick="toggleDropContents('bottomDropContent')"> Bottoms </button>
-            <br>
-            <div class="dropdown-content" id="bottomDropContent" style="display:none">  
-                <!-- Loop through each piece in the bottoms category -->
-                {{#each bottoms}}
-                    <div class="card">
-                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div> <br>
+	<!-- Dropdowns -->
+	<div class="container" style="display: inline-block">
+		<!-- Top Dropdown -->
+		<div class="container" id="topDrop">
+			<button class="button" id="topDropButton" onclick="toggleDropContents('topDropContent')"> Tops </button>
+			<br>
+			<div class="dropdown-content" id="topDropContent" style="display:none">
+				<!-- Loop through each piece in the tops category -->
+				{{#each top}}
+				<div class="card">
+					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">{{name}}</h5>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div> <br>
 
-        <!-- Full-Body Pieces Dropdown -->
-        <div class="button" id="fullbodyDrop">
-            <button class="dropdown" id="fullbodyDropButton" onclick="toggleDropContents('fullbodyDropContent')"> Full-Body </button>
-            <br>
-            <div class="dropdown-content" id="fullbodyDropContent" style="display:none"> 
-                <!-- Loop through each piece in the fullbody category -->
-                {{#each fullbody}}
-                    <div class="card">
-                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div> <br>
+		<!-- Bottoms Dropdown -->
+		<div class="container" id="bottomDrop">
+			<button class="button" id="bottomDropButton" onclick="toggleDropContents('bottomDropContent')"> Bottoms
+			</button>
+			<br>
+			<div class="dropdown-content" id="bottomDropContent" style="display:none">
+				<!-- Loop through each piece in the bottoms category -->
+				{{#each bottoms}}
+				<div class="card">
+					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">{{name}}</h5>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div> <br>
 
-        <!-- Footwear Dropdown -->
-        <div class="container" id="shoesDrop">
-            <button class="dropdown" id="footwearDropButton" onclick="toggleDropContents('footwearDropContent')"> Footwear </button>
-            <br>
-            <div class="dropdown-content" id="footwearDropContent" style="display:none">  
-                <!-- Loop through each piece in the footwear category -->
-                {{#each footwear}}
-                    <div class="card">
-                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div> <br>
-        
+		<!-- Full-Body Pieces Dropdown -->
+		<div class="button" id="fullbodyDrop">
+			<button class="dropdown" id="fullbodyDropButton" onclick="toggleDropContents('fullbodyDropContent')">
+				Full-Body </button>
+			<br>
+			<div class="dropdown-content" id="fullbodyDropContent" style="display:none">
+				<!-- Loop through each piece in the fullbody category -->
+				{{#each fullbody}}
+				<div class="card">
+					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">{{name}}</h5>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div> <br>
 
-        <!-- Accessories Dropdown -->
-        <div class="button" id="accessoryDrop">
-            <button class="dropbtn" id="accessoryDropButton" onclick="toggleDropContents('accessoryDropContent')"> Accessories </button>
-            <br>
-            <div class="dropdown-content" id="accessoryDropContent" style="display:none">
-                <!-- Loop through each piece in the tops category -->
-                {{#each accessory}}
-                    <div class="card">
-                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div>
+		<!-- Footwear Dropdown -->
+		<div class="container" id="shoesDrop">
+			<button class="dropdown" id="footwearDropButton" onclick="toggleDropContents('footwearDropContent')">
+				Footwear </button>
+			<br>
+			<div class="dropdown-content" id="footwearDropContent" style="display:none">
+				<!-- Loop through each piece in the footwear category -->
+				{{#each footwear}}
+				<div class="card">
+					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">{{name}}</h5>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div> <br>
 
-        <!-- Outerwear Dropdown -->
-        <div class="button" id="outerwearDrop">
-            <button class="dropbtn" id="outerwearDropButton" onclick="toggleDropContents('outerwearDropContent')"> Outerwear </button>
-            <br>
-            <div class="dropdown-content" id="outerwearDropContent" style="display:none">
-                <!-- Loop through each piece in the tops category -->
-                {{#each outerwear}}
-                    <div class="card">
-                        <img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div>
 
-        <br><br>
-    </div>
-    <!-- Adding and Removing Piece Form Buttons -->
-    <footer>
-        <button class="button" id="addPiece" onclick="toggleVisibility('addPieceForm')"> Add Piece </button>
-        <button class="button" id="removePiece" action="/delete" method="GET"> Remove Piece </button>
-    </footer>
+		<!-- Accessories Dropdown -->
+		<div class="button" id="accessoryDrop">
+			<button class="dropbtn" id="accessoryDropButton" onclick="toggleDropContents('accessoryDropContent')">
+				Accessories </button>
+			<br>
+			<div class="dropdown-content" id="accessoryDropContent" style="display:none">
+				<!-- Loop through each piece in the tops category -->
+				{{#each accessory}}
+				<div class="card">
+					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">{{name}}</h5>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+
+		<!-- Outerwear Dropdown -->
+		<div class="button" id="outerwearDrop">
+			<button class="dropbtn" id="outerwearDropButton" onclick="toggleDropContents('outerwearDropContent')">
+				Outerwear </button>
+			<br>
+			<div class="dropdown-content" id="outerwearDropContent" style="display:none">
+				<!-- Loop through each piece in the tops category -->
+				{{#each outerwear}}
+				<div class="card">
+					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title">{{name}}</h5>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+
+		<br><br>
+	</div>
 </div>
 
 <!-- Implementing JS function calls -->
 <script>
-    /*
-        Toggling visibility of add/remove piece forms for savedpieces.hbs
-            formId: string -- id of the form that will have its visibility toggled
-    */
-    function toggleVisibility(formId) {
+	/*
+		Toggling visibility of add/remove piece forms for savedpieces.hbs
+			formId: string -- id of the form that will have its visibility toggled
+	*/
+	function toggleVisibility(formId) {
 
-        var form = document.getElementById(formId);
-        var overlay = document.getElementById("overlay");
-        var formName = document.getElementById("formName");
-        var addButton = document.getElementById("addPiece");
-        var removeButton = document.getElementById("removePiece");
+		var form = document.getElementById(formId);
+		var overlay = document.getElementById("overlay");
+		var formName = document.getElementById("formName");
+		var addButton = document.getElementById("addPiece");
+		var removeButton = document.getElementById("removePiece");
 
-        if(form.style.display === "none") {
-            form.style.display = "block";
-            overlay.style.display = "block";
-            addButton.style.display = "none";
-            removeButton.style.display = "none";
-            // Makes form name legible
-            var displayname = formId.replace(/([a-z])([A-Z])/g, '$1 $2');
-            formName.innerHTML=displayname.substring(0,1).toUpperCase()+displayname.slice(1);
-        } else {
-            form.style.display = "none";
-            overlay.style.display = "none";
-            addButton.style.display = "inline-block";
-            removeButton.style.display = "inline-block";
-            formName.innerHTML=""; // Clear form name when hiding form
-        }
-    }
+		if (form.style.display === "none") {
+			form.style.display = "block";
+			overlay.style.display = "block";
+			addButton.style.display = "none";
+			removeButton.style.display = "none";
+			// Makes form name legible
+			var displayname = formId.replace(/([a-z])([A-Z])/g, '$1 $2');
+			formName.innerHTML = displayname.substring(0, 1).toUpperCase() + displayname.slice(1);
+		} else {
+			form.style.display = "none";
+			overlay.style.display = "none";
+			addButton.style.display = "inline-block";
+			removeButton.style.display = "inline-block";
+			formName.innerHTML = ""; // Clear form name when hiding form
+		}
+	}
 
-    /*
-        Toggles the dropdown of a fits catergory button and displays its contents
-            contentId: string -- id of the content that will have its visibility toggled underneath the button
-    */
-    function toggleDropContents(contentId) {
-        const content = document.getElementById(contentId);
-        if(content.style.display === "none") {
-            content.style.display = "flex-wrap";
-        } else {
-            content.style.display = "none";
-        }
-    }
+	/*
+		Toggles the dropdown of a fits category button and displays its contents
+			contentId: string -- id of the content that will have its visibility toggled underneath the button
+	*/
+	function toggleDropContents(contentId) {
+		const content = document.getElementById(contentId);
+		if (content.style.display === "none") {
+			content.style.display = "flex-wrap";
+		} else {
+			content.style.display = "none";
+		}
+	}
 
-    /*
-        Previews the image when it is uploaded before the add form is submitted
-        https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
-    */
-    newPiecePhoto.onchange = evt => {
-    const [file] = newPiecePhoto.files
-        if (file) {
-            uploadedPhoto.src = URL.createObjectURL(file)
-        }
-    }
-    
+	/*
+		Previews the image when it is uploaded before the add form is submitted
+		https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
+	*/
+	newPiecePhoto.onchange = evt => {
+		const [file] = newPiecePhoto.files
+		if (file) {
+			uploadedPhoto.src = URL.createObjectURL(file)
+		}
+	}
 </script>
