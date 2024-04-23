@@ -1,4 +1,4 @@
-INSERT INTO categories VALUES
+INSERT INTO categories (category) VALUES
 	('top'),
 	('bottom'),
 	('full_body'),
@@ -6,7 +6,7 @@ INSERT INTO categories VALUES
 	('accessory'),
 	('outerwear');
 
-INSERT INTO subcategories VALUES
+INSERT INTO subcategories (subcategory) VALUES
 	('short_sleeve'),
 	('long_sleeve'),
 	('sweater'),
@@ -26,7 +26,7 @@ INSERT INTO subcategories VALUES
 	('vest'),
 	('jacket');
 
-INSERT INTO styles VALUES
+INSERT INTO styles (style) VALUES
 	('formal'),
 	('casual'),
 	('office'),
@@ -37,7 +37,7 @@ INSERT INTO styles VALUES
 	('rain'),
 	('snow');
 
-INSERT INTO colors VALUES
+INSERT INTO colors (color) VALUES
 	('red'),
 	('orange'),
 	('yellow'),
@@ -48,7 +48,7 @@ INSERT INTO colors VALUES
 	('black'),
 	('white');
 
-INSERT INTO patterns VALUES
+INSERT INTO patterns (pattern) VALUES
 	('solid'),
 	('plaid'),
 	('striped'),

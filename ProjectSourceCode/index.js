@@ -195,7 +195,7 @@ app.post('/addNewPiece', async (req, res) => {
         }
 
         try {
-            subcatId = await db.one('SELECT id FROM subcategories WHERE category = $1', [subcatinput]);
+            subcatId = await db.one('SELECT id FROM subcategories WHERE subcategory = $1', [subcatinput]);
         } catch (err) {
             subcatId = await db.one('INSERT INTO subcategories (subcategory) VALUES ($1) RETURNING id', [subcatinput]);
         }

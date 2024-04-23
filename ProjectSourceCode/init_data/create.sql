@@ -1,17 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
 	username VARCHAR(50) PRIMARY KEY NOT NULL,
-	password VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS pieces (
-    id SERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(255) REFERENCES users(username),
-    categoryId INTEGER NOT NULL REFERENCES categories(id),
-    subcategoryId INTEGER NOT NULL REFERENCES subcategories(id),
-    styleId INTEGER NOT NULL REFERENCES styles(id),
-    colorId INTEGER NOT NULL REFERENCES colors(id),
-    patternId INTEGER NOT NULL REFERENCES patterns(id),
-    imgFile VARCHAR(255) NOT NULL
+	password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS categories (
@@ -37,4 +26,15 @@ CREATE TABLE IF NOT EXISTS colors (
 CREATE TABLE IF NOT EXISTS patterns (
 	id SERIAL PRIMARY KEY NOT NULL,
 	pattern TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS pieces (
+    id SERIAL PRIMARY KEY NOT NULL,
+    username VARCHAR(255) REFERENCES users(username),
+    categoryId INTEGER NOT NULL REFERENCES categories(id),
+    subcategoryId INTEGER NOT NULL REFERENCES subcategories(id),
+    styleId INTEGER NOT NULL REFERENCES styles(id),
+    colorId INTEGER NOT NULL REFERENCES colors(id),
+    patternId INTEGER NOT NULL REFERENCES patterns(id),
+    imgFile VARCHAR(255) NOT NULL
 );
