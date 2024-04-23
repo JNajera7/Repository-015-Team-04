@@ -1,0 +1,17 @@
+Minutes of Meeting - 04_19
+
+Jesus worked on fixing the delete api call so the user can now delete all of their data. He also redesigned the login and register pages
+He just started working with the api calls to save the users clothing into the database and outing them into categories
+He also did not assign himself to his ticket but team manager said that we should
+
+Darwin finished delete html as well as made the data base for deleting individual pieces
+He is going to work on finishing the randomize html, just has to work on the randomize whole outfit
+
+Parker continued working on the saving outfits page. He added funtionability for the user to bw able to create their own catagory, as well as changed the layout and formatting of the page to have a better visual apperance
+
+Elsa continued working on the add piece functionality. She was able to add individual catagories and subcatagories to each add section. She also added a preview of the image you are uploading so the user can insure they are uploading the right images. SHe also redorded the minutes of last weeks meeting
+
+We were told to tell kevin to send his updated work for this week so Mohit can confirm he has done work
+
+Mohit said to make sure everyone is performing on commits and project board.
+He stressed to record every bit on work we do, just for grading purposes so they can see individual work. If it took an hour or longer to implement, create it in the project board and mark down that you have completed it
