@@ -4,10 +4,11 @@
 
 
 const express = require('express'); // To build an application server or API
+const path = require('path');
+const fileUpload = require('express-fileupload');
 const app = express();
 const handlebars = require('express-handlebars');
 const Handlebars = require('handlebars');
-const path = require('path');
 const pgp = require('pg-promise')(); // To connect to the Postgres DB from the node server
 const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
@@ -80,8 +81,10 @@ app.use(
     })
 );
 
-
-app.use(express.static(__dirname + '/public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload()); // Enable file upload handling middleware
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // *****************************************************
@@ -171,63 +174,6 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.post('/addNewPiece', async (req, res) => {
-    try {
-        // Assigning all input
-        const imgFile = req.body.image;
-        const catinput = req.body.category;
-        const subcatinput = req.body.subcategory;
-        const styleinput = req.body.style;
-        const colorinput = req.body.color;
-        const patterninput = req.body.pattern;
-
-        // Getting Ids
-        let catId;
-        let subcatId;
-        let styleId;
-        let colorId;
-        let patternId;
-
-        try {
-            catId = await db.one('SELECT id FROM categories WHERE category = $1', [catinput]);
-        } catch (err) {
-            catId = await db.one('INSERT INTO categories (category) VALUES ($1) RETURNING id', [catinput]);
-        }
-
-        try {
-            subcatId = await db.one('SELECT id FROM subcategories WHERE subcategory = $1', [subcatinput]);
-        } catch (err) {
-            subcatId = await db.one('INSERT INTO subcategories (subcategory) VALUES ($1) RETURNING id', [subcatinput]);
-        }
-
-        try {
-            styleId = await db.one('SELECT id FROM styles WHERE style = $1', [styleinput]);
-        } catch (err) {
-            styleId = await db.one('INSERT INTO styles (style) VALUES ($1) RETURNING id', [sytleinput]);
-        }
-
-        try {
-            colorId = await db.one('SELECT id FROM colors WHERE color = $1', [colorinput]);
-        } catch (err) {
-            colorId = await db.one('INSERT INTO colors (color) VALUES ($1) RETURNING id', [colorinput]);
-        }
-
-        try {
-            patternId = await db.one('SELECT id FROM patterns WHERE pattern = $1', [patterninput]);
-        } catch (err) {
-            patternId = await db.one('INSERT INTO patterns (pattern) VALUES ($1) RETURNING id', [patterninput]);
-        }
-
-        const pieceId = await db.one(`INSERT INTO pieces (categoryId, subcategoryId, styleId, colorId, patternId, imgFile) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
-            [catId, subcatId, styleId, colorId, patternId, imgFile]);
-        res.redirect('/savedpieces');
-
-    } catch (err) {
-        req.session.errorMessage = "Unexpected error occurred";
-        res.redirect('/savedpieces');
-    }
-});
-
 // Login
 app.post('/login', async (req, res) => {
     try {
@@ -266,6 +212,70 @@ app.get('/welcome', (req, res) => {
 // Authentication Required
 app.use(auth);
 
+app.post('/addNewPiece', async (req, res) => {
+    try {
+        // File upload handling
+        const imgFile = req.files.image;
+        const uploadPath = path.join(__dirname, 'uploads', imgFile.name);
+
+        imgFile.mv(uploadPath, async (err) => {
+            if (err) {
+                throw new Error('Error uploading file');
+            }
+
+            // Assigning other input
+            const catinput = req.body.category;
+            const subcatinput = req.body.subcategory;
+            const styleinput = req.body.style;
+            const colorinput = req.body.color;
+            const patterninput = req.body.pattern;
+
+            // Getting Ids
+            let catId;
+            let subcatId;
+            let styleId;
+            let colorId;
+            let patternId;
+
+            try {
+                catId = await db.one('SELECT id FROM categories WHERE category = $1', [catinput]);
+            } catch (err) {
+                catId = await db.one('INSERT INTO categories (category) VALUES ($1) RETURNING id', [catinput]);
+            }
+
+            try {
+                subcatId = await db.one('SELECT id FROM subcategories WHERE subcategory = $1', [subcatinput]);
+            } catch (err) {
+                subcatId = await db.one('INSERT INTO subcategories (subcategory) VALUES ($1) RETURNING id', [subcatinput]);
+            }
+
+            try {
+                styleId = await db.one('SELECT id FROM styles WHERE style = $1', [styleinput]);
+            } catch (err) {
+                styleId = await db.one('INSERT INTO styles (style) VALUES ($1) RETURNING id', [styleinput]);
+            }
+
+            try {
+                colorId = await db.one('SELECT id FROM colors WHERE color = $1', [colorinput]);
+            } catch (err) {
+                colorId = await db.one('INSERT INTO colors (color) VALUES ($1) RETURNING id', [colorinput]);
+            }
+
+            try {
+                patternId = await db.one('SELECT id FROM patterns WHERE pattern = $1', [patterninput]);
+            } catch (err) {
+                patternId = await db.one('INSERT INTO patterns (pattern) VALUES ($1) RETURNING id', [patterninput]);
+            }
+
+            const pieceId = await db.one(`INSERT INTO pieces (categoryId, subcategoryId, styleId, colorId, patternId, imgFile) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+                [catId, subcatId, styleId, colorId, patternId, uploadPath]);
+            res.redirect('/savedpieces');
+        });
+    } catch (err) {
+        req.session.errorMessage = "Unexpected error occurred";
+        res.redirect('/savedpieces');
+    }
+});
 
 app.get('/home', async (req, res) => {
     res.render('pages/home')
@@ -276,8 +286,17 @@ app.get('/index', (req, res) => {
 });
 
 
-app.get('/savedpieces', (req, res) => {
-    res.render('pages/savedpieces');
+app.get('/savedpieces', async (req, res) => {
+    try {
+        // Retrieve all the pieces from the database
+        const pieces = await db.any('SELECT imgFile FROM pieces');
+
+        // Render the template and pass the pieces data to it
+        res.render('pages/savedpieces', { pieces: pieces });
+    } catch (err) {
+        req.session.errorMessage = "Unexpected error occurred";
+        res.redirect('/savedpieces');
+    }
 });
 
 
