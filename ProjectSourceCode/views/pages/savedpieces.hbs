@@ -2,10 +2,14 @@
 <div class="container p-5">
 	<!-- Navbar + Page Title -->
 	<h1 class="d-inline-block">Your Closet</h1>
+	<button class="float-end btn btn-primary p-2 m-0" type="button" onclick="window.location.href='/delete'">
+		<h5 class="p-0 m-0">Remove a piece</h5>
+	</button>
 	<button class="float-end btn btn-primary p-2 m-0" type="button" data-toggle="collapse" data-target="#addPieceDrawer"
 		aria-expanded="false" aria-controls="addPieceDrawer">
 		<h5 class="p-0 m-0">Add a new piece</h5>
-	</button>
+	</button> <br>
+	
 	<div class="collapse p-5" id="addPieceDrawer">
 		<!-- Add Piece Form -->
 		<form action="/addNewPiece" method="POST" class="row">
@@ -13,7 +17,7 @@
 				<!-- Photo Upload -->
 				<div class="form-group pt-3">
 					<label class="form-input pb-2" for="newPiecePhoto">Upload Photo:</label><br>
-					<input class="form-control-file" type="file" id="newPiecePhoto" accept="image/*" required>
+					<input class="form-control-file" type="file" id="newPiecePhoto" name="image" accept="image/*" required>
 					<img class="pt-3" src="https://http.cat/404" id="uploadedPhoto" style="max-width: 100%">
 				</div>
 			</div>
@@ -278,109 +282,49 @@
 	<div class="container" style="display: inline-block">
 		<!-- Top Dropdown -->
 		<div class="container" id="topDrop">
-			<button class="button" id="topDropButton" onclick="toggleDropContents('topDropContent')"> Tops </button>
+			<h2 id="topDropTitle">Tops</h2>
 			<br>
-			<div class="dropdown-content" id="topDropContent" style="display:none">
-				<!-- Loop through each piece in the tops category -->
-				{{#each top}}
-				<div class="card">
-					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">{{name}}</h5>
-					</div>
-				</div>
-				{{/each}}
+			<div class="container" id="topDropContent">
 			</div>
 		</div> <br>
 
 		<!-- Bottoms Dropdown -->
 		<div class="container" id="bottomDrop">
-			<button class="button" id="bottomDropButton" onclick="toggleDropContents('bottomDropContent')"> Bottoms
-			</button>
+			<h2 id="bottomDropTitle">Bottoms </h2>
 			<br>
-			<div class="dropdown-content" id="bottomDropContent" style="display:none">
-				<!-- Loop through each piece in the bottoms category -->
-				{{#each bottoms}}
-				<div class="card">
-					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">{{name}}</h5>
-					</div>
-				</div>
-				{{/each}}
+			<div class="container" id="bottomDropContent">
 			</div>
 		</div> <br>
 
 		<!-- Full-Body Pieces Dropdown -->
-		<div class="button" id="fullbodyDrop">
-			<button class="dropdown" id="fullbodyDropButton" onclick="toggleDropContents('fullbodyDropContent')">
-				Full-Body </button>
+		<div class="container" id="fullbodyDrop">
+			<h2 id="fullbodyDropTitle">Full-Body</h2>
 			<br>
-			<div class="dropdown-content" id="fullbodyDropContent" style="display:none">
-				<!-- Loop through each piece in the fullbody category -->
-				{{#each fullbody}}
-				<div class="card">
-					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">{{name}}</h5>
-					</div>
-				</div>
-				{{/each}}
+			<div class="container" id="fullbodyDropContent">
 			</div>
 		</div> <br>
 
 		<!-- Footwear Dropdown -->
 		<div class="container" id="shoesDrop">
-			<button class="dropdown" id="footwearDropButton" onclick="toggleDropContents('footwearDropContent')">
-				Footwear </button>
+			<h2 id="footwearDropTitle">Footwear</h2>
 			<br>
-			<div class="dropdown-content" id="footwearDropContent" style="display:none">
-				<!-- Loop through each piece in the footwear category -->
-				{{#each footwear}}
-				<div class="card">
-					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">{{name}}</h5>
-					</div>
-				</div>
-				{{/each}}
+			<div class="container" id="footwearDropContent">
 			</div>
 		</div> <br>
 
 
 		<!-- Accessories Dropdown -->
-		<div class="button" id="accessoryDrop">
-			<button class="dropbtn" id="accessoryDropButton" onclick="toggleDropContents('accessoryDropContent')">
-				Accessories </button>
+		<div class="container" id="accessoryDrop">
+			<h2 id="accessoryDropTitle">Accessories</h2>
 			<br>
-			<div class="dropdown-content" id="accessoryDropContent" style="display:none">
-				<!-- Loop through each piece in the tops category -->
-				{{#each accessory}}
-				<div class="card">
-					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">{{name}}</h5>
-					</div>
-				</div>
-				{{/each}}
+			<div class="container" id="accessoryDropContent">
 			</div>
-		</div>
+		</div> <br>
 
 		<!-- Outerwear Dropdown -->
-		<div class="button" id="outerwearDrop">
-			<button class="dropbtn" id="outerwearDropButton" onclick="toggleDropContents('outerwearDropContent')">
-				Outerwear </button>
-			<br>
-			<div class="dropdown-content" id="outerwearDropContent" style="display:none">
-				<!-- Loop through each piece in the tops category -->
-				{{#each outerwear}}
-				<div class="card">
-					<img src="{{imgFile}}" alt="{{name}}" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">{{name}}</h5>
-					</div>
-				</div>
-				{{/each}}
+		<div class="container" id="outerwearDrop">
+			<h2 id="outerwearDropTitle">Outerwear</h2>
+			<div class="container" id="outerwearDropContent">
 			</div>
 		</div>
 
@@ -388,50 +332,12 @@
 	</div>
 </div>
 
+<!-- Styling -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"/>
+
 <!-- Implementing JS function calls -->
 <script>
-	/*
-		Toggling visibility of add/remove piece forms for savedpieces.hbs
-			formId: string -- id of the form that will have its visibility toggled
-	*/
-	function toggleVisibility(formId) {
-
-		var form = document.getElementById(formId);
-		var overlay = document.getElementById("overlay");
-		var formName = document.getElementById("formName");
-		var addButton = document.getElementById("addPiece");
-		var removeButton = document.getElementById("removePiece");
-
-		if (form.style.display === "none") {
-			form.style.display = "block";
-			overlay.style.display = "block";
-			addButton.style.display = "none";
-			removeButton.style.display = "none";
-			// Makes form name legible
-			var displayname = formId.replace(/([a-z])([A-Z])/g, '$1 $2');
-			formName.innerHTML = displayname.substring(0, 1).toUpperCase() + displayname.slice(1);
-		} else {
-			form.style.display = "none";
-			overlay.style.display = "none";
-			addButton.style.display = "inline-block";
-			removeButton.style.display = "inline-block";
-			formName.innerHTML = ""; // Clear form name when hiding form
-		}
-	}
-
-	/*
-		Toggles the dropdown of a fits category button and displays its contents
-			contentId: string -- id of the content that will have its visibility toggled underneath the button
-	*/
-	function toggleDropContents(contentId) {
-		const content = document.getElementById(contentId);
-		if (content.style.display === "none") {
-			content.style.display = "flex-wrap";
-		} else {
-			content.style.display = "none";
-		}
-	}
-
 	/*
 		Previews the image when it is uploaded before the add form is submitted
 		https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
@@ -442,4 +348,25 @@
 			uploadedPhoto.src = URL.createObjectURL(file)
 		}
 	}
+
+	/*
+		Loads in all the images.
+	*/
+	function loadImages() {
+		fetch('/api/images')
+		.then(response => response.json())
+		.then(categories => {
+			categories.forEach(category => {
+				const subcatContainer = document.getElementById(category.name.toLowerCase() + 'DropContent');
+				category.images.forEach(image => {
+					const imgElem = document.createElement('img');
+					imgElem.src = image.url;
+					subcatContainer.appendChild(imgElem);
+				});
+			});
+		})
+		.catch(error => console.error('Error loading images:', error));
+	}
+
+	document.addEventListener('DOMContentLoaded', loadImages);
 </script>
