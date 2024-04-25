@@ -279,30 +279,6 @@ app.post('/savedpieces', async (req, res) => {
     }
 });
 
-
-
-app.get('/pieces', async (req, res) => {
-    try {
-        // Query the database to retrieve image file paths or URLs
-        const pieces = await db.any('SELECT id, imgFile FROM pieces');
-
-        // Log the pieces array to the console
-        console.log('Pieces:', pieces);
-
-        // Render the pieces view with the layout template
-        res.render('pages/pieces', {
-            title: 'Pieces Page', // Title for the HTML document
-            pieces
-        });
-    } catch (error) {
-        // Handle errors
-        console.error('Error fetching pieces:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-
-
 app.get('/home', async (req, res) => {
     res.render('pages/home')
 });
@@ -310,7 +286,6 @@ app.get('/home', async (req, res) => {
 app.get('/index', (req, res) => {
     res.render('pages/index');
 });
-
 
 app.get('/savedpieces', async (req, res) => {
     try {
@@ -349,8 +324,6 @@ app.get('/savedpieces', async (req, res) => {
     }
 });
 
-
-
 app.get('/delete', (req, res) => {
     res.render('pages/delete');
 });
@@ -359,16 +332,13 @@ app.get('/randomize', (req, res) => {
     res.render('pages/randomize');
 });
 
-
 app.get('/savedfits', (req, res) => {
     res.render('pages/savedfits');
 });
 
-
 app.get('/suggestedfits', (req, res) => {
     res.render('pages/suggestedfits');
 });
-
 
 app.get('/logout', async (req, res) => {
     req.session.destroy();
