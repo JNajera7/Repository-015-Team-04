@@ -45,6 +45,7 @@ INSERT INTO colors (color) VALUES
 	('blue'),
 	('indigo'),
 	('violet'),
+	('purple'),
 	('black'),
 	('white');
 

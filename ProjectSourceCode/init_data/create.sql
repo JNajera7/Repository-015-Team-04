@@ -30,11 +30,11 @@ CREATE TABLE IF NOT EXISTS patterns (
 
 CREATE TABLE IF NOT EXISTS pieces (
     id SERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(255) REFERENCES users(username),
-    categoryId INTEGER NOT NULL REFERENCES categories(id),
-    subcategoryId INTEGER NOT NULL REFERENCES subcategories(id),
-    styleId INTEGER NOT NULL REFERENCES styles(id),
-    colorId INTEGER NOT NULL REFERENCES colors(id),
-    patternId INTEGER NOT NULL REFERENCES patterns(id),
-    imgFile VARCHAR(255) NOT NULL
+    username VARCHAR(255) NOT NULL REFERENCES users(username),
+    categoryid INTEGER NOT NULL REFERENCES categories(id),
+    subcategoryid INTEGER NOT NULL REFERENCES subcategories(id),
+    styleid INTEGER NOT NULL REFERENCES styles(id),
+    colorid INTEGER NOT NULL REFERENCES colors(id),
+    patternid INTEGER NOT NULL REFERENCES patterns(id),
+    imgfile VARCHAR(255) NOT NULL
 );
