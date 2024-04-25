@@ -97,3 +97,11 @@ body:has(.loginreg) {
 #addFitPieces {
 	background-color: rgb(235, 235, 235);
 }
+
+#homebox .card-body {
+	min-height: 25vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
