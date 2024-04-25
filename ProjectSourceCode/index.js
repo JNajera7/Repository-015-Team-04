@@ -330,71 +330,96 @@ app.post('/addpiece', async (req, res) => {
 // <!-- Section 4.6 : Delete Pieces Routes -->
 // *****************************************************
 app.get('/delete', async (req, res) => {
-  try {
-    // Retrieve all the pieces from the database that belong to the user
-    let userPieces = await db.any(
-      `SELECT p.categoryid, p.imgfile, c.category, sc.subcategory, s.style, cl.color, pa.pattern
-       FROM pieces p
-       JOIN categories c ON p.categoryid = c.id
-       LEFT JOIN subcategories sc ON p.subcategoryid = sc.id
-       LEFT JOIN styles s ON p.styleid = s.id
-       LEFT JOIN colors cl ON p.colorid = cl.id
-       LEFT JOIN patterns pa ON p.patternid = pa.id
-       WHERE p.username = $1
-       ORDER BY p.categoryid`,
-      [req.session.user.username]
-    );
-
-    let piecesDict = {};
-
-    for (let p of userPieces) {
-      let category = p.category;
-      let subcategory = p.subcategory;
-      let style = p.style;
-      let color = p.color;
-      let pattern = p.pattern;
-
-      // Format the category name
-      let categoryName = category.replace('_', ' ');
-      categoryName = categoryName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-
-      // Create a dictionary entry for the category if it doesn't exist
-      if (!(category in piecesDict)) {
-        piecesDict[category] = {
-          categoryName: categoryName,
-          subcategories: {},
-        };
+    try {
+      // Retrieve all the pieces from the database that belong to the user
+      let userPieces = await db.any(
+        `SELECT p.categoryid, p.imgfile, c.category, sc.subcategory, s.style, cl.color, pa.pattern
+         FROM pieces p
+         JOIN categories c ON p.categoryid = c.id
+         LEFT JOIN subcategories sc ON p.subcategoryid = sc.id
+         LEFT JOIN styles s ON p.styleid = s.id
+         LEFT JOIN colors cl ON p.colorid = cl.id
+         LEFT JOIN patterns pa ON p.patternid = pa.id
+         WHERE p.username = $1
+         ORDER BY p.categoryid`,
+        [req.session.user.username]
+      );
+  
+      let piecesDict = {};
+  
+      for (let p of userPieces) {
+        let category = p.category;
+        let subcategory = p.subcategory;
+        let style = p.style;
+        let color = p.color;
+        let pattern = p.pattern;
+  
+        // Format the category name
+        let categoryName = category.replace('_', ' ');
+        categoryName = categoryName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  
+        // Create a dictionary entry for the category if it doesn't exist
+        if (!(category in piecesDict)) {
+          piecesDict[category] = {
+            categoryName: categoryName,
+            subcategories: {},
+          };
+        }
+  
+        // Create a dictionary entry for the subcategory if it doesn't exist
+        if (!(subcategory in piecesDict[category].subcategories)) {
+          piecesDict[category].subcategories[subcategory] = {
+            subcategoryName: subcategory,
+            styles: {},
+          };
+        }
+  
+        // Create a dictionary entry for the style if it doesn't exist
+        if (!(style in piecesDict[category].subcategories[subcategory].styles)) {
+          piecesDict[category].subcategories[subcategory].styles[style] = {
+            styleName: style,
+            colors: {},
+          };
+        }
+  
+        // Create a dictionary entry for the color if it doesn't exist
+        if (!(color in piecesDict[category].subcategories[subcategory].styles[style].colors)) {
+          piecesDict[category].subcategories[subcategory].styles[style].colors[color] = {
+            colorName: color,
+            patterns: [],
+          };
+        }
+  
+        // Add the pattern to the color's pattern list
+        piecesDict[category].subcategories[subcategory].styles[style].colors[color].patterns.push(pattern);
       }
-
-      // Create a dictionary entry for the subcategory if it doesn't exist
-      if (!(subcategory in piecesDict[category].subcategories)) {
-        piecesDict[category].subcategories[subcategory] = {
-          subcategoryName: subcategory,
-          styles: {},
-        };
-      }
-
-      // Create a dictionary entry for the style if it doesn't exist
-      if (!(style in piecesDict[category].subcategories[subcategory].styles)) {
-        piecesDict[category].subcategories[subcategory].styles[style] = {
-          styleName: style,
-          colors: {},
-        };
-      }
-
-      // Create a dictionary entry for the color if it doesn't exist
-      if (!(color in piecesDict[category].subcategories[subcategory].styles[style].colors)) {
-        piecesDict[category].subcategories[subcategory].styles[style].colors[color] = {
-          colorName: color,
-          patterns: [],
-        };
-      }
-
-      // Add the pattern to the color's pattern list
-      piecesDict[category].subcategories[subcategory].styles[style].colors[color].patterns.push(pattern);
-    }
-      // Render the template and pass the images data to it
-      res.render('pages/delete', { images: userPieces });
+  
+      // Parse filter parameters from query string
+      const { category, subcategory, style, color, pattern } = req.query;
+  
+      // Filter the images based on the selected options
+      let filteredImages = userPieces.filter((p) => {
+        return (
+          (!category || p.category === category) &&
+          (!subcategory || p.subcategory === subcategory) &&
+          (!style || p.style === style) &&
+          (!color || p.color === color) &&
+          (!pattern || p.pattern === pattern)
+        );
+      });
+  
+      // Render the template and pass the images data and filter options to it
+      res.render('pages/delete', {
+        images: filteredImages,
+        filterOptions: {
+          categories: Object.values(piecesDict),
+          selectedCategory: category,
+          selectedSubcategory: subcategory,
+          selectedStyle: style,
+          selectedColor: color,
+          selectedPattern: pattern,
+        },
+      });
     } catch (err) {
       req.session.errorMessage = "Unexpected error occurred";
       console.log(err);

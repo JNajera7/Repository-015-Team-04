@@ -87,7 +87,9 @@
     <div id="itemList" style="height: 500px; overflow-y: auto; display: flex; flex-wrap: wrap;">
       {{#each images}}
       <div class="image-item">
-        <img class="m-3" style="width: 200px; max-height: 200px; display:inline-block; border: 2px solid #c1c1c1;" src="/uploads/{{imgfile}}">
+        <div class="image-container">
+          <img class="m-3" style="width: 200px; max-height: 200px; display:inline-block; border: 2px solid #c1c1c1;" src="/uploads/{{imgfile}}">
+        </div>
       </div>
       {{/each}}
     </div>
@@ -101,69 +103,97 @@
 }
 
 .image-container {
-  width: 145px;
-  height: 145px;
+  width: 200px;
+  height: 200px;
   margin: 5px;
-  border: 1px solid black;
+  border: 2px solid #c1c1c1;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.image-container.highlight {
+  background-color: yellow;
+  border: 2px solid red;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
 }
 </style>
 
 <script>
-// Function to toggle highlighting on an image
-function toggleHighlight(item) {
-  item.classList.toggle("highlight");
-}
-
-// Function to delete selected items
-function deleteItems() {
-  var selectedItems = document.querySelectorAll(".highlight");
-  selectedItems.forEach(function (item) {
-    // Get the image file name from the selected item
-    var imageFileName = item.getAttribute("src");
-
-    // Make a request to the server to delete the image from the database
-    // Replace this code with your server-side logic
-    console.log('Image deleted:', imageFileName);
-    // Remove the item from the DOM
-    item.remove();
-  });
-}
-
 function filterItems() {
-  // Get all the image items
-  var imageItems = Array.from(document.getElementsByClassName("image-item"));
-
-  // Get the selected attribute values
-  var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(function (checkbox) {
-    return checkbox.value;
-  });
-
-  var selectedSubcategories = Array.from(document.querySelectorAll('input[name^="filter-"]:checked')).map(function (checkbox) {
-    return checkbox.value;
-  });
-
-  // Iterate over the image items and check if they match the selected attributes
-  imageItems.forEach(function (item) {
-    // Get the image element
-    var image = item.getElementsByTagName("img")[0];
-    var category = image.getAttribute("data-category");
-    var subcategory = image.getAttribute("data-subcategory");
-
-    // Check if the item's attributes match the selected attributes
-    if (
-      (!selectedCategories.length || selectedCategories.includes(category)) &&
-      (!selectedSubcategories.length || selectedSubcategories.includes(subcategory))
-    ) {
-      // Show the item
-      item.style.display = "block";
-    } else {
-      // Hide the item
-      item.style.display = "none";
+  // Get all the filter checkboxes
+  var checkboxes = document.getElementsByClassName('filter-checkbox');
+  
+  // Create an object to store the selected filters
+  var selectedFilters = {};
+  
+  // Loop through the checkboxes
+  for (var i = 0; i < checkboxes.length; i++) {
+    var checkbox = checkboxes[i];
+    
+    // Check if the checkbox is checked
+    if (checkbox.checked) {
+      // Get the filter category and subcategory
+      var filterCategory = checkbox.id.split('-')[1];
+      var filterSubcategory = checkbox.id.split('-')[2];
+      
+      // Check if the filter category already exists in the selectedFilters object
+      if (!selectedFilters.hasOwnProperty(filterCategory)) {
+        selectedFilters[filterCategory] = [];
+      }
+      
+      // Add the filter subcategory to the selectedFilters object
+      if (filterSubcategory) {
+        selectedFilters[filterCategory].push(filterSubcategory);
+      }
     }
-  });
+  }
+  
+  // Perform filtering based on the selected filters
+  var imageItems = document.getElementsByClassName('image-item');
+  
+  for (var i = 0; i < imageItems.length; i++) {
+    var imageItem = imageItems[i];
+    
+    // Check if the image item matches the selected filters
+    var matchesFilters = true;
+    
+    for (var category in selectedFilters) {
+      if (selectedFilters.hasOwnProperty(category)) {
+        var subcategories = selectedFilters[category];
+        
+        // Check if the image item has the selected subcategory
+        var hasSubcategory = false;
+        
+        if (subcategories.length > 0) {
+          var subcategoryFilters = document.getElementById('subcategory-filters-' + category).getElementsByTagName('input');
+          
+          for (var j = 0; j < subcategoryFilters.length; j++) {
+            var subcategoryFilter = subcategoryFilters[j];
+            
+            if (subcategoryFilter.checked && subcategories.includes(subcategoryFilter.id.split('-')[1])) {
+              hasSubcategory = true;
+              break;
+            }
+          }
+        }
+        
+        // If the image item doesn't have the selected subcategory, it doesn't match the filters
+        if (!hasSubcategory) {
+          matchesFilters = false;
+          break;
+        }
+      }
+    }
+    
+    // Show or hide the image item based on whether it matches the filters
+    imageItem.style.display = matchesFilters ? 'block' : 'none';
+  }
 }
 
 // Function to toggle the subcategory filters
@@ -188,5 +218,45 @@ function toggleSubcategoryFilters(category) {
       subcategoryCheckboxes[i].checked = false;
     }
   }
+}
+
+function toggleHighlight(item) {
+  item.classList.toggle("highlight");
+}
+
+function deleteItems() {
+  var selectedItems = document.querySelectorAll(".highlight");
+  selectedItems.forEach(function (item) {
+    // Get the image file name from the selected item
+    var imageFileName = item.getAttribute("src");
+
+    // Make a request to the server to delete the image
+    fetch('/delete/' + imageFileName, {
+      method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Log the response from the server
+      console.log(data);
+    })
+    .catch(error => {
+      // Handle the error
+      console.error('Error:', error);
+    });
+
+    // Remove the item from the DOM
+    item.remove();
+  });
+}
+
+// Add event listeners to the image items
+var imageItems = document.getElementsByClassName('image-item');
+for (var i = 0; i < imageItems.length; i++) {
+  var imageItem = imageItems[i];
+
+  // Add click event listener to toggle highlighting
+  imageItem.addEventListener('click', function () {
+    toggleHighlight(this);
+  });
 }
 </script>
