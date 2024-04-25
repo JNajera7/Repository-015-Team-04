@@ -15,7 +15,6 @@ const session = require('express-session'); // To set the session object. To sto
 const bcrypt = require('bcrypt'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
 
-
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
@@ -69,7 +68,7 @@ app.use(bodyParser.json()); // specify the usage of JSON for parsing request bod
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
-        saveUninitialized: false,
+        saveUninitialized: true,
         resave: false,
     })
 );
@@ -169,7 +168,7 @@ app.post('/register', async (req, res) => {
         await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
         res.redirect('/login');
     } catch (e) {
-        req.session.errorMessage = "Unexpected error occurred";
+        req.session.errorMessage = "Username taken";
         res.redirect('/register');
     }
 });
@@ -223,6 +222,9 @@ app.post('/addNewPiece', async (req, res) => {
                 throw new Error('Error uploading file');
             }
 
+            // Constructing file URL
+            const fileUrl = `http://${req.headers.host}/uploads/${imgFile.name}`;
+
             // Assigning other input
             const catinput = req.body.category;
             const subcatinput = req.body.subcategory;
@@ -269,13 +271,43 @@ app.post('/addNewPiece', async (req, res) => {
 
             const pieceId = await db.one(`INSERT INTO pieces (categoryId, subcategoryId, styleId, colorId, patternId, imgFile) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
                 [catId, subcatId, styleId, colorId, patternId, uploadPath]);
-            res.redirect('/savedpieces');
+
+            req.session.successMessage = "New piece added successfully";
+
+            // Sending file URL in the response
+            res.json({ success: true, message: "New piece added successfully", fileUrl });
         });
     } catch (err) {
+        // Log the error to console for debugging
+        console.error(err);
         req.session.errorMessage = "Unexpected error occurred";
-        res.redirect('/savedpieces');
+        res.json({ success: false, message: "Unexpected error occurred", error: err.message });
     }
 });
+
+
+
+app.get('/pieces', async (req, res) => {
+    try {
+        // Query the database to retrieve image file paths or URLs
+        const pieces = await db.any('SELECT id, imgFile FROM pieces');
+
+        // Log the pieces array to the console
+        console.log('Pieces:', pieces);
+
+        // Render the pieces view with the layout template
+        res.render('pages/pieces', {
+            title: 'Pieces Page', // Title for the HTML document
+            pieces
+        });
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching pieces:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 app.get('/home', async (req, res) => {
     res.render('pages/home')
@@ -288,16 +320,29 @@ app.get('/index', (req, res) => {
 
 app.get('/savedpieces', async (req, res) => {
     try {
+        // Check if there's a success message stored in the session
+        const successMessage = req.session.successMessage;
+
+        // Clear the success message from the session
+        delete req.session.successMessage;
+
         // Retrieve all the pieces from the database
         const pieces = await db.any('SELECT imgFile FROM pieces');
 
-        // Render the template and pass the pieces data to it
-        res.render('pages/savedpieces', { pieces: pieces });
+        // Render the template and pass the pieces data and success message to it
+        res.render('pages/savedpieces', { pieces: pieces, successMessage: successMessage });
     } catch (err) {
-        req.session.errorMessage = "Unexpected error occurred";
-        res.redirect('/savedpieces');
+        // Check if there's an error message stored in the session
+        const errorMessage = req.session.errorMessage || "Unexpected error occurred";
+
+        // Clear the error message from the session
+        delete req.session.errorMessage;
+
+        // Render the template with the error message
+        res.render('pages/savedpieces', { errorMessage: errorMessage });
     }
 });
+
 
 
 app.get('/delete', (req, res) => {

@@ -2,17 +2,17 @@
 <div class="container p-5">
 	<!-- Navbar + Page Title -->
 	<h1 class="d-inline-block">Your Closet</h1>
-	<button class="float-end btn btn-primary p-2 m-0" type="button" onclick="window.location.href='/delete'">
+	<button class="float-end btn btn-primary p-2 m-3" type="button" onclick="window.location.href='/delete'">
 		<h5 class="p-0 m-0">Remove a piece</h5>
 	</button>
-	<button class="float-end btn btn-primary p-2 m-0" type="button" data-toggle="collapse" data-target="#addPieceDrawer"
+	<button class="float-end btn btn-primary p-2 m-3" type="button" data-toggle="collapse" data-target="#addPieceDrawer"
 		aria-expanded="false" aria-controls="addPieceDrawer">
 		<h5 class="p-0 m-0">Add a new piece</h5>
 	</button> <br>
 
 	<div class="collapse p-5" id="addPieceDrawer">
 		<!-- Add Piece Form -->
-		<form action="/addNewPiece" method="POST" class="row">
+		<form action="/addNewPiece" method="POST" class="row" enctype="multipart/form-data">
 			<div class="col px-1">
 				<!-- Photo Upload -->
 				<div class="form-group pt-3">
@@ -332,9 +332,6 @@
 		<br><br>
 	</div>
 </div>
-<!-- Styling -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" />
 
 <!-- Implementing JS function calls -->
 <script>
