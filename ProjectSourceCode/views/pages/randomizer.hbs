@@ -1,0 +1,128 @@
+<style>
+    .container {
+        display: flex;
+        flex-direction: column; /* Arrange the boxes vertically */
+        justify-content: center; /* Center the boxes horizontally */
+        align-items: center; /* Center the boxes vertically */
+    }
+
+    .box {
+        width: 150px;
+        height: 150px;
+        border: 1px solid black;
+        margin-bottom: 10px; /* Add margin-bottom instead of margin-right */
+    }
+
+    .image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .weather-container {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .weather-toggle {
+        margin-right: 10px;
+    }
+</style>
+
+    <div class="container">
+    <div class="box" id="topBox">
+        <div class="image" style="background-image: url('path_to_image_from_database_for_top_1.jpg');"></div>
+        <button onclick="randomize('top')">Randomize</button>
+    </div>
+    <div class="box" id="bottomBox">
+        <div class="image" style="background-image: url('path_to_image_from_database_for_bottom_1.jpg');"></div>
+        <button onclick="randomize('bottom')">Randomize</button>
+    </div>
+    <div class="box" id="fullBodyBox">
+        <div class="image" style="background-image: url('path_to_image_from_database_for_full_body_1.jpg');"></div>
+        <button onclick="randomize('full_body')">Randomize</button>
+    </div>
+    <div class="box" id="footwearBox">
+        <div class="image" style="background-image: url('path_to_image_from_database_for_footwear_1.jpg');"></div>
+        <button onclick="randomize('footwear')">Randomize</button>
+    </div>
+    <div class="box" id="accessoryBox">
+        <div class="image" style="background-image: url('path_to_image_from_database_for_accessory_1.jpg');"></div>
+        <button onclick="randomize('accessory')">Randomize</button>
+    </div>
+    <div class="box" id="outerwearBox">
+        <div class="image" style="background-image: url('path_to_image_from_database_for_outerwear_1.jpg');"></div>
+        <button onclick="randomize('outerwear')">Randomize</button>
+    </div>
+</div>
+
+    </div>
+
+    <button onclick="randomizeAll()">Randomize All</button>
+
+    <div class="weather-container">
+        <input type="checkbox" id="weatherToggle" class="weather-toggle">
+        <label for="weatherToggle">Toggle Weather</label>
+    </div>
+
+    <script>
+        function randomize(category) {
+            // Code to randomize clothing for the specified category
+            console.log('Randomizing ' + category);
+        }
+
+        function randomizeAll() {
+            // Code to randomize clothing for all categories
+            console.log('Randomizing all');
+        }
+
+        const weatherToggle = document.getElementById('weatherToggle');
+        weatherToggle.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.style.background = 'url(path_to_weather_background_image.jpg)';
+            } else {
+                document.body.style.background = 'none';
+            }
+        });
+    </script>
+</div>
+
+<script>
+    const categories = ['top', 'bottom', 'full_body', 'footwear', 'accessory', 'outerwear'];
+
+    function randomize(category) {
+        // Retrieve the box element based on the category
+        const boxElement = document.getElementById(`${category}Box`);
+
+        // Simulate fetching a random image URL from the database
+        const randomImageURL = getRandomImageURLFromDatabase(category);
+
+        // Update the background image of the box
+        const imageElement = boxElement.querySelector('.image');
+        imageElement.style.backgroundImage = `url('${randomImageURL}')`;
+    }
+
+    function randomizeAll() {
+        categories.forEach(category => randomize(category));
+    }
+
+    function getRandomImageURLFromDatabase(category) {
+        // Simulate fetching a random image URL from the database based on the category
+        // Replace this implementation with your actual logic to retrieve random image URLs
+        const imageUrlsByCategory = {
+            top: ['path_to_image_from_database_for_top_1.jpg', 'path_to_image_from_database_for_top_2.jpg'],
+            bottom: ['path_to_image_from_database_for_bottom_1.jpg', 'path_to_image_from_database_for_bottom_2.jpg'],
+            full_body: ['path_to_image_from_database_for_full_body_1.jpg', 'path_to_image_from_database_for_full_body_2.jpg'],
+            footwear: ['path_to_image_from_database_for_footwear_1.jpg', 'path_to_image_from_database_for_footwear_2.jpg'],
+            accessory: ['path_to_image_from_database_for_accessory_1.jpg', 'path_to_image_from_database_for_accessory_2.jpg'],
+            outerwear: ['path_to_image_from_database_for_outerwear_1.jpg', 'path_to_image_from_database_for_outerwear_2.jpg']
+        };
+
+        const randomIndex = Math.floor(Math.random() * imageUrlsByCategory[category].length);
+        return imageUrlsByCategory[category][randomIndex];
+    }
+
+    randomizeAll();
+</script>
