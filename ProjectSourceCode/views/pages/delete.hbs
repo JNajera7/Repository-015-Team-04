@@ -1,151 +1,95 @@
 <div style="display: flex;">
-<div style="width: 200px; padding-left: 20px;">
-  <h2>Delete Page</h2>
-  <h2>Filter by Attributes</h2>
-  <h3>Clothing Pieces</h3>
-  <div><!-- Filters and Subfilters that appear when the main filter is clicked on -->
-    <input type="checkbox" id="filter-tops" class="filter-checkbox" onchange="toggleSubcategoryFilters('tops'); filterItems()"> Tops
-    <br>
-    <div id="subcategory-filters-tops" style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-short-sleeve" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Short Sleeve
-      <br>
-      <input type="checkbox" id="filter-long-sleeve" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Long Sleeve
-      <br>
-      <input type="checkbox" id="filter-sweater" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Sweater
-      <br>
+  <div style="width: 200px; padding-left: 19px;">
+    <h2>Delete Page</h2>
+    <h2>Filter by Attributes</h2>
+    <h3>Clothing Pieces</h3>
+    <!-- Filters and Subfilters that appear when the main filter is clicked on -->
+    <div>
+      <input type="checkbox" id="filter-tops" class="filter-checkbox" onchange="toggleSubcategoryFilters('tops'); filterItems()"> Tops<br>
+      <div id="subcategory-filters-tops" style="display: none; margin-left: 20px;">
+        <input type="checkbox" id="filter-short-sleeve" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Short Sleeve<br>
+        <input type="checkbox" id="filter-long-sleeve" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Long Sleeve<br>
+        <input type="checkbox" id="filter-sweater" class="filter-checkbox" onchange="toggleSubcategoryFilters()"> Sweater<br>
+      </div>
+      <input type="checkbox" id="filter-bottoms" class="filter-checkbox" onchange="toggleSubcategoryFilters('bottoms'); filterItems()"> Bottoms<br>
+      <div id="subcategory-filters-bottoms" style="display: none; margin-left: 20px;">
+        <input type="checkbox" id="filter-short-pants" class="filter-checkbox" onchange="filterItems()"> Short pants<br>
+        <input type="checkbox" id="filter-long-pants" class="filter-checkbox" onchange="filterItems()"> Long pants<br>
+        <input type="checkbox" id="filter-skirts" class="filter-checkbox" onchange="filterItems()"> Skirts<br>
     </div>
-    <input type="checkbox" id="filter-bottoms" class="filter-checkbox" onchange="toggleSubcategoryFilters('bottoms'); filterItems()"> Bottoms
-    <br>
-    <div id="subcategory-filters-bottoms" style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-short-pants" class="filter-checkbox" onchange="filterItems()"> Short pants
-      <br>
-      <input type="checkbox" id="filter-long-pants" class="filter-checkbox" onchange="filterItems()"> Long pants
-      <br>
-      <input type="checkbox" id="filter-skirts" class="filter-checkbox" onchange="filterItems()"> Skirts
-      <br>
-    </div>
-    <input type="checkbox" id="filter-fullbody" class="filter-checkbox" onchange="toggleSubcategoryFilters('fullbody'); filterItems()"> Full Body
-    <br>
+    <input type="checkbox" id="filter-fullbody" class="filter-checkbox" onchange="toggleSubcategoryFilters('fullbody'); filterItems()"> Full Body<br>
     <div id="subcategory-filters-fullbody" style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-one-piece" class="filter-checkbox" onchange="filterItems()"> One piece
-      <br>
-      <input type="checkbox" id="filter-dresses" class="filter-checkbox" onchange="filterItems()"> Dresses
-      <br>
+      <input type="checkbox" id="filter-one-piece" class="filter-checkbox" onchange="filterItems()"> One piece<br>
+      <input type="checkbox" id="filter-dresses" class="filter-checkbox" onchange="filterItems()"> Dresses<br>
     </div>
-    <input type="checkbox" id="filter-footwear" class="filter-checkbox" onchange="toggleSubcategoryFilters('footwear'); filterItems()"> Footwear
-    <br>
+    <input type="checkbox" id="filter-footwear" class="filter-checkbox" onchange="toggleSubcategoryFilters('footwear'); filterItems()"> Footwear<br>
     <div id="subcategory-filters-footwear" style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-sneakers" class="filter-checkbox" onchange="filterItems()"> Sneakers
-      <br>
-      <input type="checkbox" id="filter-boots" class="filter-checkbox" onchange="filterItems()"> Boots
-      <br>
-      <input type="checkbox" id="filter-heels" class="filter-checkbox" onchange="filterItems()"> Heels
-      <br>
+      <input type="checkbox" id="filter-sneakers" class="filter-checkbox" onchange="filterItems()"> Sneakers<br>
+      <input type="checkbox" id="filter-boots" class="filter-checkbox" onchange="filterItems()"> Boots<br>
+      <input type="checkbox" id="filter-heels" class="filter-checkbox" onchange="filterItems()"> Heels<br>
     </div>
-    <input type="checkbox" id="filter-accessories" class="filter-checkbox" onchange="toggleSubcategoryFilters('accessories'); filterItems()"> Accessories
-    <br>
+    <input type="checkbox" id="filter-accessories" class="filter-checkbox" onchange="toggleSubcategoryFilters('accessories'); filterItems()"> Accessories<br>
     <div id="subcategory-filters-accessories" style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-jewelry" class="filter-checkbox" onchange="filterItems()"> Jewelry
-      <br>
-      <input type="checkbox" id="filter-headwear-accessories" class="filter-checkbox" onchange="filterItems()"> Headwear
-      <br>
-      <input type="checkbox" id="filter-eyewear" class="filter-checkbox" onchange="filterItems()"> Eyewear
-      <br>
+      <input type="checkbox" id="filter-jewelry" class="filter-checkbox" onchange="filterItems()"> Jewelry<br>
+      <input type="checkbox" id="filter-headwear-accessories" class="filter-checkbox" onchange="filterItems()"> Headwear<br>
+      <input type="checkbox" id="filter-eyewear" class="filter-checkbox" onchange="filterItems()"> Eyewear<br>
     </div>
-    <input type="checkbox" id="filter-outerwear" class="filter-checkbox" onchange="toggleSubcategoryFilters('outerwear'); filterItems()"> Outerwear
-    <br>
+    <input type="checkbox" id="filter-outerwear" class="filter-checkbox" onchange="toggleSubcategoryFilters('outerwear'); filterItems()"> Outerwear<br>
     <div id="subcategory-filters-outerwear" style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-coats" class="filter-checkbox" onchange="filterItems()"> Coats
-      <br>
-      <input type="checkbox" id="filter-vest" class="filter-checkbox" onchange="filterItems()"> Vest
-      <br>
-      <input type="checkbox" id="filter-jacket" class="filter-checkbox" onchange="filterItems()"> Jacket
-      <br>
+      <input type="checkbox" id="filter-coats" class="filter-checkbox" onchange="filterItems()"> Coats<br>
+      <input type="checkbox" id="filter-vest" class="filter-checkbox" onchange="filterItems()"> Vest<br>
+      <input type="checkbox" id="filter-jacket" class="filter-checkbox" onchange="filterItems()"> Jacket<br>
     </div>
   <h3>Descriptions</h3>
-    <input type="checkbox" id="filter-styles" class="filter-checkbox" onchange="toggleSubcategoryFilters('styles'); filterItems()"> Styles
-    <br>
+    <input type="checkbox" id="filter-styles" class="filter-checkbox" onchange="toggleSubcategoryFilters('styles'); filterItems()"> Styles<br>
     <div id="subcategory-filters-styles"style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-formal" class="filter-checkbox" onchange="filterItems()"> Formal
-      <br>
-      <input type="checkbox" id="filter-casual" class="filter-checkbox" onchange="filterItems()"> Casual
-      <br>
-      <input type="checkbox" id="filter-office" class="filter-checkbox" onchange="filterItems()"> Office
-      <br>
-      <input type="checkbox" id="filter-athletic" class="filter-checkbox" onchange="filterItems()"> Athletic
-      <br>
-      <input type="checkbox" id="filter-party" class="filter-checkbox" onchange="filterItems()"> Party
-      <br>
-      <input type="checkbox" id="filter-fancy" class="filter-checkbox" onchange="filterItems()"> Fancy
-      <br>
-      <input type="checkbox" id="filter-Hot" class="filter-checkbox" onchange="filterItems()"> Hot
-      <br>
-      <input type="checkbox" id="filter-rain" class="filter-checkbox" onchange="filterItems()"> Rain
-      <br>
-      <input type="checkbox" id="filter-Snow" class="filter-checkbox" onchange="filterItems()"> Sportswear
+      <input type="checkbox" id="filter-formal" class="filter-checkbox" onchange="filterItems()"> Formal<br>
+      <input type="checkbox" id="filter-casual" class="filter-checkbox" onchange="filterItems()"> Casual<br>
+      <input type="checkbox" id="filter-office" class="filter-checkbox" onchange="filterItems()"> Office<br>
+      <input type="checkbox" id="filter-athletic" class="filter-checkbox" onchange="filterItems()"> Athletic<br>
+      <input type="checkbox" id="filter-party" class="filter-checkbox" onchange="filterItems()"> Party<br>
+      <input type="checkbox" id="filter-fancy" class="filter-checkbox" onchange="filterItems()"> Fancy<br>
+      <input type="checkbox" id="filter-Hot" class="filter-checkbox" onchange="filterItems()"> Hot<br>
+      <input type="checkbox" id="filter-rain" class="filter-checkbox" onchange="filterItems()"> Rain<br>
+      <input type="checkbox" id="filter-Snow" class="filter-checkbox" onchange="filterItems()"> Sportswear<br>
     </div>
-    <input type="checkbox" id="filter-colors" class="filter-checkbox" onchange="toggleSubcategoryFilters('colors'); filterItems()"> Colors
-    <br>
+    <input type="checkbox" id="filter-colors" class="filter-checkbox" onchange="toggleSubcategoryFilters('colors'); filterItems()"> Colors<br>
     <div id="subcategory-filters-colors"style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-red" class="filter-checkbox" onchange="filterItems()"> Red
-      <br>
-      <input type="checkbox" id="filter-orange" class="filter-checkbox" onchange="filterItems()"> Orange
-      <br>
-      <input type="checkbox" id="filter-yellow" class="filter-checkbox" onchange="filterItems()"> Yellow
-      <br>
-      <input type="checkbox" id="filter-green" class="filter-checkbox" onchange="filterItems()"> Green
-      <br>
-      <input type="checkbox" id="filter-blue" class="filter-checkbox" onchange="filterItems()"> Blue
-      <br>
-      <input type="checkbox" id="filter-indigo" class="filter-checkbox" onchange="filterItems()"> Indigo
-      <br>
-      <input type="checkbox" id="filter-black" class="filter-checkbox" onchange="filterItems()"> Black
-      <br>
-      <input type="checkbox" id="filter-white" class="filter-checkbox" onchange="filterItems()"> White
-      <br>
-      <input type="checkbox" id="filter-pink" class="filter-checkbox" onchange="filterItems()"> Pink
-      <br>
-      <input type="checkbox" id="filter-brown" class="filter-checkbox" onchange="filterItems()"> Brown
-      <br>
+      <input type="checkbox" id="filter-red" class="filter-checkbox" onchange="filterItems()"> Red<br>
+      <input type="checkbox" id="filter-orange" class="filter-checkbox" onchange="filterItems()"> Orange<br>
+      <input type="checkbox" id="filter-yellow" class="filter-checkbox" onchange="filterItems()"> Yellow<br>
+      <input type="checkbox" id="filter-green" class="filter-checkbox" onchange="filterItems()"> Green<br>
+      <input type="checkbox" id="filter-blue" class="filter-checkbox" onchange="filterItems()"> Blue<br>
+      <input type="checkbox" id="filter-indigo" class="filter-checkbox" onchange="filterItems()"> Indigo<br>
+      <input type="checkbox" id="filter-black" class="filter-checkbox" onchange="filterItems()"> Black<br>
+      <input type="checkbox" id="filter-white" class="filter-checkbox" onchange="filterItems()"> White<br>
+      <input type="checkbox" id="filter-pink" class="filter-checkbox" onchange="filterItems()"> Pink<br>
+      <input type="checkbox" id="filter-brown" class="filter-checkbox" onchange="filterItems()"> Brown<br>
     </div>
         <input type="checkbox" id="filter-patterns" class="filter-checkbox" onchange="toggleSubcategoryFilters('patterns'); filterItems()"> Patterns
     <br>
     <div id="subcategory-filters-patterns"style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-solid" class="filter-checkbox" onchange="filterItems()"> solid
-      <br>
-      <input type="checkbox" id="filter-plaid" class="filter-checkbox" onchange="filterItems()"> plaid
-      <br>
-      <input type="checkbox" id="filter-striped" class="filter-checkbox" onchange="filterItems()"> striped
-      <br>
-      <input type="checkbox" id="filter-polkadot" class="filter-checkbox" onchange="filterItems()"> polka dot
-      <br>
-      <input type="checkbox" id="filter-graphic" class="filter-checkbox" onchange="filterItems()"> graphic
-      <br>
+      <input type="checkbox" id="filter-solid" class="filter-checkbox" onchange="filterItems()"> solid<br>
+      <input type="checkbox" id="filter-plaid" class="filter-checkbox" onchange="filterItems()"> plaid<br>
+      <input type="checkbox" id="filter-striped" class="filter-checkbox" onchange="filterItems()"> striped<br>
+      <input type="checkbox" id="filter-polkadot" class="filter-checkbox" onchange="filterItems()"> polka dot<br>
+      <input type="checkbox" id="filter-graphic" class="filter-checkbox" onchange="filterItems()"> graphic<br>
       <input type="checkbox" id="filter-camo" class="filter-checkbox" onchange="filterItems()"> camo
       <br>
     </div>
-        <input type="checkbox" id="filter-warmths" class="filter-checkbox" onchange="toggleSubcategoryFilters('warnths'); filterItems()"> Warmths
-    <br>
-    <div id="subcategory-filters-warmths"style="display: none; margin-left: 20px;">
-      <input type="checkbox" id="filter-none" class="filter-checkbox" onchange="filterItems()"> none
-      <br>
-      <input type="checkbox" id="filter-light" class="filter-checkbox" onchange="filterItems()"> light
-      <br>
-      <input type="checkbox" id="filter-medium" class="filter-checkbox" onchange="filterItems()"> medium
-      <br>
-      <input type="checkbox" id="filter-heavy" class="filter-checkbox" onchange="filterItems()"> heavy
-      <br>
-    </div>
-    <br>
   </div>
-  <button onclick="deleteItems()">Delete Selected Items</button>
-</div> <!-- Image Gallery Container -->
-<div style="flex-grow: 1;">
+    <button onclick="deleteItems()">Delete Selected Items</button>
+  </div>
+
+<div class="container p-0 m-0 mt-5" style="flex-grow: 1; display: flex;">
+  <div style="width: 1245px; max-height: flex; overflow-y: auto; border-right: 2px solid black;">
     <h1>Image Gallery</h1>
-    <div style="overflow-y: auto; height: calc(100vh - 150px); border-right: 2px solid black;">
-      <div>
-        <div id="itemList" style="height: 500px; overflow-y: auto; display: flex; flex-wrap: wrap;"></div>
+    <div id="itemList" style="height: 500px; overflow-y: auto; display: flex; flex-wrap: wrap;">
+      {{#each images}}
+      <div class="image-item">
+        <img class="m-3" style="width: 200px; max-height: 200px; display:inline-block; border: 2px solid #c1c1c1;" src="/uploads/{{imgfile}}">
       </div>
+      {{/each}}
     </div>
   </div>
 </div>
@@ -156,143 +100,73 @@
   border: 2px solid red;
 }
 
-  .image-container {
-    width: 145px;
-    height: 145px;
-    margin: 5px;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.image-container {
+  width: 145px;
+  height: 145px;
+  margin: 5px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
 
 <script>
-  // Function to fetch images from the user table in the database
-  async function fetchImagesFromDatabase() {
-    try {
-      // Make a request to the server to fetch the images from the user table
-      const response = await fetch('/api/getImages');
-      const data = await response.json();
+// Function to toggle highlighting on an image
+function toggleHighlight(item) {
+  item.classList.toggle("highlight");
+}
 
-      // Return the fetched image data
-      return data;
-    } catch (error) {
-      console.error('Error fetching images:', error);
-      return [];
-    }
-  }
-
-  // Function to dynamically add images from the user table
-  async function addImagesFromDatabase() {
-    // Fetch images from the database
-    const userTable = await fetchImagesFromDatabase();
-
-    // Get the item list container
-    var itemList = document.getElementById("itemList");
-
-    // Clear existing items
-    itemList.innerHTML = '';
-
-    // Iterate over the user table data and create image containers
-    userTable.forEach(function (itemData, index) {
-      var itemContainer = document.createElement("div");
-      itemContainer.className = "image-container";
-      itemContainer.style.order = index;
-
-      var item = document.createElement("img");
-      item.src = itemData.imgFile;
-      item.alt = "Clothing Item " + (index + 1);
-      item.setAttribute("data-attributes", itemData.tags.join(" "));
-      item.onclick = function () {
-        toggleHighlight(this);
-      };
-
-      itemContainer.appendChild(item);
-      itemList.appendChild(itemContainer);
-    });
-
-    // Call filterItems() after adding images to match checkbox state
-    filterItems();
-  }
-
-
- // Initial call to addImagesFromDatabase()
-  addImagesFromDatabase();
-
-  // Function to toggle highlighting on an image
-  function toggleHighlight(item) {
-    item.classList.toggle("highlight");
-  }
-
-  // Function to delete selected items
-async function deleteItems() {
+// Function to delete selected items
+function deleteItems() {
   var selectedItems = document.querySelectorAll(".highlight");
-  selectedItems.forEach(async function (item) {
+  selectedItems.forEach(function (item) {
     // Get the image file name from the selected item
     var imageFileName = item.getAttribute("src");
 
-    try {
-      // Make a request to the server to delete the image from the database
-      const response = await fetch('/api/deleteImage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ imageFileName }) // Send the image file name to the server
-      });
+    // Make a request to the server to delete the image from the database
+    // Replace this code with your server-side logic
+    console.log('Image deleted:', imageFileName);
+    // Remove the item from the DOM
+    item.remove();
+  });
+}
 
-      if (response.ok) {
-        // Image successfully deleted from the database
-        console.log('Image deleted:', imageFileName);
-        // Remove the item from the DOM
-        item.remove();
-      } else {
-        // Handle the error case if image deletion fails
-        console.error('Failed to delete image:', imageFileName);
-      }
-    } catch (error) {
-      console.error('Error deleting image:', error);
+function filterItems() {
+  // Get all the image items
+  var imageItems = Array.from(document.getElementsByClassName("image-item"));
+
+  // Get the selected attribute values
+  var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(function (checkbox) {
+    return checkbox.value;
+  });
+
+  var selectedSubcategories = Array.from(document.querySelectorAll('input[name^="filter-"]:checked')).map(function (checkbox) {
+    return checkbox.value;
+  });
+
+  // Iterate over the image items and check if they match the selected attributes
+  imageItems.forEach(function (item) {
+    // Get the image element
+    var image = item.getElementsByTagName("img")[0];
+    var category = image.getAttribute("data-category");
+    var subcategory = image.getAttribute("data-subcategory");
+
+    // Check if the item's attributes match the selected attributes
+    if (
+      (!selectedCategories.length || selectedCategories.includes(category)) &&
+      (!selectedSubcategories.length || selectedSubcategories.includes(subcategory))
+    ) {
+      // Show the item
+      item.style.display = "block";
+    } else {
+      // Hide the item
+      item.style.display = "none";
     }
   });
 }
 
-  // Function to filter items based on selected attributes
-  function filterItems() {
-    var itemList = document.getElementById("itemList");
-    var checkboxes = document.getElementsByClassName("filtercheckbox");
-
-    // Get the selected attribute values
-    var selectedAttributes = Array.from(checkboxes)
-      .filter(function (checkbox) {
-        return checkbox.checked;
-      })
-      .map(function (checkbox) {
-        return checkbox.id.replace("filter-", "");
-      });
-
-    // Get all the image containers
-    var imageContainers = itemList.getElementsByClassName("image-container");
-
-    // Iterate over the image containers and check if they match the selected attributes
-    Array.from(imageContainers).forEach(function (container) {
-      var item = container.getElementsByTagName("img")[0];
-      var attributes = item.getAttribute("data-attributes").split(" ");
-
-      // Check if the item's attributes match the selected attributes
-      if (selectedAttributes.every(function (attribute) {
-        return attributes.includes(attribute);
-      })) {
-        // Show the item
-        container.style.display = "block";
-      } else {
-        // Hide the item
-        container.style.display = "none";
-      }
-    });
-  }
-
- // Function to toggle the subcategory filters
+// Function to toggle the subcategory filters
 function toggleSubcategoryFilters(category) {
   var subcategoryFilters = document.getElementById("subcategory-filters-" + category);
   var mainFilter = document.getElementById("filter-" + category);
@@ -300,16 +174,15 @@ function toggleSubcategoryFilters(category) {
   if (mainFilter.checked) {
     // Enable the subcategory filters
     subcategoryFilters.style.display = "block";
-    
+
     // Automatically check the subcategory filters
     var subcategoryCheckboxes = subcategoryFilters.getElementsByTagName("input");
-    for (var i = 0; i < subcategoryCheckboxes.length; i++)
-    {
+    for (var i = 0; i < subcategoryCheckboxes.length; i++) {
       subcategoryCheckboxes[i].checked = true;
     }
   } else {
     // Disable and uncheck the subcategory filters
-     subcategoryFilters.style.display = "none";
+    subcategoryFilters.style.display = "none";
     var subcategoryCheckboxes = subcategoryFilters.getElementsByTagName("input");
     for (var i = 0; i < subcategoryCheckboxes.length; i++) {
       subcategoryCheckboxes[i].checked = false;
