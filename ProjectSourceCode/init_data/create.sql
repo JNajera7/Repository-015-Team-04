@@ -30,11 +30,33 @@ CREATE TABLE IF NOT EXISTS patterns (
 
 CREATE TABLE IF NOT EXISTS pieces (
     id SERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(255) NOT NULL REFERENCES users(username),
-    categoryid INTEGER NOT NULL REFERENCES categories(id),
-    subcategoryid INTEGER NOT NULL REFERENCES subcategories(id),
-    styleid INTEGER NOT NULL REFERENCES styles(id),
-    colorid INTEGER NOT NULL REFERENCES colors(id),
-    patternid INTEGER NOT NULL REFERENCES patterns(id),
+    username VARCHAR(50) REFERENCES users(username),
+    categoryid INTEGER REFERENCES categories(id),
+    subcategoryid INTEGER REFERENCES subcategories(id),
+    styleid INTEGER REFERENCES styles(id),
+    colorid INTEGER REFERENCES colors(id),
+    patternid INTEGER REFERENCES patterns(id),
     imgfile VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users_to_pieces (
+    username VARCHAR(50) NOT NULL REFERENCES users(username),
+    pieceid INTEGER NOT NULL REFERENCES pieces(id)
+);
+
+CREATE TABLE IF NOT EXISTS fits (
+    id SERIAL PRIMARY KEY NOT NULL,
+    username VARCHAR(50) REFERENCES users(username),
+    fitname VARCHAR(255),
+	topid INTEGER REFERENCES pieces(id),
+	bottomid INTEGER REFERENCES pieces(id),
+	fullbodyid INTEGER REFERENCES pieces(id),
+	footwearid INTEGER REFERENCES pieces(id),
+	accessoryid INTEGER REFERENCES pieces(id),
+	outerwearid INTEGER REFERENCES pieces(id)
+);
+
+CREATE TABLE IF NOT EXISTS users_to_fits (
+    username VARCHAR(50) NOT NULL REFERENCES users(username),
+    fitid INTEGER NOT NULL REFERENCES pieces(id)
 );

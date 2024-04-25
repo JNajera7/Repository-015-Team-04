@@ -64,3 +64,36 @@ body:has(.loginreg) {
 	justify-content:start;
 	min-width:fit-content;
 }
+
+.category-header {
+	background-color: #f8f9fa;
+	border-bottom: 1px solid #dee2e6;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	border-radius: 0.5rem;
+}
+.outfit-img {
+	width: 100%;
+	border-radius: 0.5rem;
+	margin-bottom: 1rem;
+}
+.outfit-name {
+	cursor: pointer;
+	color: #0d6efd;
+	font-weight: bold;
+}
+.outfit-name:hover {
+	text-decoration: underline;
+}
+
+#addFitPreview {
+	background-color: rgb(180, 180, 180);
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+#addFitPieces {
+	background-color: rgb(235, 235, 235);
+}

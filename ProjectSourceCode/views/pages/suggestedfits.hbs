@@ -1,0 +1,88 @@
+<div class="container py-5">
+	<h1 class="mb-4 text-center">Suggested Fits</h1>
+	<div id="categoriesContainer" class="row g-4">
+		<!-- Pre-defined categories -->
+		<div class="col-md-6">
+			<div class="category-header"><h2>Formal</h2></div>
+			<div class="subcategory" id="FormalImages"></div>
+		</div>
+		<div class="col-md-6">
+			<div class="category-header"><h2>Athletic</h2></div>
+			<div class="subcategory" id="AthleticImages"></div>
+		</div>
+		<div class="col-md-6">
+			<div class="category-header"><h2>Casual</h2></div>
+			<div class="subcategory" id="CasualImages"></div>
+		</div>
+		<div class="col-md-6">
+			<div class="category-header"><h2>Warm</h2></div>
+			<div class="subcategory" id="WarmImages"></div>
+		</div>
+		<div class="col-md-6">
+			<div class="category-header"><h2>Beach</h2></div>
+			<div class="subcategory" id="BeachImages"></div>
+		</div>
+		<div class="col-md-6">
+			<div class="category-header"><h2>Rain</h2></div>
+			<div class="subcategory" id="RainImages"></div>
+		</div>
+		<div class="col-md-6">
+			<div class="category-header"><h2>Snow</h2></div>
+			<div class="subcategory" id="SnowImages"></div>
+		</div>
+	</div>
+	<button id="addCategoryBtn" class="btn btn-primary mt-4">Add Category</button>
+</div>
+
+<script>
+	function loadImages() {
+		fetch('/api/images')
+		.then(response => response.json())
+		.then(categories => {
+			categories.forEach(category => {
+				const subcatContainer = document.getElementById(category.name + 'Images');
+				category.images.forEach(image => {
+					const imgElem = document.createElement('img');
+					imgElem.src = image.url;
+					imgElem.alt = 'Outfit Preview';
+					imgElem.className = 'outfit-img';
+
+					const nameElem = document.createElement('h3');
+					nameElem.className = 'outfit-name';
+					nameElem.textContent = image.name;
+					nameElem.onclick = function() { renameOutfit(this); };
+
+					subcatContainer.appendChild(nameElem);
+					subcatContainer.appendChild(imgElem);
+				});
+			});
+		})
+		.catch(error => console.error('Error loading images:', error));
+	}
+
+	function renameOutfit(element) {
+		const newName = prompt("Enter the new name for the outfit:");
+		if (newName) {
+			element.textContent = newName;
+		}
+	}
+
+	function addCategory() {
+		const categoryName = prompt("Enter the name of the new category:");
+		if (categoryName) {
+			const container = document.getElementById('categoriesContainer');
+			const newCategoryDiv = document.createElement('div');
+			newCategoryDiv.className = 'col-md-6';
+			newCategoryDiv.innerHTML = `
+				<div class="category-header">
+					<h2>${categoryName}</h2>
+				</div>
+				<div class="subcategory" id="${categoryName}Images"></div>
+			`;
+			container.appendChild(newCategoryDiv);
+		}
+	}
+
+	document.getElementById('addCategoryBtn').addEventListener('click', addCategory);
+	document.addEventListener('DOMContentLoaded', loadImages);
+</script>

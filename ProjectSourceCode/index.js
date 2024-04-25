@@ -211,7 +211,7 @@ app.get('/welcome', (req, res) => {
 // Authentication Required
 app.use(auth);
 
-app.post('/savedpieces', async (req, res) => {
+app.post('/addpiece', async (req, res) => {
     try {
         // File upload handling
         const imgFile = req.files.image;
@@ -274,7 +274,6 @@ app.post('/savedpieces', async (req, res) => {
         // Log the error to console for debugging
         console.error(err);
         req.session.errorMessage = "Unexpected error occurred";
-		console.log(err);
         res.redirect('/savedpieces');
     }
 });
@@ -290,12 +289,10 @@ app.get('/index', (req, res) => {
 app.get('/savedpieces', async (req, res) => {
     try {
         // Retrieve all the pieces from the database that belong to user
-		let user_pieces = await db.any('SELECT categoryid, imgfile FROM pieces WHERE username = $1', [req.session.user.username]);
+		let user_pieces = await db.any('SELECT categoryid, imgfile FROM pieces WHERE username = $1 ORDER BY categoryid', [req.session.user.username]);
 		let piecesDict = {};
 
-		console.log(user_pieces);
 		for(let p of user_pieces) {
-			console.log(p);
 			let category = (await db.one('SELECT category FROM categories WHERE id = $1', [p['categoryid']]))['category'];
 
 			// Uhh turns out posgres doesn't include underscores in returned values but uhhh let's just keep this here
@@ -314,13 +311,12 @@ app.get('/savedpieces', async (req, res) => {
 			}
 			piecesDict[category]['images'].push(p['imgfile']);
 		}
-		console.log(piecesDict);
         // Render the template and pass the pieces data to it
         res.render('pages/savedpieces', {piecesDict});
     } catch (err) {
         req.session.errorMessage = "Unexpected error occurred";
 		console.log(err);
-        // res.redirect('/savedpieces');
+        res.redirect('/home');
     }
 });
 
@@ -332,8 +328,94 @@ app.get('/randomize', (req, res) => {
     res.render('pages/randomize');
 });
 
-app.get('/savedfits', (req, res) => {
-    res.render('pages/savedfits');
+app.get('/savedfits', async (req, res) => {
+    try {
+        // Retrieve all the pieces from the database that belong to user
+		let user_fits = await db.any('SELECT topid, bottomid, fullbodyid, footwearid, accessoryid, outerwearid FROM fits WHERE username = $1 ORDER BY id', [req.session.user.username]);
+		let fitsList = [];
+
+		for(let p of user_fits) {
+			let topimg = (await db.one('SELECT imgfile FROM pieces WHERE id = $1', [p['topid']]))['imgfile'];
+			let bottomid = (await db.one('SELECT imgfile FROM pieces WHERE id = $1', [p['bottomid']]))['imgfile'];
+			let fullbodyid = (await db.one('SELECT imgfile FROM pieces WHERE id = $1', [p['fullbodyid']]))['imgfile'];
+			let footwearid = (await db.one('SELECT imgfile FROM pieces WHERE id = $1', [p['footwearid']]))['imgfile'];
+			let accessoryid = (await db.one('SELECT imgfile FROM pieces WHERE id = $1', [p['accessoryid']]))['imgfile'];
+			let outerwearid = (await db.one('SELECT imgfile FROM pieces WHERE id = $1', [p['outerwearid']]))['imgfile'];
+
+			fit = {
+				'id': p['id'],
+				'top': topimg,
+				'bottom': bottomid,
+				'fullbody': fullbodyid,
+				'footwear': footwearid,
+				'accessory': accessoryid,
+				'outerwear': outerwearid
+			};
+
+			fitsList.push(fit);
+		}
+        // Render the template and pass the pieces data to it
+        res.render('pages/savedfits', {fitsList});
+    } catch (err) {
+        req.session.errorMessage = "Unexpected error occurred";
+		console.log(err);
+        res.redirect('/home');
+    }
+});
+
+app.get('/addfit', async (req, res) => {
+    try {
+        // Retrieve all the pieces from the database that belong to user
+		let user_pieces = await db.any('SELECT id, categoryid, imgfile FROM pieces WHERE username = $1 ORDER BY categoryid', [req.session.user.username]);
+		let piecesDict = {};
+
+		for(let p of user_pieces) {
+			let category = (await db.one('SELECT category FROM categories WHERE id = $1', [p['categoryid']]))['category'];
+
+			// Uhh turns out posgres doesn't include underscores in returned values but uhhh let's just keep this here
+			let categoryName = category.replace('_', ' ');
+			categoryName = categoryName.split(' ');
+			for (let i = 0; i < categoryName.length; i++) {
+				categoryName[i] = categoryName[i][0].toUpperCase() + categoryName[i].substr(1);
+			}
+			categoryName = categoryName.join(' ');
+
+			if(!(category in piecesDict)) {
+				piecesDict[category] = {
+					'categoryName': categoryName,
+					'images': []
+				};
+			}
+			piecesDict[category]['images'].push({'img': p['imgfile'], 'id': p['id']});
+		}
+        // Render the template and pass the pieces data to it
+        res.render('pages/addfit', {piecesDict});
+    } catch (err) {
+        req.session.errorMessage = "Unexpected error occurred";
+		console.log(err);
+        res.redirect('/home');
+    }
+});
+
+
+app.post('/addfit', async (req, res) => {
+    try {
+		console.log(req);
+		const topid = req.body.top;
+		const outerwearid = req.body.outerwear;
+		const fullbodyid = req.body.fullbody;
+		const bottomid = req.body.bottom;
+		const footwearid = req.body.footwear;
+		const accessoryid = req.body.accessory;
+		
+		await db.none('INSERT INTO fits (username, fitname, topid, bottomid, fullbodyid, footwearid, accessoryid, outerwearid) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+			[req.session.user.username, 'NULL', topid, bottomid, fullbodyid, footwearid, accessoryid, outerwearid]);
+
+        res.render('pages/savedfits', {message: "Fit added successfully"});
+    } catch (err) {
+		console.log(err);
+        res.redirect('/addfit');
+    }
 });
 
 app.get('/suggestedfits', (req, res) => {

@@ -11,7 +11,7 @@
 	
 	<div class="collapse p-5" id="addPieceDrawer">
 		<!-- Add Piece Form -->
-		<form action="/savedpieces" method="POST" class="row" enctype="multipart/form-data">
+		<form action="/addpiece" method="POST" class="row" enctype="multipart/form-data">
 			<div class="col px-1">
 				<!-- Photo Upload -->
 				<div class="form-group pt-3">
@@ -168,39 +168,39 @@
 					<div class="form-group pt-3">
 						<label class="pb-2">Style:</label>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="casual" name="style">
+							<input class="form-check-input" type="radio" id="casual" value="casual" name="style">
 							<label class="form-check-label" for="casual">Casual</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="formal" name="style">
+							<input class="form-check-input" type="radio" id="formal" value="formal" name="style">
 							<label class="form-check-label" for="formal">Formal</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="athletic" name="style">
+							<input class="form-check-input" type="radio" id="athletic" value="athletic" name="style">
 							<label class="form-check-label" for="athletic">Athletic</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="party" name="style">
+							<input class="form-check-input" type="radio" id="party" value="party" name="style">
 							<label class="form-check-label" for="party">Party</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="warm" name="style">
+							<input class="form-check-input" type="radio" id="warm" value="warm" name="style">
 							<label class="form-check-label" for="warm">Warm</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="rain" name="style">
+							<input class="form-check-input" type="radio" id="rain" value="rain" name="style">
 							<label class="form-check-label" for="rain">Rain</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="snow" name="style">
+							<input class="form-check-input" type="radio" id="snow" value="snow" name="style">
 							<label class="form-check-label" for="snow">Snow</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="fancy" name="style">
+							<input class="form-check-input" type="radio" id="fancy" value="fancy" name="style">
 							<label class="form-check-label" for="fancy">Fancy</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="office" name="style">
+							<input class="form-check-input" type="radio" id="office" value="office" name="style">
 							<label class="form-check-label" for="office">Office</label>
 						</div>
 					</div>
@@ -212,39 +212,39 @@
 					<div class="form-group pt-3">
 						<label class="pb-2">Color:</label>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="red" name="color">
+							<input class="form-check-input" type="radio" id="red" value="red" name="color">
 							<label class="form-check-label" for="red">Red</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="orange" name="color">
+							<input class="form-check-input" type="radio" id="orange" value="orange" name="color">
 							<label class="form-check-label" for="orange">Orange</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="yellow" name="color">
+							<input class="form-check-input" type="radio" id="yellow" value="yellow" name="color">
 							<label class="form-check-label" for="yellow">Yellow</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="green" name="color">
+							<input class="form-check-input" type="radio" id="green" value="green" name="color">
 							<label class="form-check-label" for="green">Green</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="blue" name="color">
+							<input class="form-check-input" type="radio" id="blue" value="blue" name="color">
 							<label class="form-check-label" for="blue">Blue</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="purple" name="color">
+							<input class="form-check-input" type="radio" id="purple" value="purple" name="color">
 							<label class="form-check-label" for="purple">Purple</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="black" name="color">
+							<input class="form-check-input" type="radio" id="black" value="black" name="color">
 							<label class="form-check-label" for="black">Black</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="white" name="color">
+							<input class="form-check-input" type="radio" id="white" value="white" name="color">
 							<label class="form-check-label" for="white">White</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="gray" name="color">
+							<input class="form-check-input" type="radio" id="gray" id="gray" value="gray" name="color">
 							<label class="form-check-label" for="gray">Gray</label>
 						</div>
 					</div>
@@ -252,20 +252,28 @@
 					<div class="form-group pt-3">
 						<label class="pb-2">Pattern:</label>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="plaid" name="pattern">
+							<input class="form-check-input" type="radio" id="solid" value="solid" name="pattern">
+							<label class="form-check-label" for="solid">Solid</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" id="plaid" value="plaid" name="pattern">
 							<label class="form-check-label" for="plaid">Plaid</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="polka" name="pattern">
-							<label class="form-check-label" for="polka">Polka-Dotted</label>
+							<input class="form-check-input" type="radio" id="striped" value="striped" name="pattern">
+							<label class="form-check-label" for="striped">Striped</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="camo" name="pattern">
-							<label class="form-check-label" for="camo">Camo</label>
+							<input class="form-check-input" type="radio" id="polkadot" value="polkadot" name="pattern">
+							<label class="form-check-label" for="polkadot">Polka-Dotted</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" value="graphic" name="pattern">
+							<input class="form-check-input" type="radio" id="graphic" value="graphic" name="pattern">
 							<label class="form-check-label" for="graphic">Graphic</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" id="camo" value="camo" name="pattern">
+							<label class="form-check-label" for="camo">Camo</label>
 						</div>
 					</div>
 				</div>
@@ -277,7 +285,6 @@
 		</form>
 	</div>
 
-	<!-- Dropdowns -->
 	<div class="container p-0 m-0 mt-5">
 		{{#each piecesDict}}
 		<h2 class="mt-5 pt-5">{{categoryName}}</h2>
