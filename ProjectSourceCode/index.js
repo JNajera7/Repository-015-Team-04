@@ -15,7 +15,6 @@ const session = require('express-session'); // To set the session object. To sto
 const bcrypt = require('bcrypt'); //  To hash passwords
 const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part C.
 
-
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
@@ -69,7 +68,7 @@ app.use(bodyParser.json()); // specify the usage of JSON for parsing request bod
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
-        saveUninitialized: false,
+        saveUninitialized: true,
         resave: false,
     })
 );
@@ -169,7 +168,7 @@ app.post('/register', async (req, res) => {
         await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
         res.redirect('/login');
     } catch (e) {
-        req.session.errorMessage = "Unexpected error occurred";
+        req.session.errorMessage = "Username taken";
         res.redirect('/register');
     }
 });
@@ -272,11 +271,37 @@ app.post('/savedpieces', async (req, res) => {
 			[req.session.user.username, catId, subcatId, styleId, colorId, patternId, imgFile.name]))['id'];
 		res.redirect('/savedpieces');
     } catch (err) {
+        // Log the error to console for debugging
+        console.error(err);
         req.session.errorMessage = "Unexpected error occurred";
 		console.log(err);
         res.redirect('/savedpieces');
     }
 });
+
+
+
+app.get('/pieces', async (req, res) => {
+    try {
+        // Query the database to retrieve image file paths or URLs
+        const pieces = await db.any('SELECT id, imgFile FROM pieces');
+
+        // Log the pieces array to the console
+        console.log('Pieces:', pieces);
+
+        // Render the pieces view with the layout template
+        res.render('pages/pieces', {
+            title: 'Pieces Page', // Title for the HTML document
+            pieces
+        });
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching pieces:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 app.get('/home', async (req, res) => {
     res.render('pages/home')
@@ -323,6 +348,7 @@ app.get('/savedpieces', async (req, res) => {
         // res.redirect('/savedpieces');
     }
 });
+
 
 
 app.get('/delete', (req, res) => {
