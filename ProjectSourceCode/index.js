@@ -89,14 +89,45 @@ app.use(express.static(path.join(__dirname, 'public')));
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
-
-
 // TODO - Include your API routes here
 app.get('/', (req, res) => {
     res.redirect('/login');
 });
 
+app.get('/welcome', (req, res) => {
+    res.json({ status: 'success', message: 'Welcome!' });
+});
 
+// *****************************************************
+// <!-- Section 4.1 : Register Routes -->
+// *****************************************************
+app.get('/register', (req, res) => {
+    const errorMessage = req.session.errorMessage;
+    req.session.errorMessage = null;
+
+    if (errorMessage) {
+        res.render('pages/register', { excludeNav: true, message: errorMessage });
+    } else {
+        res.render('pages/register', { excludeNav: true });
+    }
+});
+
+// Register
+app.post('/register', async (req, res) => {
+    // Hash the password using bcrypt library
+    const hash = await bcrypt.hash(req.body.password, 10);
+    try {
+        await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
+        res.redirect('/login');
+    } catch (e) {
+        req.session.errorMessage = "Username taken";
+        res.redirect('/register');
+    }
+});
+
+// *****************************************************
+// <!-- Section 4.2 : Login Routes -->
+// *****************************************************
 app.get('/login', (req, res) => {
     const errorMessage = req.session.errorMessage; // Get the error message from the session
     req.session.errorMessage = null; // Clear the error message from the session
@@ -110,66 +141,6 @@ app.get('/login', (req, res) => {
         res.render('pages/login', { excludeNav: true, message: errorMessage });
     } else {
         res.render('pages/login', { excludeNav: true });
-    }
-});
-
-
-app.get('/settings', (req, res) => {
-    res.render('pages/settings');
-});
-
-//Account deletion function
-app.delete('/deleteAccount', async function (req, res) {
-    try {
-        // Assuming you're using the username stored in req.session.user
-        const username = req.session.user.username;
-
-        // Execute the DELETE query to remove the user account from the database
-        const userDeleted = await db.oneOrNone('DELETE FROM users WHERE username = $1 RETURNING *;', [username]);
-
-        if (userDeleted) {
-            // If the user account was successfully deleted, destroy the session
-            req.session.destroy((err) => {
-                if (err) {
-                    console.error('Error destroying session:', err);
-                } else {
-                    console.log('Session destroyed.');
-                }
-            });
-            res.render('pages/login');
-        } else {
-            // If the user account was not found, handle the error accordingly
-            res.status(404).send('User account not found.');
-        }
-    } catch (error) {
-        console.error('Error deleting account:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-
-app.get('/register', (req, res) => {
-    const errorMessage = req.session.errorMessage;
-    req.session.errorMessage = null;
-
-    if (errorMessage) {
-        res.render('pages/register', { excludeNav: true, message: errorMessage });
-    } else {
-        res.render('pages/register', { excludeNav: true });
-    }
-});
-
-
-// Register
-app.post('/register', async (req, res) => {
-    // Hash the password using bcrypt library
-    const hash = await bcrypt.hash(req.body.password, 10);
-    try {
-        await db.none('INSERT INTO users (username, password) values ($1, $2)', [req.body.username, hash]);
-        res.redirect('/login');
-    } catch (e) {
-        req.session.errorMessage = "Username taken";
-        res.redirect('/register');
     }
 });
 
@@ -204,12 +175,89 @@ const auth = (req, res, next) => {
     next();
 };
 
-app.get('/welcome', (req, res) => {
-    res.json({ status: 'success', message: 'Welcome!' });
-});
-
 // Authentication Required
 app.use(auth);
+
+// *****************************************************
+// <!-- Section 4.3 : Home Routes -->
+// *****************************************************
+
+app.get('/home', async (req, res) => {
+    res.render('pages/home')
+});
+
+// *****************************************************
+// <!-- Section 4.4 : Settings Routes -->
+// *****************************************************
+app.get('/settings', (req, res) => {
+    res.render('pages/settings');
+});
+
+//Account deletion function
+app.delete('/deleteAccount', async function (req, res) {
+    try {
+        // Assuming you're using the username stored in req.session.user
+        const username = req.session.user.username;
+
+        // Execute the DELETE query to remove the user account from the database
+        const userDeleted = await db.oneOrNone('DELETE FROM users WHERE username = $1 RETURNING *;', [username]);
+
+        if (userDeleted) {
+            // If the user account was successfully deleted, destroy the session
+            req.session.destroy((err) => {
+                if (err) {
+                    console.error('Error destroying session:', err);
+                } else {
+                    console.log('Session destroyed.');
+                }
+            });
+            res.render('pages/login');
+        } else {
+            // If the user account was not found, handle the error accordingly
+            res.status(404).send('User account not found.');
+        }
+    } catch (error) {
+        console.error('Error deleting account:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// *****************************************************
+// <!-- Section 4.5 : Saved Pieces Routes -->
+// *****************************************************
+app.get('/savedpieces', async (req, res) => {
+    try {
+        // Retrieve all the pieces from the database that belong to user
+		let user_pieces = await db.any('SELECT categoryid, imgfile FROM pieces WHERE username = $1 ORDER BY categoryid', [req.session.user.username]);
+		let piecesDict = {};
+
+		for(let p of user_pieces) {
+			let category = (await db.one('SELECT category FROM categories WHERE id = $1', [p['categoryid']]))['category'];
+
+			// Uhh turns out posgres doesn't include underscores in returned values but uhhh let's just keep this here
+			let categoryName = category.replace('_', ' ');
+			categoryName = categoryName.split(' ');
+			for (let i = 0; i < categoryName.length; i++) {
+				categoryName[i] = categoryName[i][0].toUpperCase() + categoryName[i].substr(1);
+			}
+			categoryName = categoryName.join(' ');
+
+			if(!(category in piecesDict)) {
+				piecesDict[category] = {
+					'categoryName': categoryName,
+					'images': []
+				};
+			}
+			piecesDict[category]['images'].push(p['imgfile']);
+		}
+        // Render the template and pass the pieces data to it
+        res.render('pages/savedpieces', {piecesDict});
+    } catch (err) {
+        req.session.errorMessage = "Unexpected error occurred";
+		console.log(err);
+        res.redirect('/home');
+    }
+});
 
 app.post('/addpiece', async (req, res) => {
     try {
@@ -278,56 +326,114 @@ app.post('/addpiece', async (req, res) => {
     }
 });
 
-app.get('/home', async (req, res) => {
-    res.render('pages/home')
-});
+// *****************************************************
+// <!-- Section 4.6 : Delete Pieces Routes -->
+// *****************************************************
+app.get('/delete', async (req, res) => {
+  try {
+    // Retrieve all the pieces from the database that belong to the user
+    let userPieces = await db.any(
+      `SELECT p.categoryid, p.imgfile, c.category, sc.subcategory, s.style, cl.color, pa.pattern
+       FROM pieces p
+       JOIN categories c ON p.categoryid = c.id
+       LEFT JOIN subcategories sc ON p.subcategoryid = sc.id
+       LEFT JOIN styles s ON p.styleid = s.id
+       LEFT JOIN colors cl ON p.colorid = cl.id
+       LEFT JOIN patterns pa ON p.patternid = pa.id
+       WHERE p.username = $1
+       ORDER BY p.categoryid`,
+      [req.session.user.username]
+    );
 
-app.get('/index', (req, res) => {
-    res.render('pages/index');
-});
+    let piecesDict = {};
 
-app.get('/savedpieces', async (req, res) => {
-    try {
-        // Retrieve all the pieces from the database that belong to user
-		let user_pieces = await db.any('SELECT categoryid, imgfile FROM pieces WHERE username = $1 ORDER BY categoryid', [req.session.user.username]);
-		let piecesDict = {};
+    for (let p of userPieces) {
+      let category = p.category;
+      let subcategory = p.subcategory;
+      let style = p.style;
+      let color = p.color;
+      let pattern = p.pattern;
 
-		for(let p of user_pieces) {
-			let category = (await db.one('SELECT category FROM categories WHERE id = $1', [p['categoryid']]))['category'];
+      // Format the category name
+      let categoryName = category.replace('_', ' ');
+      categoryName = categoryName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
-			// Uhh turns out posgres doesn't include underscores in returned values but uhhh let's just keep this here
-			let categoryName = category.replace('_', ' ');
-			categoryName = categoryName.split(' ');
-			for (let i = 0; i < categoryName.length; i++) {
-				categoryName[i] = categoryName[i][0].toUpperCase() + categoryName[i].substr(1);
-			}
-			categoryName = categoryName.join(' ');
+      // Create a dictionary entry for the category if it doesn't exist
+      if (!(category in piecesDict)) {
+        piecesDict[category] = {
+          categoryName: categoryName,
+          subcategories: {},
+        };
+      }
 
-			if(!(category in piecesDict)) {
-				piecesDict[category] = {
-					'categoryName': categoryName,
-					'images': []
-				};
-			}
-			piecesDict[category]['images'].push(p['imgfile']);
-		}
-        // Render the template and pass the pieces data to it
-        res.render('pages/savedpieces', {piecesDict});
+      // Create a dictionary entry for the subcategory if it doesn't exist
+      if (!(subcategory in piecesDict[category].subcategories)) {
+        piecesDict[category].subcategories[subcategory] = {
+          subcategoryName: subcategory,
+          styles: {},
+        };
+      }
+
+      // Create a dictionary entry for the style if it doesn't exist
+      if (!(style in piecesDict[category].subcategories[subcategory].styles)) {
+        piecesDict[category].subcategories[subcategory].styles[style] = {
+          styleName: style,
+          colors: {},
+        };
+      }
+
+      // Create a dictionary entry for the color if it doesn't exist
+      if (!(color in piecesDict[category].subcategories[subcategory].styles[style].colors)) {
+        piecesDict[category].subcategories[subcategory].styles[style].colors[color] = {
+          colorName: color,
+          patterns: [],
+        };
+      }
+
+      // Add the pattern to the color's pattern list
+      piecesDict[category].subcategories[subcategory].styles[style].colors[color].patterns.push(pattern);
+    }
+      // Render the template and pass the images data to it
+      res.render('pages/delete', { images: userPieces });
     } catch (err) {
+      req.session.errorMessage = "Unexpected error occurred";
+      console.log(err);
+      res.redirect('/home');
+    }
+  });
+
+  // API to delete user's image
+  app.post('/delete/:id', async (req, res) => {
+    try {
+        const pieceId = req.params.id;
+  
+        // Retrieve the piece to be deleted
+        const piece = await db.one('SELECT imgfile FROM pieces WHERE id = $1', [pieceId]);
+  
+        // Delete the piece from the database
+        await db.none('DELETE FROM pieces WHERE id = $1', [pieceId]);
+  
+        // Delete the corresponding image file from the server
+        const imagePath = path.join(__dirname, 'public', 'uploads', piece.imgfile);
+        fs.unlinkSync(imagePath);
+  
+        res.redirect('/delete');
+    } catch (err) {
+        console.error('Error deleting the image:', err);
         req.session.errorMessage = "Unexpected error occurred";
-		console.log(err);
-        res.redirect('/home');
+        res.redirect('/delete');
     }
 });
-
-app.get('/delete', (req, res) => {
-    res.render('pages/delete');
+// *****************************************************
+// <!-- Section 4.7 : Randomize Routes -->
+// *****************************************************
+app.get('/randomizer', (req, res) => {
+    res.render('pages/randomizer');
 });
 
-app.get('/randomize', (req, res) => {
-    res.render('pages/randomize');
-});
-
+// *****************************************************
+// <!-- Section 4.8 : Saved fits Routes -->
+// *****************************************************
 app.get('/savedfits', async (req, res) => {
     try {
         // Retrieve all the pieces from the database that belong to user
@@ -418,10 +524,16 @@ app.post('/addfit', async (req, res) => {
     }
 });
 
+// *****************************************************
+// <!-- Section 4.9 : Saved Pieces Routes -->
+// *****************************************************
 app.get('/suggestedfits', (req, res) => {
     res.render('pages/suggestedfits');
 });
 
+// *****************************************************
+// <!-- Section 4.10 : Logout Routes -->
+// *****************************************************
 app.get('/logout', async (req, res) => {
     req.session.destroy();
     res.render('pages/login', { excludeNav: true });
